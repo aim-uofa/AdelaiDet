@@ -1,0 +1,9 @@
+_BASE_: "Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+SOLVER:
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+OUTPUT_DIR: "output/fcos/R_50_2x"

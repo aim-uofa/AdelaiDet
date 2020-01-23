@@ -1,0 +1,46 @@
+# output dir
+output
+instant_test_output
+inference_test_output
+
+
+*.jpg
+*.png
+*.txt
+
+# compilation and distribution
+__pycache__
+_ext
+*.pyc
+*.so
+AdelaiDet.egg-info/
+build/
+dist/
+
+# pytorch/python/numpy formats
+*.pth
+*.pkl
+*.npy
+
+# ipython/jupyter notebooks
+*.ipynb
+**/.ipynb_checkpoints/
+
+# Editor temporaries
+*.swn
+*.swo
+*.swp
+*~
+
+# Pycharm editor settings
+.idea
+.vscode
+.python-version
+
+# project dirs
+/datasets/coco
+/datasets/lvis
+/models
+/debug
+/weights
+eval.sh

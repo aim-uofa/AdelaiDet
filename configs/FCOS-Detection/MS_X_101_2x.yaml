@@ -1,0 +1,13 @@
+_BASE_: "Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/FAIR/X-101-32x8d.pkl"
+  PIXEL_STD: [57.375, 57.120, 58.395]
+  RESNETS:
+    STRIDE_IN_1X1: False  # this is a C2 model
+    NUM_GROUPS: 32
+    WIDTH_PER_GROUP: 8
+    DEPTH: 101
+SOLVER:
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+OUTPUT_DIR: "output/fcos/X_101_2x"
