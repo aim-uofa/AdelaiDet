@@ -74,10 +74,10 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @article{chen2020blendmask,
-  title={BlendMask: Top-Down Meets Bottom-Up for Instance Segmentation},
-  author={Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
-  journal={arXiv preprint arXiv:2001.00309},
-  year={2020}
+  title   =  {BlendMask: Top-Down Meets Bottom-Up for Instance Segmentation},
+  author  =  {Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
+  journal =  {arXiv preprint arXiv:2001.00309},
+  year    =  {2020}
 }
 
 @article{wang2019solo,
@@ -88,10 +88,10 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @article{tian2019directpose,
-  title   = {DirectPose: Direct End-to-End Multi-Person Pose Estimation},
-  author  = {Tian, Zhi and Chen, Hao and Shen, Chunhua},
-  journal = {arXiv preprint arXiv:1911.07451},
-  year    = {2019}
+  title   =  {DirectPose: Direct End-to-End Multi-Person Pose Estimation},
+  author  =  {Tian, Zhi and Chen, Hao and Shen, Chunhua},
+  journal =  {arXiv preprint arXiv:1911.07451},
+  year    =  {2019}
 }
 ```
 
