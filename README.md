@@ -3,12 +3,12 @@
 AdelaiDet is an open source toolbox for multiple instance-level detection applications based on [Detectron2](https://github.com/facebookresearch/detectron2).
 All instance-level recognition works from our group will be open-sourced here.
 
-AdelaiDet will inlcude the following algorithms:
+AdelaiDet implements the following algorithms:
 
 * [FCOS](https://arxiv.org/abs/1904.01355)
-* [BlendMask](https://arxiv.org/abs/2001.00309)
-* [SOLO](https://arxiv.org/abs/1912.04488)
-* [DirectPose](https://arxiv.org/abs/1911.07451)
+* [BlendMask](https://arxiv.org/abs/2001.00309) _to be released_
+* [SOLO](https://arxiv.org/abs/1912.04488) _to be released_
+* [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 
 ## Models
@@ -88,7 +88,7 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @article{tian2019directpose,
-  title   =  {DirectPose: Direct End-to-End Multi-Person Pose Estimation},
+  title   =  {{DirectPose}: Direct End-to-End Multi-Person Pose Estimation},
   author  =  {Tian, Zhi and Chen, Hao and Shen, Chunhua},
   journal =  {arXiv preprint arXiv:1911.07451},
   year    =  {2019}
