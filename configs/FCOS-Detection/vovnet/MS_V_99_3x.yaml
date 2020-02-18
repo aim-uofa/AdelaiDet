@@ -1,4 +1,4 @@
-_BASE_: "../FCOS-Detection/Base-FCOS.yaml"
+_BASE_: "../Base-FCOS.yaml"
 MODEL:
   WEIGHTS: "https://www.dropbox.com/s/1mlv31coewx8trd/vovnet99_ese_detectron2.pth?dl=1"
   BACKBONE:
