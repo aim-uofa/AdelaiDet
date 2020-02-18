@@ -1,0 +1,15 @@
+_BASE_: "../Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "https://www.dropbox.com/s/1mlv31coewx8trd/vovnet99_ese_detectron2.pth?dl=1"
+  BACKBONE:
+    NAME: "build_fcos_vovnet_fpn_backbone"
+    FREEZE_AT: 0
+  VOVNET:
+    CONV_BODY : "V-99-eSE"
+    OUT_FEATURES: ["stage3", "stage4", "stage5"]
+  FPN:
+    IN_FEATURES: ["stage3", "stage4", "stage5"]
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+OUTPUT_DIR: "output/fcos/V_99_ms_3x"

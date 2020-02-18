@@ -46,3 +46,20 @@ _C.MODEL.FCOS.NUM_SHARE_CONVS = 0
 _C.MODEL.FCOS.CENTER_SAMPLE = True
 _C.MODEL.FCOS.POS_RADIUS = 1.5
 _C.MODEL.FCOS.LOC_LOSS_TYPE = 'giou'
+
+
+# ---------------------------------------------------------------------------- #
+# VoVNet backbone
+# ---------------------------------------------------------------------------- #
+
+_C.MODEL.VOVNET = CN()
+
+_C.MODEL.VOVNET.CONV_BODY = "V-39-eSE"
+_C.MODEL.VOVNET.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
+
+# Options: FrozenBN, GN, "SyncBN", "BN"
+_C.MODEL.VOVNET.NORM = "FrozenBN"
+
+_C.MODEL.VOVNET.OUT_CHANNELS = 256
+
+_C.MODEL.VOVNET.BACKBONE_OUT_CHANNELS = 256
