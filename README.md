@@ -7,6 +7,7 @@ AdelaiDet implements the following algorithms:
 
 * [FCOS](https://arxiv.org/abs/1904.01355)
 * [BlendMask](https://arxiv.org/abs/2001.00309) _to be released_
+* [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
@@ -77,6 +78,13 @@ If you use this toolbox in your research or wish to refer to the baseline result
   title   =  {BlendMask: Top-Down Meets Bottom-Up for Instance Segmentation},
   author  =  {Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
   journal =  {arXiv preprint arXiv:2001.00309},
+  year    =  {2020}
+}
+
+@article{liu2020abcnet,
+  title   =  {ABCNet: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network},
+  author  =  {Liu, Yuliang and Chen, Hao and Shen, Chunhua and He, Tong and Jin, Lianwen and Wang, Liangwei},
+  journal =  {arXiv preprint arXiv:2002.10200},
   year    =  {2020}
 }
 
