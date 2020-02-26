@@ -7,7 +7,7 @@ AdelaiDet implements the following algorithms:
 
 * [FCOS](https://arxiv.org/abs/1904.01355)
 * [BlendMask](https://arxiv.org/abs/2001.00309) _to be released_
-* [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_
+* [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
