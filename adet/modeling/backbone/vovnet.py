@@ -148,7 +148,6 @@ class _OSA_module(nn.Module):
 
         self.ese = eSEModule(concat_ch)
 
-
     def forward(self, x):
 
         identity_feat = x

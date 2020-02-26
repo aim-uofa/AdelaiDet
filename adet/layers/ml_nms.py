@@ -6,12 +6,13 @@ def ml_nms(boxlist, nms_thresh, max_proposals=-1,
     """
     Performs non-maximum suppression on a boxlist, with scores specified
     in a boxlist field via score_field.
-    Arguments:
-        boxlist(BoxList)
-        nms_thresh (float)
+    
+    Args:
+        boxlist (detectron2.structures.Boxes): 
+        nms_thresh (float): 
         max_proposals (int): if > 0, then only the top max_proposals are kept
             after non-maximum suppression
-        score_field (str)
+        score_field (str): 
     """
     if nms_thresh <= 0:
         return boxlist

@@ -4,6 +4,10 @@ from detectron2.checkpoint import DetectionCheckpointer
 
 
 class AdetCheckpointer(DetectionCheckpointer):
+    """
+    Same as :class:`DetectronCheckpointer`, but is able to convert models
+    in AdelaiDet, such as LPF backbone.
+    """
     def _load_file(self, filename):
         if filename.endswith(".pkl"):
             with PathManager.open(filename, "rb") as f:

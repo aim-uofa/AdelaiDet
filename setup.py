@@ -63,10 +63,10 @@ def get_extensions():
 
 setup(
     name="AdelaiDet",
-    version="0.1",
-    author="AVL",
+    version="0.1.1",
+    author="Adelaide Intelligent Machines",
     url="https://github.com/stanstarks/AdelaiDet",
-    description="AdelaiDet is AVL's research "
+    description="AdelaiDet is AIM's research "
     "platform for instance-level detection tasks based on Detectron2.",
     packages=find_packages(exclude=("configs", "tests")),
     python_requires=">=3.6",

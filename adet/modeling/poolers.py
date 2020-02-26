@@ -6,6 +6,8 @@ from detectron2.modeling.poolers import (
     ROIPooler, convert_boxes_to_pooler_format, assign_boxes_to_levels
 )
 
+__all__ = ["TopPooler"]
+
 
 def _box_max_size(boxes):
     box = boxes.tensor
@@ -20,7 +22,7 @@ def assign_boxes_to_levels_by_length(
     vector.
 
     Args:
-        box_lists (list[Boxes] | list[RotatedBoxes]): A list of N Boxes or N RotatedBoxes,
+        box_lists (list[detectron2.structures.Boxes]): A list of N Boxes or N RotatedBoxes,
             where N is the number of images in the batch.
         min_level (int): Smallest feature map level index. The input is considered index 0,
             the output of stage 1 is index 1, and so.

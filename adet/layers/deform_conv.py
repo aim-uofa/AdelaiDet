@@ -17,7 +17,15 @@ class _NewEmptyTensorOp(torch.autograd.Function):
 
 
 class DFConv2d(nn.Module):
-    """Deformable convolutional layer"""
+    """
+    Deformable convolutional layer with configurable
+    deformable groups, dilations and groups.
+
+    Code is from:
+    https://github.com/facebookresearch/maskrcnn-benchmark/blob/master/maskrcnn_benchmark/layers/misc.py
+
+
+    """
     def __init__(
             self,
             in_channels,

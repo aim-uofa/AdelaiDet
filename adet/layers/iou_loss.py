@@ -3,11 +3,25 @@ from torch import nn
 
 
 class IOULoss(nn.Module):
+    """
+    Intersetion Over Union (IoU) loss which supports three
+    different IoU computations:
+
+    * IoU
+    * Linear IoU
+    * gIoU
+    """
     def __init__(self, loc_loss_type='iou'):
         super(IOULoss, self).__init__()
         self.loc_loss_type = loc_loss_type
 
     def forward(self, pred, target, weight=None):
+        """
+        Args:
+            pred: Nx4 predicted bounding boxes
+            target: Nx4 target bounding boxes
+            weight: N loss weight for each instance
+        """
         pred_left = pred[:, 0]
         pred_top = pred[:, 1]
         pred_right = pred[:, 2]

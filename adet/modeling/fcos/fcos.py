@@ -27,6 +27,9 @@ class Scale(nn.Module):
 
 @PROPOSAL_GENERATOR_REGISTRY.register()
 class FCOS(nn.Module):
+    """
+    Implement FCOS (https://arxiv.org/abs/1904.01355).
+    """
     def __init__(self, cfg, input_shape: Dict[str, ShapeSpec]):
         super().__init__()
         # fmt: off
