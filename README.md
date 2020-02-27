@@ -1,9 +1,9 @@
 # AdelaiDet
 
-AdelaiDet is an open source toolbox for multiple instance-level detection applications based on [Detectron2](https://github.com/facebookresearch/detectron2).
-All instance-level recognition works from our group will be open-sourced here.
+AdelaiDet is an open source toolbox for multiple instance-level recognition tasks on top of [Detectron2](https://github.com/facebookresearch/detectron2).
+All instance-level recognition works from our group are open-sourced here.
 
-AdelaiDet implements the following algorithms:
+To date, AdelaiDet implements the following algorithms:
 
 * [FCOS](https://arxiv.org/abs/1904.01355)
 * [BlendMask](https://arxiv.org/abs/2001.00309) _to be released_
@@ -14,7 +14,7 @@ AdelaiDet implements the following algorithms:
 
 ## Models
 
-More models will be released soon.
+More models will be released soon. Stay tuned.
 
 ### COCO Object Detecton Baselines with FCOS
 
@@ -74,22 +74,22 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year      =  {2019}
 }
 
-@article{chen2020blendmask,
-  title   =  {BlendMask: Top-Down Meets Bottom-Up for Instance Segmentation},
-  author  =  {Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
-  journal =  {arXiv preprint arXiv:2001.00309},
-  year    =  {2020}
+@inproceedings{chen2020blendmask,
+  title     =  {{BlendMask}: Top-Down Meets Bottom-Up for Instance Segmentation},
+  author    =  {Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
+  booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =  {2020}
 }
 
-@article{liu2020abcnet,
-  title   =  {ABCNet: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network},
-  author  =  {Liu, Yuliang and Chen, Hao and Shen, Chunhua and He, Tong and Jin, Lianwen and Wang, Liangwei},
-  journal =  {arXiv preprint arXiv:2002.10200},
-  year    =  {2020}
+@inproceedings{liu2020abcnet,
+  title     =  {{ABCNet}: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network},
+  author    =  {Liu, Yuliang and Chen, Hao and Shen, Chunhua and He, Tong and Jin, Lianwen and Wang, Liangwei},
+  booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =  {2020}
 }
 
 @article{wang2019solo,
-  title   =  {SOLO: Segmenting Objects by Locations},
+  title   =  {{SOLO}: Segmenting Objects by Locations},
   author  =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
   journal =  {arXiv preprint arXiv:1912.04488},
   year    =  {2019}
@@ -105,4 +105,4 @@ If you use this toolbox in your research or wish to refer to the baseline result
 
 ## License
 
-For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact the authors.
+For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact [Chunhua Shen](https://cs.adelaide.edu.au/~chhshen/).
