@@ -10,6 +10,7 @@ To date, AdelaiDet implements the following algorithms:
 * [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
+* [CondInst](https://arxiv.org/abs/2003.05664) _to be released_
 
 
 ## Models
