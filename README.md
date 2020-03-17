@@ -102,6 +102,13 @@ If you use this toolbox in your research or wish to refer to the baseline result
   journal =  {arXiv preprint arXiv:1911.07451},
   year    =  {2019}
 }
+
+@article{tian2020conditional,
+  title   = {Conditional Convolutions for Instance Segmentation},
+  author  = {Tian, Zhi and Shen, Chunhua and Chen, Hao},
+  journal = {arXiv preprint arXiv:2003.05664},
+  year    = {2020}
+}
 ```
 
 ## License
