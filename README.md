@@ -27,8 +27,8 @@ Name | box AP | download
 
 First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Then build AdelaiDet with:
 ```
-git clone https://github.com/aim-uofa/adet.git
-cd adet
+git clone https://github.com/aim-uofa/AdelaiDet.git
+cd AdelaiDet
 python setup.py build develop
 ```
 
