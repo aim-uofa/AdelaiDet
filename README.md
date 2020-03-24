@@ -8,7 +8,8 @@ To date, AdelaiDet implements the following algorithms:
 * [FCOS](https://arxiv.org/abs/1904.01355)
 * [BlendMask](https://arxiv.org/abs/2001.00309) _to be released_
 * [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
-* [SOLO](https://arxiv.org/abs/1912.04488) _to be released_
+* [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
+* [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 * [CondInst](https://arxiv.org/abs/2003.05664) _to be released_
 
@@ -94,6 +95,13 @@ If you use this toolbox in your research or wish to refer to the baseline result
   author  =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
   journal =  {arXiv preprint arXiv:1912.04488},
   year    =  {2019}
+}
+
+@article{wang2020solov2,
+  title   =  {{SOLOv2}: Dynamic, Faster and Stronger},
+  author  =  {Wang, Xinlong and Zhang, Rufeng and Kong, Tao and Li, Lei and Shen, Chunhua},
+  journal =  {arXiv preprint arXiv:2003.10152},
+  year    =  {2020}
 }
 
 @article{tian2019directpose,
