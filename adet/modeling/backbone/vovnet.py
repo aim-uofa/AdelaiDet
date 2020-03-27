@@ -3,6 +3,7 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision.ops.feature_pyramid_network import LastLevelMaxPool
 
 import fvcore.nn.weight_init as weight_init
 from detectron2.modeling.backbone import Backbone
