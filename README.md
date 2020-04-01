@@ -65,6 +65,7 @@ To evaluate the model after training, run:
 ```
 python tools/train_net.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
+    --eval-only \
     --num-gpus 8 \
     OUTPUT_DIR training_dir/fcos_R_50_1x \
     MODEL.WEIGHTS training_dir/fcos_R_50_1x/model_final.pth
