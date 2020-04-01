@@ -60,6 +60,15 @@ python tools/train_net.py \
     --num-gpus 8 \
     OUTPUT_DIR training_dir/fcos_R_50_1x
 ```
+To evaluate the model after training, run:
+
+```
+python tools/train_net.py \
+    --config-file configs/FCOS-Detection/R_50_1x.yaml \
+    --num-gpus 8 \
+    OUTPUT_DIR training_dir/fcos_R_50_1x \
+    MODEL.WEIGHTS training_dir/fcos_R_50_1x/model_final.pth
+```
 
 The configs are made for 8-GPU training. To train on another number of GPUs, change the `num-gpus`.
 
