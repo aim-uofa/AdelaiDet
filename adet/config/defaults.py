@@ -46,12 +46,11 @@ _C.MODEL.FCOS.NUM_SHARE_CONVS = 0
 _C.MODEL.FCOS.CENTER_SAMPLE = True
 _C.MODEL.FCOS.POS_RADIUS = 1.5
 _C.MODEL.FCOS.LOC_LOSS_TYPE = 'giou'
-
+_C.MODEL.FCOS.YIELD_PROPOSAL = False
 
 # ---------------------------------------------------------------------------- #
 # VoVNet backbone
 # ---------------------------------------------------------------------------- #
-
 _C.MODEL.VOVNET = CN()
 _C.MODEL.VOVNET.CONV_BODY = "V-39-eSE"
 _C.MODEL.VOVNET.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
@@ -60,3 +59,32 @@ _C.MODEL.VOVNET.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
 _C.MODEL.VOVNET.NORM = "FrozenBN"
 _C.MODEL.VOVNET.OUT_CHANNELS = 256
 _C.MODEL.VOVNET.BACKBONE_OUT_CHANNELS = 256
+
+# ---------------------------------------------------------------------------- #
+# BlendMask Options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.BLENDMASK = CN()
+_C.MODEL.BLENDMASK.ATTN_SIZE = 14
+_C.MODEL.BLENDMASK.TOP_INTERP = "bilinear"
+_C.MODEL.BLENDMASK.BOTTOM_RESOLUTION = 56
+_C.MODEL.BLENDMASK.POOLER_TYPE = "ROIAlignV2"
+_C.MODEL.BLENDMASK.POOLER_SAMPLING_RATIO = 1
+_C.MODEL.BLENDMASK.POOLER_SCALES = (0.25,)
+_C.MODEL.BLENDMASK.INSTANCE_LOSS_WEIGHT = 1.0
+_C.MODEL.BLENDMASK.VISUALIZE = False
+
+# ---------------------------------------------------------------------------- #
+# Basis Module Options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.BASIS_MODULE = CN()
+_C.MODEL.BASIS_MODULE.NAME = "ProtoNet"
+_C.MODEL.BASIS_MODULE.NUM_BASES = 4
+_C.MODEL.BASIS_MODULE.LOSS_ON = False
+_C.MODEL.BASIS_MODULE.ANN_SET = "coco"
+_C.MODEL.BASIS_MODULE.CONVS_DIM = 128
+_C.MODEL.BASIS_MODULE.IN_FEATURES = ["p3", "p4", "p5"]
+_C.MODEL.BASIS_MODULE.NORM = "SyncBN"
+_C.MODEL.BASIS_MODULE.NUM_CONVS = 3
+_C.MODEL.BASIS_MODULE.COMMON_STRIDE = 8
+_C.MODEL.BASIS_MODULE.NUM_CLASSES = 80
+_C.MODEL.BASIS_MODULE.LOSS_WEIGHT = 0.3

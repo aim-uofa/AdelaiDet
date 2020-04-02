@@ -1,0 +1,6 @@
+_BASE_: "Base-Person.yaml"
+MODEL:
+  WEIGHTS: "https://cloudstor.aarnet.edu.au/plus/s/9u1cG2zXvEva5SM/download#R_50_3x.pth"
+  RESNETS:
+    DEPTH: 50
+OUTPUT_DIR: "output/person/blendmask/R_50_1x"

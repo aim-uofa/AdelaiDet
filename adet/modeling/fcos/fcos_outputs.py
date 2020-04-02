@@ -34,7 +34,7 @@ Naming convention:
     reg_pred: the predicted (left, top, right, bottom), corresponding to reg_targets 
 
     ctrness_pred: predicted centerness scores
-    
+
 """
 
 
@@ -57,6 +57,7 @@ def fcos_losses(
         focal_loss_alpha,
         focal_loss_gamma,
         iou_loss,
+        gt_inds,
 ):
     num_classes = logits_pred.size(1)
     labels = labels.flatten()
@@ -82,29 +83,40 @@ def fcos_losses(
     reg_pred = reg_pred[pos_inds]
     reg_targets = reg_targets[pos_inds]
     ctrness_pred = ctrness_pred[pos_inds]
+    gt_inds = gt_inds[pos_inds]
 
     ctrness_targets = compute_ctrness_targets(reg_targets)
     ctrness_targets_sum = ctrness_targets.sum()
-    ctrness_norm = max(reduce_sum(ctrness_targets_sum).item() / num_gpus, 1e-6)
+    loss_denorm = max(reduce_sum(ctrness_targets_sum).item() / num_gpus, 1e-6)
 
-    reg_loss = iou_loss(
-        reg_pred,
-        reg_targets,
-        ctrness_targets
-    ) / ctrness_norm
-
-    ctrness_loss = F.binary_cross_entropy_with_logits(
-        ctrness_pred,
-        ctrness_targets,
-        reduction="sum"
-    ) / num_pos_avg
+    if pos_inds.numel() > 0:
+        reg_loss = iou_loss(
+            reg_pred,
+            reg_targets,
+            ctrness_targets
+        ) / loss_denorm
+        
+        ctrness_loss = F.binary_cross_entropy_with_logits(
+            ctrness_pred,
+            ctrness_targets,
+            reduction="sum"
+        ) / num_pos_avg
+    else:
+        reg_loss = reg_pred.sum() * 0
+        ctrness_loss = ctrness_pred.sum() * 0
 
     losses = {
         "loss_fcos_cls": class_loss,
         "loss_fcos_loc": reg_loss,
         "loss_fcos_ctr": ctrness_loss
     }
-    return losses, {}
+    extras = {
+        "pos_inds": pos_inds,
+        "gt_inds": gt_inds,
+        "gt_ctr": ctrness_targets,
+        "loss_denorm": loss_denorm
+    }
+    return losses, extras
 
 
 class FCOSOutputs(object):
@@ -236,8 +248,10 @@ class FCOSOutputs(object):
     def compute_targets_for_locations(self, locations, targets, size_ranges):
         labels = []
         reg_targets = []
+        target_inds = []
         xs, ys = locations[:, 0], locations[:, 1]
 
+        num_targets = 0
         for im_i in range(len(targets)):
             targets_per_im = targets[im_i]
             bboxes = targets_per_im.gt_boxes.tensor
@@ -247,6 +261,7 @@ class FCOSOutputs(object):
             if bboxes.numel() == 0:
                 labels.append(labels_per_im.new_zeros(locations.size(0)) + self.num_classes)
                 reg_targets.append(locations.new_zeros((locations.size(0), 4)))
+                target_inds.append(labels_per_im.new_zeros(locations.size(0)) - 1)
                 continue
 
             area = targets_per_im.gt_boxes.area()
@@ -280,14 +295,19 @@ class FCOSOutputs(object):
             locations_to_min_area, locations_to_gt_inds = locations_to_gt_area.min(dim=1)
 
             reg_targets_per_im = reg_targets_per_im[range(len(locations)), locations_to_gt_inds]
+            target_inds_per_im = locations_to_gt_inds + num_targets
 
             labels_per_im = labels_per_im[locations_to_gt_inds]
             labels_per_im[locations_to_min_area == INF] = self.num_classes
 
             labels.append(labels_per_im)
             reg_targets.append(reg_targets_per_im)
+            target_inds.append(target_inds_per_im)
 
-        return {"labels": labels, "reg_targets": reg_targets}
+        return {
+            "labels": labels,
+            "reg_targets": reg_targets,
+            "target_inds": target_inds}
 
     def losses(self):
         """
@@ -298,7 +318,10 @@ class FCOSOutputs(object):
         """
 
         training_targets = self._get_ground_truth()
-        labels, reg_targets = training_targets["labels"], training_targets["reg_targets"]
+        labels, reg_targets, gt_inds = (
+            training_targets["labels"],
+            training_targets["reg_targets"],
+            training_targets["target_inds"])
 
         # Collect all logits and regression predictions over feature maps
         # and images to arrive at the same shape as the labels and targets
@@ -327,6 +350,12 @@ class FCOSOutputs(object):
                 x.reshape(-1) for x in labels
             ], dim=0,)
 
+        gt_inds = cat(
+            [
+                # Reshape: (N, 1, Hi, Wi) -> (N*Hi*Wi,)
+                x.reshape(-1) for x in gt_inds
+            ], dim=0,)
+
         reg_targets = cat(
             [
                 # Reshape: (N, Hi, Wi, 4) -> (N*Hi*Wi, 4)
@@ -341,25 +370,35 @@ class FCOSOutputs(object):
             ctrness_pred,
             self.focal_loss_alpha,
             self.focal_loss_gamma,
-            self.iou_loss
+            self.iou_loss,
+            gt_inds
         )
 
-    def predict_proposals(self):
+    def predict_proposals(self, top_feats):
         sampled_boxes = []
 
-        bundle = (
-            self.locations, self.logits_pred,
-            self.reg_pred, self.ctrness_pred,
-            self.strides
-        )
+        bundle = {
+            "l": self.locations, "o": self.logits_pred,
+            "r": self.reg_pred, "c": self.ctrness_pred,
+            "s": self.strides,
+        }
 
-        for i, (l, o, r, c, s) in enumerate(zip(*bundle)):
+        if len(top_feats) > 0:
+            bundle["t"] = top_feats
+
+        for i, instance in enumerate(zip(*bundle.values())):
+            instance_dict = dict(zip(bundle.keys(), instance))
             # recall that during training, we normalize regression targets with FPN's stride.
             # we denormalize them here.
-            r = r * s
+            l = instance_dict["l"]
+            o = instance_dict["o"]
+            r = instance_dict["r"] * instance_dict["s"]
+            c = instance_dict["c"]
+            t = instance_dict["t"] if "t" in bundle else None
+
             sampled_boxes.append(
                 self.forward_for_single_feature_map(
-                    l, o, r, c, self.image_sizes
+                    l, o, r, c, self.image_sizes, t
                 )
             )
 
@@ -370,8 +409,8 @@ class FCOSOutputs(object):
 
     def forward_for_single_feature_map(
             self, locations, box_cls,
-            reg_pred, ctrness, image_sizes
-    ):
+            reg_pred, ctrness,
+            image_sizes, top_feat=None):
         N, C, H, W = box_cls.shape
 
         # put in the same format as locations
@@ -381,6 +420,9 @@ class FCOSOutputs(object):
         box_regression = box_regression.reshape(N, -1, 4)
         ctrness = ctrness.view(N, 1, H, W).permute(0, 2, 3, 1)
         ctrness = ctrness.reshape(N, -1).sigmoid()
+        if top_feat is not None:
+            top_feat = top_feat.view(N, -1, H, W).permute(0, 2, 3, 1)
+            top_feat = top_feat.reshape(N, H * W, -1)
 
         # if self.thresh_with_ctr is True, we multiply the classification
         # scores with centerness scores before applying the threshold.
@@ -406,6 +448,9 @@ class FCOSOutputs(object):
             per_box_regression = box_regression[i]
             per_box_regression = per_box_regression[per_box_loc]
             per_locations = locations[per_box_loc]
+            if top_feat is not None:
+                per_top_feat = top_feat[i]
+                per_top_feat = per_top_feat[per_box_loc]
 
             per_pre_nms_top_n = pre_nms_top_n[i]
 
@@ -415,6 +460,8 @@ class FCOSOutputs(object):
                 per_class = per_class[top_k_indices]
                 per_box_regression = per_box_regression[top_k_indices]
                 per_locations = per_locations[top_k_indices]
+                if top_feat is not None:
+                    per_top_feat = per_top_feat[top_k_indices]
 
             detections = torch.stack([
                 per_locations[:, 0] - per_box_regression[:, 0],
@@ -428,7 +475,8 @@ class FCOSOutputs(object):
             boxlist.scores = torch.sqrt(per_box_cls)
             boxlist.pred_classes = per_class
             boxlist.locations = per_locations
-
+            if top_feat is not None:
+                boxlist.top_feat = per_top_feat
             results.append(boxlist)
 
         return results
