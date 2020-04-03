@@ -1,0 +1,6 @@
+_BASE_: "Base-550.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+OUTPUT_DIR: "output/blendmask/550_R_50_1x"

@@ -40,7 +40,14 @@ dist/
 # project dirs
 /datasets/coco
 /datasets/lvis
+/datasets/pic
+/datasets/ytvos
 /models
+/demo_outputs
+/example_inputs
 /debug
 /weights
+/export
 eval.sh
+train.sh
+benchmark.sh

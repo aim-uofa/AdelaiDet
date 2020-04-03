@@ -37,7 +37,7 @@ def conv_with_kaiming_uniform(
             if norm is None:
                 nn.init.constant_(conv.bias, 0)
         module = [conv,]
-        if norm is not None:
+        if norm is not None and len(norm) > 0:
             if norm == "GN":
                 norm_module = nn.GroupNorm(32, out_channels)
             else:
