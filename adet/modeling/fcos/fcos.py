@@ -217,7 +217,7 @@ class FCOSHead(nn.Module):
             in_channels, 4, kernel_size=3,
             stride=1, padding=1
         )
-        self.centerness = nn.Conv2d(
+        self.ctrness = nn.Conv2d(
             in_channels, 1, kernel_size=3,
             stride=1, padding=1
         )
@@ -230,7 +230,7 @@ class FCOSHead(nn.Module):
         for modules in [
             self.cls_tower, self.bbox_tower,
             self.share_tower, self.cls_logits,
-            self.bbox_pred, self.centerness
+            self.bbox_pred, self.ctrness
         ]:
             for l in modules.modules():
                 if isinstance(l, nn.Conv2d):
@@ -256,7 +256,7 @@ class FCOSHead(nn.Module):
                 bbox_towers.append(bbox_tower)
 
             logits.append(self.cls_logits(cls_tower))
-            ctrness.append(self.centerness(bbox_tower))
+            ctrness.append(self.ctrness(bbox_tower))
             reg = self.bbox_pred(bbox_tower)
             if self.scales is not None:
                 reg = self.scales[l](reg)
