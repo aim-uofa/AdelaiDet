@@ -9,7 +9,7 @@ MODEL:
   PANOPTIC_FPN:
     COMBINE:
       ENABLED: True
-      INSTANCES_CONFIDENCE_THRESH: 0.2
+      INSTANCES_CONFIDENCE_THRESH: 0.45
       OVERLAP_THRESH: 0.4
 DATASETS:
   TRAIN: ("coco_2017_train_panoptic_separated",)

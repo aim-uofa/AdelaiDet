@@ -6,6 +6,8 @@ from detectron2.config import CfgNode as CN
 # Additional Configs
 # ---------------------------------------------------------------------------- #
 _C.MODEL.MOBILENET = False
+_C.MODEL.BACKBONE.ANTI_ALIAS = False
+_C.MODEL.RESNETS.DEFORM_INTERVAL = 1
 
 # ---------------------------------------------------------------------------- #
 # FCOS Head
