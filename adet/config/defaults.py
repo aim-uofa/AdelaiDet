@@ -63,6 +63,17 @@ _C.MODEL.VOVNET.OUT_CHANNELS = 256
 _C.MODEL.VOVNET.BACKBONE_OUT_CHANNELS = 256
 
 # ---------------------------------------------------------------------------- #
+# DLA backbone
+# ---------------------------------------------------------------------------- #
+
+_C.MODEL.DLA = CN()
+_C.MODEL.DLA.CONV_BODY = "DLA34"
+_C.MODEL.DLA.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
+
+# Options: FrozenBN, GN, "SyncBN", "BN"
+_C.MODEL.DLA.NORM = "FrozenBN"
+
+# ---------------------------------------------------------------------------- #
 # BlendMask Options
 # ---------------------------------------------------------------------------- #
 _C.MODEL.BLENDMASK = CN()

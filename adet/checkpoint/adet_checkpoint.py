@@ -1,4 +1,4 @@
-import pickle
+import pickle, os
 from fvcore.common.file_io import PathManager
 from detectron2.checkpoint import DetectionCheckpointer
 
@@ -27,6 +27,8 @@ class AdetCheckpointer(DetectionCheckpointer):
         loaded = super()._load_file(filename)  # load native pth checkpoint
         if "model" not in loaded:
             loaded = {"model": loaded}
-        if "lpf" in filename:
+
+        basename = os.path.basename(filename).lower()
+        if "lpf" in basename or "dla" in basename:
             loaded["matching_heuristics"] = True
         return loaded
