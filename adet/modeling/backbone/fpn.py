@@ -6,6 +6,8 @@ from detectron2.modeling.backbone import FPN, build_resnet_backbone
 from detectron2.layers import ShapeSpec
 from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 
+from .resnet_lpf import build_resnet_lpf_backbone
+from .resnet_interval import build_resnet_interval_backbone
 from .mobilenet import build_mnv2_backbone
 
 
@@ -57,7 +59,11 @@ def build_fcos_resnet_fpn_backbone(cfg, input_shape: ShapeSpec):
     Returns:
         backbone (Backbone): backbone module, must be a subclass of :class:`Backbone`.
     """
-    if cfg.MODEL.MOBILENET:
+    if cfg.MODEL.BACKBONE.ANTI_ALIAS:
+        bottom_up = build_resnet_lpf_backbone(cfg, input_shape)
+    elif cfg.MODEL.RESNETS.DEFORM_INTERVAL > 1:
+        bottom_up = build_resnet_interval_backbone(cfg, input_shape)
+    elif cfg.MODEL.MOBILENET:
         bottom_up = build_mnv2_backbone(cfg, input_shape)
     else:
         bottom_up = build_resnet_backbone(cfg, input_shape)
