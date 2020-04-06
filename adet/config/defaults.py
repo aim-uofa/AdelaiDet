@@ -71,8 +71,4 @@ _C.MODEL.DLA.CONV_BODY = "DLA34"
 _C.MODEL.DLA.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
 
 # Options: FrozenBN, GN, "SyncBN", "BN"
-_C.MODEL.DLA.NORM = "BN"
-
-
-_C.INPUT.RANDOM_COLOR_JITTERING = False
-_C.INPUT.CROP.GEN_BOXES_BY_MASKS = True
+_C.MODEL.DLA.NORM = "FrozenBN"
