@@ -18,11 +18,19 @@ To date, AdelaiDet implements the following algorithms:
 
 More models will be released soon. Stay tuned.
 
-### COCO Object Detecton Baselines with FCOS
+### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 
-Name | box AP | download
---- |:---:|:---:
-[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+Name | inf. time (ms/im) | box AP | download
+--- |:---:|:---:|:---:
+[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 60 | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+
+#### Real-time models
+
+Name | inf. time (ms/im) | box AP | download
+--- |:---:|:---:|:---:
+[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 22 | 40.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/LMmNxBzt4sNOoJM/download)
+
+*Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
 ## Installation
 
@@ -44,7 +52,7 @@ python setup.py build develop
 python demo/demo.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --input input1.jpg input2.jpg \
-	--opts MODEL.WEIGHTS fcos_R_50_1x.pth
+    --opts MODEL.WEIGHTS fcos_R_50_1x.pth
 ```
 
 ### Train Your Own Models
@@ -132,3 +140,5 @@ If you use this toolbox in your research or wish to refer to the baseline result
 ## License
 
 For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact [Chunhua Shen](https://cs.adelaide.edu.au/~chhshen/).
+
+
