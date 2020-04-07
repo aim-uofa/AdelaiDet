@@ -9,8 +9,6 @@ MODEL:
   RESNETS:
     DEPTH: 50
     NORM: "SyncBN"
-  FPN:
-    IN_FEATURES: ["level3", "level4", "level5"]
   FCOS:
     TOP_LEVELS: 0
     SIZES_OF_INTEREST: [64, 128]
