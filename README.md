@@ -26,9 +26,9 @@ Name | inf. time (ms/im) | box AP | download
 
 #### Real-time models
 
-Name | inf. time (ms/im) | box AP | download
+Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
-[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 22 | 40.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/LMmNxBzt4sNOoJM/download)
+[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
