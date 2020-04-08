@@ -20,9 +20,9 @@ More models will be released soon. Stay tuned.
 
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 
-Name | inf. time (ms/im) | box AP | download
+Name | inf. time FPS | box AP | download
 --- |:---:|:---:|:---:
-[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 60 | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
 
 #### Real-time models
 
