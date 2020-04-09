@@ -20,7 +20,7 @@ More models will be released soon. Stay tuned.
 
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 
-Name | inf. time FPS | box AP | download
+Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
 [FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
 
@@ -28,7 +28,9 @@ Name | inf. time FPS | box AP | download
 
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
-[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
+[FCOS_RT_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/4vc3XwQezyhNvnB/download)
+[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
+[FCOS_RT_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
