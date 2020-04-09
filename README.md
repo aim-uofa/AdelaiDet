@@ -81,7 +81,7 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
     MODEL.WEIGHTS training_dir/fcos_R_50_1x/model_final.pth
 ```
 
-The configs are made for 8-GPU training. To train on another number of GPUs, change the `num-gpus`. We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
+The configs are made for 8-GPU training. To train on another number of GPUs, change the `--num-gpus`. If you want to measure the inference time, please change `--num-gpus` to 1. We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
 
 
 ## Citing AdelaiDet
