@@ -7,6 +7,13 @@ import time
 import cv2
 import tqdm
 
+try:
+    from remove_python_path import remove_path
+    remove_path()
+except:
+    import sys
+    print(sys.path)
+
 from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
 
