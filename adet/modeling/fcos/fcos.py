@@ -7,7 +7,7 @@ from torch.nn import functional as F
 from detectron2.layers import ShapeSpec
 from detectron2.modeling.proposal_generator.build import PROPOSAL_GENERATOR_REGISTRY
 
-from adet.layers import DFConv2d, IOULoss
+from adet.layers import DFConv2d, IOULoss, NaiveGroupNorm
 from .fcos_outputs import FCOSOutputs
 
 
@@ -179,6 +179,8 @@ class FCOSHead(nn.Module):
                 ))
                 if norm == "GN":
                     tower.append(nn.GroupNorm(32, in_channels))
+                elif norm == "NaiveGN":
+                    tower.append(NaiveGroupNorm(32, in_channels))
                 tower.append(nn.ReLU())
             self.add_module('{}_tower'.format(head),
                             nn.Sequential(*tower))
