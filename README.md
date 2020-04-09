@@ -65,7 +65,7 @@ setup the corresponding datasets following
 then run:
 
 ```
-python tools/train_net.py \
+OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --num-gpus 8 \
     OUTPUT_DIR training_dir/fcos_R_50_1x
@@ -73,7 +73,7 @@ python tools/train_net.py \
 To evaluate the model after training, run:
 
 ```
-python tools/train_net.py \
+OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --eval-only \
     --num-gpus 8 \
@@ -81,7 +81,7 @@ python tools/train_net.py \
     MODEL.WEIGHTS training_dir/fcos_R_50_1x/model_final.pth
 ```
 
-The configs are made for 8-GPU training. To train on another number of GPUs, change the `num-gpus`.
+The configs are made for 8-GPU training. To train on another number of GPUs, change the `num-gpus`. We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
 
 
 ## Citing AdelaiDet
@@ -142,5 +142,3 @@ If you use this toolbox in your research or wish to refer to the baseline result
 ## License
 
 For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact [Chunhua Shen](https://cs.adelaide.edu.au/~chhshen/).
-
-
