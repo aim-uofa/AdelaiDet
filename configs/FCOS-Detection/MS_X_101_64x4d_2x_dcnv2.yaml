@@ -14,4 +14,4 @@ MODEL:
 SOLVER:
   STEPS: (120000, 160000)
   MAX_ITER: 180000
-OUTPUT_DIR: "output/fcos/MS_X_101_64x4d_2x"
+OUTPUT_DIR: "output/fcos/MS_X_101_64x4d_2x_dcnv2"
