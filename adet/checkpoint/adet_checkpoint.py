@@ -22,6 +22,8 @@ class AdetCheckpointer(DetectionCheckpointer):
                     # Detection models have "blobs", but ImageNet models don't
                     data = data["blobs"]
                 data = {k: v for k, v in data.items() if not k.endswith("_momentum")}
+                if "weight_order" in data:
+                    del data["weight_order"]
                 return {"model": data, "__author__": "Caffe2", "matching_heuristics": True}
 
         loaded = super()._load_file(filename)  # load native pth checkpoint
