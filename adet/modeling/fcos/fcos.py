@@ -150,6 +150,7 @@ class FCOSHead(nn.Module):
         """
         super().__init__()
         # TODO: Implement the sigmoid version first.
+        self.in_features = cfg.MODEL.FCOS.IN_FEATURES
         self.num_classes = cfg.MODEL.FCOS.NUM_CLASSES
         self.fpn_strides = cfg.MODEL.FCOS.FPN_STRIDES
         head_configs = {"cls": (cfg.MODEL.FCOS.NUM_CLS_CONVS,
@@ -219,7 +220,12 @@ class FCOSHead(nn.Module):
         bias_value = -math.log((1 - prior_prob) / prior_prob)
         torch.nn.init.constant_(self.cls_logits.bias, bias_value)
 
+        # for export
+        self.onnx_export = False
+
     def forward(self, x):
+        if self.onnx_export:
+            x = [x[f] for f in self.in_features]
         logits = []
         bbox_reg = []
         ctrness = []
