@@ -72,8 +72,9 @@ def main():
     # norm for ONNX: change FrozenBN back to BN
     cfg.MODEL.BACKBONE.FREEZE_AT = 0
     cfg.MODEL.RESNETS.NORM = "BN"
-    # turn on the following?
+    # turn on the following configuration according to your own convenience, default: NaiveGN
     #cfg.MODEL.FCOS.NORM = "BN"
+    cfg.MODEL.FCOS.NORM = "NaiveGN"
     cfg.freeze()
 
     output_dir = cfg.OUTPUT_DIR

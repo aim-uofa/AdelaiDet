@@ -3,8 +3,6 @@ MODEL:
   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
   RESNETS:
     DEPTH: 50
-  FCOS:
-    NORM: NaiveGN
 INPUT:
   MIN_SIZE_TRAIN: (800,)
 SOLVER:
