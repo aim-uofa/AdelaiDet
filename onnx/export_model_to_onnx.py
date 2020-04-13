@@ -3,7 +3,7 @@ Please make sure you are using pytorch >= 1.4.0 (or nightly).
 A working example to export the R-50 based FCOS model:
 python onnx/export_model_to_onnx.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
-    MODEL.WEIGHT weights/fcos_R_50_1x.pth
+    MODEL.WEIGHTS weights/fcos_R_50_1x.pth
 
 """
 
@@ -32,6 +32,15 @@ from detectron2.checkpoint import DetectionCheckpointer
 from collections import OrderedDict
 
 from adet.config import get_cfg
+
+class FCOS(torch.nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.in_features          = cfg.MODEL.FCOS.IN_FEATURES
+
+    def forward(self, features):
+        features = [features[f] for f in self.in_features]
+        return features
 
 def main():
     parser = argparse.ArgumentParser(description="Export model to the onnx format")
@@ -92,12 +101,10 @@ def main():
     checkpointer = DetectionCheckpointer(model)
     _ = checkpointer.load(cfg.MODEL.WEIGHTS)
 
-    if hasattr(model.proposal_generator.fcos_head, 'onnx_export'):
-        model.proposal_generator.fcos_head.onnx_export = True
-        logger.info("Update : model.proposal_generator.fcos_head.onnx_export to be True")
-
+    proposal_generator = FCOS(cfg)
     onnx_model = torch.nn.Sequential(OrderedDict([
         ('backbone', model.backbone),
+        ('proposal_generator', proposal_generator),
         ('heads', model.proposal_generator.fcos_head),
     ]))
 
