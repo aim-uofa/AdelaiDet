@@ -1,11 +1,8 @@
 """
-A working example to export the R-50 based FCOS model:
-python onnx/export_model_to_onnx.py \
-    --config-file configs/FCOS-Detection/R_50_1x.yaml \
-    MODEL.WEIGHTS weights/fcos_R_50_1x.pth
-
 """
 
+import onnx
+import caffe2.python.onnx.backend as backend
 import argparse
 import os
 import glob
@@ -41,8 +38,25 @@ class FCOS(torch.nn.Module):
         features = [features[f] for f in self.in_features]
         return features
 
+class ONNX(torch.nn.Module):
+    def __init__(self, onnx_model_path, cfg):
+        super(ONNX, self).__init__()
+        self.onnx_model = backend.prepare(
+            onnx.load(onnx_model_path),
+            device=cfg.MODEL.DEVICE.upper()
+        )
+
+    def forward(self, images):
+        outputs = self.onnx_model.run(images.cpu().numpy())
+        outputs = [torch.from_numpy(o).to(self.cfg.MODEL.DEVICE) for o in outputs]
+        num_outputs = len(outputs) // 3
+        logits = outputs[:num_outputs]
+        bbox_reg = outputs[num_outputs:2 * num_outputs]
+        centerness = outputs[2 * num_outputs:]
+        return logits, bbox_reg, centerness
+
 def main():
-    parser = argparse.ArgumentParser(description="Export model to the onnx format")
+    parser = argparse.ArgumentParser(description="Test onnx models of FCOS")
     parser.add_argument(
         "--config-file",
         default="configs/FCOS-Detection/R_50_1x.yaml",
@@ -101,27 +115,12 @@ def main():
     height, width = 512, 640
     input_names = ["input_image"]
     dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
-    output_names = []
-    for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
-        fpn_name = "P{}/".format(3 + l)
-        output_names.extend([
-            fpn_name + "logits",
-            fpn_name + "bbox_reg",
-            fpn_name + "centerness"
-        ])
-
-    torch.onnx.export(
-        onnx_model,
-        dummy_input,
-        args.output,
-        verbose=True,
-        input_names=input_names,
-        output_names=output_names,
-        keep_initializers_as_inputs=True
-    )
-
-    logger.info("Done. The onnx model is saved into {}.".format(args.output))
+    torch_output = onnx_model.forward(dummy_input)
+    #logits, bbox_reg, ctrness, bbox_towers = torch_output
 
 
+    onnx_model = ONNX(args.output, cfg)
+    onnx_model.to(cfg.MODEL.DEVICE)
+    onnx_result = onnx_model.forward(dummy_input)
 if __name__ == "__main__":
     main()

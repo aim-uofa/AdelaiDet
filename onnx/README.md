@@ -1,6 +1,6 @@
 
 # export to onnx
-example: python onnx/export_model_to_onnx.py --config-file configs/FCOS-Detection/R_50_1x.yaml MODEL.WEIGHTS weights/fcos_R_50_1x.pth
+example: python onnx/export_model_to_onnx.py --config-file configs/FCOS-Detection/R_50_1x.yaml --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth
 
 # norm in FCOS Head
 The norm in FOCS head is GroupNorm(GN) by default. Unlike BN, GN caculates the mean and var of the features online. Thus, it costs extra time and memory.
