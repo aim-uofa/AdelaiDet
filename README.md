@@ -18,11 +18,21 @@ To date, AdelaiDet implements the following algorithms:
 
 All of our trained models are available in the [Model Zoo](MODEL_ZOO.md).
 
-### COCO Object Detecton Baselines with FCOS
+### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 
-Name | box AP | download
---- |:---:|:---:
-[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+Name | inf. time | box AP | download
+--- |:---:|:---:|:---:
+[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+
+#### Real-time models
+
+Name | inf. time | box AP | download
+--- |:---:|:---:|:---:
+[FCOS_RT_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/4vc3XwQezyhNvnB/download)
+[FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
+[FCOS_RT_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
+
+*Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
 ### COCO Instance Segmentation Baselines with [BlendMask](https://arxiv.org/abs/2001.00309)
 
@@ -58,7 +68,7 @@ python setup.py build develop
 python demo/demo.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --input input1.jpg input2.jpg \
-	--opts MODEL.WEIGHTS fcos_R_50_1x.pth
+    --opts MODEL.WEIGHTS fcos_R_50_1x.pth
 ```
 
 ### Train Your Own Models
@@ -69,7 +79,7 @@ setup the corresponding datasets following
 then run:
 
 ```
-python tools/train_net.py \
+OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --num-gpus 8 \
     OUTPUT_DIR training_dir/fcos_R_50_1x
@@ -77,7 +87,7 @@ python tools/train_net.py \
 To evaluate the model after training, run:
 
 ```
-python tools/train_net.py \
+OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --eval-only \
     --num-gpus 8 \
@@ -85,7 +95,9 @@ python tools/train_net.py \
     MODEL.WEIGHTS training_dir/fcos_R_50_1x/model_final.pth
 ```
 
-The configs are made for 8-GPU training. To train on another number of GPUs, change the `num-gpus`.
+- The configs are made for 8-GPU training. To train on another number of GPUs, change the `--num-gpus`.
+- If you want to measure the inference time, please change `--num-gpus` to 1.
+- We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
 
 
 ## Citing AdelaiDet

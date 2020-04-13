@@ -213,7 +213,7 @@ class Tree(nn.Module):
             )
 
     def forward(self, x, residual=None, children=None):
-        if residual is not None:
+        if self.training and residual is not None:
             x = x + residual.sum() * 0.0
         children = [] if children is None else children
         bottom = self.downsample(x) if self.downsample else x
