@@ -44,3 +44,6 @@ dist/
 /debug
 /weights
 eval.sh
+
+# debug code
+demo/performance.py
