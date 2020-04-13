@@ -6,7 +6,7 @@ example: python onnx/export_model_to_onnx.py --config-file configs/FCOS-Detectio
 The norm in FOCS head is GroupNorm(GN) by default. Unlike BN, GN caculates the mean and var of the features online. Thus, it costs extra time and memory.
 On the other sisde, as BN can be fused into previous convolution layer, we can regard BN having no cost in inference. The following instruction introduces a simple method to measure the impact of GN on speed.
 
-0. prepare about 1000 images in folder output/test/input/
+0. prepare certain amount of images (for example 1000) in folder output/test/input/
 
 1. GN + GPU: total execution time 285.1398s, average 0.0696s per image
 
@@ -20,7 +20,7 @@ python demo/performance.py --config-file configs/FCOS-Detection/R_50_1x.yaml --i
 
 python demo/performance.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.DEVICE cpu
 
-4. BN = CPU: total execution time 1068.0550s, average 0.9596s per image
+4. BN + CPU: total execution time 1068.0550s, average 0.9596s per image
 
 python demo/performance.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.DEVICE cpu MODEL.FCOS.NORM BN
 
