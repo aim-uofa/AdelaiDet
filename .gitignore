@@ -49,5 +49,7 @@ dist/
 /weights
 /export
 eval.sh
+
+demo/performance.py
 train.sh
 benchmark.sh

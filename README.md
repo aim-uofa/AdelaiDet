@@ -27,10 +27,11 @@ Name | inf. time | box AP | download
 [FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M3UOT6JcyHy2QW1/download)
 [FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/R7H00WeWKZG45pP/download)
 [FCOS_MS_X_101_64x4d_2x](configs/FCOS-Detection/MS_X_101_64x4d_2x.yaml) | 6.1 FPS | 44.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/XOLUCzqKYckNII7/download)
+[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/TDsnYK8OXDTrafF/download)
 
 *Except for FCOS_R_50_1x, all other models are trained with multi-scale data augmentation.*
 
-#### Real-time models
+#### FCOS Real-time Models
 
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
