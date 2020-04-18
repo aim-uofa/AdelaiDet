@@ -1,0 +1,17 @@
+_BASE_: "Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "catalog://ImageNetPretrained/FAIR/X-101-64x4d"
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  RESNETS:
+    STRIDE_IN_1X1: False  # this is a C2 model
+    NUM_GROUPS: 64
+    WIDTH_PER_GROUP: 4
+    DEPTH: 101
+    DEFORM_ON_PER_STAGE: [False, False, True, True] # on Res4, Res5
+    DEFORM_MODULATED: True
+  FCOS:
+    USE_DEFORMABLE: True
+SOLVER:
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+OUTPUT_DIR: "output/fcos/MS_X_101_64x4d_2x_dcnv2"

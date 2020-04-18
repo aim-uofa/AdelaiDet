@@ -178,11 +178,11 @@ class FCOSHead(nn.Module):
         self.num_classes = cfg.MODEL.FCOS.NUM_CLASSES
         self.fpn_strides = cfg.MODEL.FCOS.FPN_STRIDES
         head_configs = {"cls": (cfg.MODEL.FCOS.NUM_CLS_CONVS,
-                                False),
+                                cfg.MODEL.FCOS.USE_DEFORMABLE),
                         "bbox": (cfg.MODEL.FCOS.NUM_BOX_CONVS,
                                  cfg.MODEL.FCOS.USE_DEFORMABLE),
                         "share": (cfg.MODEL.FCOS.NUM_SHARE_CONVS,
-                                  cfg.MODEL.FCOS.USE_DEFORMABLE)}
+                                  False)}
         norm = None if cfg.MODEL.FCOS.NORM == "none" else cfg.MODEL.FCOS.NORM
 
         in_channels = [s.channels for s in input_shape]
@@ -192,11 +192,11 @@ class FCOSHead(nn.Module):
         for head in head_configs:
             tower = []
             num_convs, use_deformable = head_configs[head]
-            if use_deformable:
-                conv_func = DFConv2d
-            else:
-                conv_func = nn.Conv2d
             for i in range(num_convs):
+                if use_deformable and i == num_convs - 1:
+                    conv_func = DFConv2d
+                else:
+                    conv_func = nn.Conv2d
                 tower.append(conv_func(
                     in_channels, in_channels,
                     kernel_size=3, stride=1,
