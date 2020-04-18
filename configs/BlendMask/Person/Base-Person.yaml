@@ -1,0 +1,9 @@
+_BASE_: "../Base-BlendMask.yaml"
+MODEL:
+  BASIS_MODULE:
+    NUM_CLASSES: 1
+  FCOS:
+    NUM_CLASSES: 1
+DATASETS:
+  TRAIN: ("pic_person_train",)
+  TEST: ("pic_person_val",)

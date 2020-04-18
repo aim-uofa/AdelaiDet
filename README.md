@@ -16,7 +16,7 @@ To date, AdelaiDet implements the following algorithms:
 
 ## Models
 
-More models will be released soon. Stay tuned.
+All of our trained models are available in the [Model Zoo](MODEL_ZOO.md).
 
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 
@@ -40,6 +40,21 @@ Name | inf. time | box AP | download
 [FCOS_RT_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
+
+### COCO Instance Segmentation Baselines with [BlendMask](https://arxiv.org/abs/2001.00309)
+
+Model | Name |inf. time | box AP | mask AP | download
+--- |:---:|:---:|:---:|:---:|:---:
+Mask R-CNN | [550_R_50_3x](configs/RCNN/550_R_50_FPN_3x.yaml) | 16FPS | 39.1 | 35.3 |
+BlendMask | [550_R_50_3x](configs/BlendMask/550_R_50_3x.yaml) | 28FPS | 38.7 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/R3Qintf7N8UCiIt/download)
+BlendMask | [DLA_34_4x](configs/BlendMask/DLA_34_syncbn_4x.yaml) | 32FPS | 40.9 | 35.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/Lx94rWNnZ8TRd2Y/download)
+Mask R-CNN | [R_50_1x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml) | 13FPS | 38.6 | 35.2 |
+BlendMask | [R_50_1x](configs/BlendMask/R_50_1x.yaml) | 14FPS | 39.9 | 35.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/zoxXPnr6Hw3OJgK/download)
+Mask R-CNN | [R_50_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml) | 13FPS | 41.0 | 37.2 | 
+BlendMask | [R_50_3x](configs/BlendMask/R_50_3x.yaml) | 14FPS | 42.7 | 37.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/ZnaInHFEKst6mvg/download)
+Mask R-CNN | [R_101_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_101_FPN_3x.yaml) | 10FPS | 42.9 | 38.6 |
+BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11FPS | 44.8 | 39.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/e4fXrliAcMtyEBy/download)
+BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10FPS | 46.8 | 41.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/vbnKnQtaGlw8TKv/download)
 
 ## Installation
 
