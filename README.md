@@ -30,7 +30,7 @@ Name | inf. time | box AP | download
 
 *Except for FCOS_R_50_1x, all other models are trained with multi-scale data augmentation.*
 
-#### Real-time models
+#### FCOS Real-time Models
 
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
