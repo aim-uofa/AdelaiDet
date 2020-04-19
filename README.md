@@ -39,7 +39,7 @@ Name | inf. time | box AP | download
 [FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
 [FCOS_RT_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
 
-*Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
+*Inference time is measured on a NVIDIA 1080Ti with batch size 1. Real-time models use shorter side 512 for inference.*
 
 ## Installation
 
