@@ -4,7 +4,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from detectron2.layers import ShapeSpec
+from detectron2.layers import ShapeSpec, NaiveSyncBatchNorm
 from detectron2.modeling.proposal_generator.build import PROPOSAL_GENERATOR_REGISTRY
 
 from adet.layers import DFConv2d, IOULoss, NaiveGroupNorm
@@ -23,6 +23,19 @@ class Scale(nn.Module):
 
     def forward(self, input):
         return input * self.scale
+
+
+class ModuleListDial(nn.ModuleList):
+    def __init__(self, modules=None):
+        super(ModuleListDial, self).__init__(modules)
+        self.cur_position = 0
+
+    def forward(self, x):
+        result = self[self.cur_position](x)
+        self.cur_position += 1
+        if self.cur_position >= len(self):
+            self.cur_position = 0
+        return result
 
 
 @PROPOSAL_GENERATOR_REGISTRY.register()
@@ -159,6 +172,7 @@ class FCOSHead(nn.Module):
                         "share": (cfg.MODEL.FCOS.NUM_SHARE_CONVS,
                                   False)}
         norm = None if cfg.MODEL.FCOS.NORM == "none" else cfg.MODEL.FCOS.NORM
+        self.num_levels = len(input_shape)
 
         in_channels = [s.channels for s in input_shape]
         assert len(set(in_channels)) == 1, "Each level must have the same channel!"
@@ -181,6 +195,14 @@ class FCOSHead(nn.Module):
                     tower.append(nn.GroupNorm(32, in_channels))
                 elif norm == "NaiveGN":
                     tower.append(NaiveGroupNorm(32, in_channels))
+                elif norm == "BN":
+                    tower.append(ModuleListDial([
+                        nn.BatchNorm2d(in_channels) for _ in range(self.num_levels)
+                    ]))
+                elif norm == "SyncBN":
+                    tower.append(ModuleListDial([
+                        NaiveSyncBatchNorm(in_channels) for _ in range(self.num_levels)
+                    ]))
                 tower.append(nn.ReLU())
             self.add_module('{}_tower'.format(head),
                             nn.Sequential(*tower))
@@ -200,7 +222,7 @@ class FCOSHead(nn.Module):
         )
 
         if cfg.MODEL.FCOS.USE_SCALE:
-            self.scales = nn.ModuleList([Scale(init_value=1.0) for _ in self.fpn_strides])
+            self.scales = nn.ModuleList([Scale(init_value=1.0) for _ in range(self.num_levels)])
         else:
             self.scales = None
 
