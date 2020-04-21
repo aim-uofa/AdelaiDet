@@ -2,6 +2,9 @@
 # export to onnx
 example: python onnx/export_model_to_onnx.py --config-file configs/FCOS-Detection/R_50_1x.yaml --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth
 
+[NavieGN version](https://drive.google.com/file/d/1J4Mf3fmBpv7rusJsgHBLUKxRzDqqhMmI/view?usp=sharing)
+
+
 # norm in FCOS Head
 The norm in FOCS head is GroupNorm(GN) by default. Unlike BN, GN caculates the mean and var of the features online. Thus, it costs extra time and memory.
 On the other sisde, as BN can be fused into previous convolution layer, we can regard BN having no cost in inference. The following instruction introduces a simple method to measure the impact of GN on speed.
