@@ -23,8 +23,15 @@ More models will be released soon. Stay tuned.
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
 [FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
+[FCOS_MS_R_50_2x](configs/FCOS-Detection/MS_R_50_2x.yaml) | 16 FPS | 41.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/reA6HVaGX47yKGV/download)
+[FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M3UOT6JcyHy2QW1/download)
+[FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/R7H00WeWKZG45pP/download)
+[FCOS_MS_X_101_64x4d_2x](configs/FCOS-Detection/MS_X_101_64x4d_2x.yaml) | 6.1 FPS | 44.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/XOLUCzqKYckNII7/download)
+[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/TDsnYK8OXDTrafF/download)
 
-#### Real-time models
+*Except for FCOS_R_50_1x, all other models are trained with multi-scale data augmentation.*
+
+#### FCOS Real-time Models
 
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
@@ -32,7 +39,7 @@ Name | inf. time | box AP | download
 [FCOS_RT_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
 [FCOS_RT_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
 
-*Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
+*Inference time is measured on a NVIDIA 1080Ti with batch size 1. Real-time models use shorter side 512 for inference.*
 
 ## Installation
 
