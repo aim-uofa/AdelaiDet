@@ -104,13 +104,10 @@ def main():
     input_names = ["input_image"]
     dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
     output_names = []
-    for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
-        fpn_name = "P{}/".format(3 + l)
-        output_names.extend([
-            fpn_name + "logits",
-            fpn_name + "bbox_reg",
-            fpn_name + "centerness"
-        ])
+    for item in ["logits", "bbox_reg", "centerness"]:
+        for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
+            fpn_name = "P{}".format(3 + l)
+            output_names.extend([fpn_name + item])
 
     torch.onnx.export(
         onnx_model,
