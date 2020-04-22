@@ -2,7 +2,8 @@
 A working example to export the R-50 based FCOS model:
 python onnx/export_model_to_onnx.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
-    MODEL.WEIGHTS weights/fcos_R_50_1x.pth
+    --output /data/pretrained/onnx/fcos/FCOS_R_50_1x_bn_head.onnx
+    --opts MODEL.WEIGHTS /data/pretrained/pytorch/fcos/FCOS_R_50_1x_bn_head.pth MODEL.FCOS.NORM "BN"
 
 """
 
