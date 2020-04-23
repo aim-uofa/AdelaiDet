@@ -43,9 +43,9 @@ If you prefer BN in FCOS heads, please try the following models.
 
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
-[FCOS_RT_MS_DLA_34_4x_shtw_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers_bn_head.yaml) | - FPS | 38.9 | [model](-)
-[FCOS_RT_MS_DLA_34_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_bn_head.yaml) | - FPS | 39.4 | [model](-)
-[FCOS_RT_MS_R_50_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml) | - FPS | 39.3 | [model](-)
+[FCOS_RT_MS_DLA_34_4x_shtw_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers_bn_head.yaml) | 52 FPS | 38.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/rdmHHSs4oCg7l7U/download)
+[FCOS_RT_MS_DLA_34_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_bn_head.yaml) | 48 FPS | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/T5httPVo1VndbD4/download)
+[FCOS_RT_MS_R_50_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml) | 40 FPS | 39.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/dHNUNs0YxVhZAmg/download)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
