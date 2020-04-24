@@ -14,7 +14,8 @@ MODEL:
     SIZES_OF_INTEREST: [64, 128]
     FPN_STRIDES: [8, 16, 32]
     IN_FEATURES: ['p3', 'p4', 'p5']
+    NORM: "SyncBN"
 SOLVER:
   STEPS: (300000, 340000)
   MAX_ITER: 360000
-OUTPUT_DIR: "output/fcos/FCOS_RT_MS_R_50_4x_syncbn"
+OUTPUT_DIR: "output/fcos/FCOS_RT_MS_R_50_4x_syncbn_bn_head"

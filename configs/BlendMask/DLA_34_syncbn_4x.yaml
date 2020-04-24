@@ -1,14 +1,19 @@
-_BASE_: "../Base-FCOS.yaml"
+_BASE_: "Base-BlendMask.yaml"
 INPUT:
   MIN_SIZE_TRAIN: (256, 288, 320, 352, 384, 416, 448, 480, 512, 544, 576, 608)
   MAX_SIZE_TRAIN: 900
   MAX_SIZE_TEST: 736
   MIN_SIZE_TEST: 512
 MODEL:
-  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
-  RESNETS:
-    DEPTH: 50
+  BACKBONE:
+    NAME: "build_fcos_dla_fpn_backbone"
+    FREEZE_AT: -1
+  WEIGHTS: "http://dl.yf.io/dla/models/imagenet/dla34-ba72cf86.pth"
+  DLA:
+    CONV_BODY: "DLA34"
     NORM: "SyncBN"
+  FPN:
+    IN_FEATURES: ["level3", "level4", "level5"]
   FCOS:
     TOP_LEVELS: 0
     SIZES_OF_INTEREST: [64, 128]
@@ -17,4 +22,4 @@ MODEL:
 SOLVER:
   STEPS: (300000, 340000)
   MAX_ITER: 360000
-OUTPUT_DIR: "output/fcos/FCOS_RT_MS_R_50_4x_syncbn"
+OUTPUT_DIR: "output/blendmask/DLA_34_syncbn_4x"

@@ -37,7 +37,7 @@ from detectron2.evaluation import (
 )
 from detectron2.modeling import GeneralizedRCNNWithTTA
 
-from detectron2.data.dataset_mapper import DatasetMapper
+from adet.data.dataset_mapper import DatasetMapperWithBasis
 from adet.config import get_cfg
 from adet.checkpoint import AdetCheckpointer
 
@@ -123,7 +123,7 @@ class Trainer(DefaultTrainer):
         It calls :func:`detectron2.data.build_detection_train_loader` with a customized
         DatasetMapper, which adds categorical labels as a semantic mask.
         """
-        mapper = DatasetMapper(cfg, True)
+        mapper = DatasetMapperWithBasis(cfg, True)
         return build_detection_train_loader(cfg, mapper)
 
     @classmethod

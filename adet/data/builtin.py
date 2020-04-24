@@ -1,8 +1,9 @@
 import os
 
 from detectron2.data.datasets.register_coco import register_coco_instances
+from detectron2.data.datasets.builtin_meta import _get_builtin_metadata
 
-# register person in context dataset
+# register plane reconstruction
 
 _PREDEFINED_SPLITS_PIC = {
     "pic_person_train": ("pic/image/train", "pic/annotations/train_person.json"),
@@ -23,5 +24,6 @@ def register_all_coco(root="datasets"):
             os.path.join(root, json_file) if "://" not in json_file else json_file,
             os.path.join(root, image_root),
         )
+
 
 register_all_coco()
