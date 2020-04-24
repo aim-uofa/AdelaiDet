@@ -47,6 +47,7 @@ Model | Name |inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:|:---:
 Mask R-CNN | [550_R_50_3x](configs/RCNN/550_R_50_FPN_3x.yaml) | 16FPS | 39.1 | 35.3 |
 BlendMask | [550_R_50_3x](configs/BlendMask/550_R_50_3x.yaml) | 28FPS | 38.7 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/R3Qintf7N8UCiIt/download)
+BlendMask | [RT_R_50_4x](configs/BlendMask/RT_R_50_4x.yaml) | 30FPS | 40.1 | 34.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/fmmciLkyaOoY1Tc/download)
 BlendMask | [DLA_34_4x](configs/BlendMask/DLA_34_syncbn_4x.yaml) | 32FPS | 40.9 | 35.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/Lx94rWNnZ8TRd2Y/download)
 Mask R-CNN | [R_50_1x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml) | 13FPS | 38.6 | 35.2 |
 BlendMask | [R_50_1x](configs/BlendMask/R_50_1x.yaml) | 14FPS | 39.9 | 35.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/zoxXPnr6Hw3OJgK/download)
