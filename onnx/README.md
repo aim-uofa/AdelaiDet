@@ -3,6 +3,8 @@
 
 Refer all-in-one script: [pytorch-onnx-caffe-ncnn.sh](https://github.com/blueardour/uofa-AdelaiDet/blob/master/onnx/pytorch-onnx-caffe-ncnn.sh) (advise to employ BN in the FCOS head)
 
+note: to convert model to caffe and ncnn requires BN used in the FCOS head
+
 # Norm in FCOS Head
 The norm in FOCS head is GroupNorm(GN) by default. Unlike BN, GN caculates the mean and var of the features online. Thus, it costs extra time and memory.
 On the other sisde, as BN can be fused into previous convolution layer, we can regard BN having no cost in inference. The following instruction introduces a simple method to measure the impact of GN on speed.
