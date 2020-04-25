@@ -3,7 +3,7 @@
 
 Refer all-in-one script: [pytorch-onnx-caffe-ncnn.sh](https://github.com/blueardour/uofa-AdelaiDet/blob/master/onnx/pytorch-onnx-caffe-ncnn.sh) (BN instead of GN used in the FCOS head)
 
-note: to convert model to caffe and ncnn requires BN in the FCOS head
+note: to convert model to *Caffe* and *NCNN* requires BN in the FCOS head
 
 # Normalization in the FCOS head
 The normalization in FOCS head is GroupNorm (GN) by default as shown in the original paper. Unlike BN, GN caculates the mean and variance of features online. Thus, it costs extra time and memory.
