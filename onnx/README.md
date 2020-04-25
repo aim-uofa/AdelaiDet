@@ -36,7 +36,7 @@ Tested on 2080ti. The result shows 5~10% slower for GN compared against BN.
 # Result compare between pytorch and NCNN
 
 * pytorch version: run demo/demo.py
-* ncnn version: refer: https://github.com/blueardour/ncnn/blob/master/examples/fcos.cpp
+* ncnn version: refer to https://github.com/blueardour/ncnn/blob/master/examples/fcos.cpp
 
 Example: take coco/test2017/000000144041.jpg as the test image
 
