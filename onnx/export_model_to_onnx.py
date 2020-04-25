@@ -55,6 +55,9 @@ def main():
         metavar="FILE",
         help="path to config file",
     )
+    parser.add_argument('--width', default=0, type=int)
+    parser.add_argument('--height', default=0, type=int)
+    parser.add_argument('--level', default=0, type=int)
     parser.add_argument(
         "--output",
         default="output/fcos.onnx",
@@ -151,6 +154,10 @@ def main():
     ]))
 
     height, width = 800, 1088
+    if args.width > 0:
+        width = args.width
+    if args.height > 0:
+        height = args.height
     input_names = ["input_image"]
     dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
     output_names = []
