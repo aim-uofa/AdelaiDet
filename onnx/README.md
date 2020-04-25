@@ -18,27 +18,29 @@ On the other hand, as BN can be merged into the previous convolution layer,  BN 
 ```sh
 python demo/demo --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth
 ```
-2. BN + GPU: total execution time 257.4333s, average 0.0628s per image
-
+* BN + GPU: total execution time 257.4333s, average 0.0628s per image
+```sh
 python demo/demo.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.FCOS.NORM BN
-
-3. GN + CPU: total execution time 1125.4375s, average 1.0112s per image
-
+```
+* GN + CPU: total execution time 1125.4375s, average 1.0112s per image
+```sh
 python demo/demo.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.DEVICE cpu
-
-4. BN + CPU: total execution time 1068.0550s, average 0.9596s per image
-
+```
+* BN + CPU: total execution time 1068.0550s, average 0.9596s per image
+```sh
 python demo/demo.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.DEVICE cpu MODEL.FCOS.NORM BN
+```
 
 Tested on 2080ti. The result shows 5~10% slower for GN compared against BN.
 
 # Result compare between pytorch and NCNN
 
-1. pytorch version: run demo/demo.py
-2. ncnn version: refer: https://github.com/blueardour/ncnn/blob/master/examples/fcos.cpp
+* pytorch version: run demo/demo.py
+* ncnn version: refer: https://github.com/blueardour/ncnn/blob/master/examples/fcos.cpp
 
 Example: take coco/test2017/000000144041.jpg as the test image
 
+```
 #> cd AdelaiDet
 
 #> mkdir -p output/test/
@@ -57,5 +59,5 @@ Example: take coco/test2017/000000144041.jpg as the test image
 #> ln -s /data/pretrained/ncnn/fcos/FCOS_R_50_1x_bn_head-update-opt.param net.param  (refer pytorch-onnx-caffe-ncnn.sh to generate the file)
 
 #> ./fcos /workspace/git/uofa-AdelaiDet/output/test/input.jpg net.param net.bin 800 1088
-
+```
 
