@@ -1,15 +1,15 @@
 
 # Export to onnx/caffe/ncnn
 
-Refer all-in-one script: [pytorch-onnx-caffe-ncnn.sh](https://github.com/blueardour/uofa-AdelaiDet/blob/master/onnx/pytorch-onnx-caffe-ncnn.sh) (advise to employ BN in the FCOS head)
+Refer all-in-one script: [pytorch-onnx-caffe-ncnn.sh](https://github.com/blueardour/uofa-AdelaiDet/blob/master/onnx/pytorch-onnx-caffe-ncnn.sh) (BN instead of GN used in the FCOS head)
 
-note: to convert model to caffe and ncnn requires BN used in the FCOS head
+note: to convert model to caffe and ncnn requires BN in the FCOS head
 
 # Norm in FCOS Head
-The norm in FOCS head is GroupNorm(GN) by default. Unlike BN, GN caculates the mean and var of the features online. Thus, it costs extra time and memory.
-On the other sisde, as BN can be fused into previous convolution layer, we can regard BN having no cost in inference. The following instruction introduces a simple method to measure the impact of GN on speed.
+The normalization in FOCS head is GroupNorm (GN) by default as shown in the original paper. Unlike BN, GN caculates the mean and variance of features online. Thus, it costs extra time and memory.
+On the other hand, as BN can be merged into the previous convolution layer,  BN introduces no computation overhead during inference. The following instruction introduces a simple method to measure the impact of GN on speed.
 
-1. prepare certain amount of images (for example 1000) in folder output/test/input/
+1. prepare some images (for example 1000) in folder output/test/input/
 
 2. add time measurement code in demo/demo.py
 
@@ -29,7 +29,7 @@ python demo/demo.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input ou
 
 python demo/demo.py --config-file configs/FCOS-Detection/R_50_1x.yaml --input output/test/input/ --output output/test/output/  --opts MODEL.WEIGHTS weights/fcos_R_50_1x.pth MODEL.DEVICE cpu MODEL.FCOS.NORM BN
 
-Speedup test on 2080ti. The result shows 5~10% slow of GN compared with BN.
+Tested on 2080ti. The result shows 5~10% slower for GN compared against BN.
 
 # Result compare between pytorch and NCNN
 
