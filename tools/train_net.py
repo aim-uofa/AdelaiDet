@@ -38,7 +38,7 @@ from detectron2.evaluation import (
 from detectron2.modeling import GeneralizedRCNNWithTTA
 
 from adet.data.dataset_mapper import DatasetMapperWithBasis
-from adet.config import get_cfg, add_MEInst_config
+from adet.config import get_cfg
 from adet.checkpoint import AdetCheckpointer
 
 
@@ -194,7 +194,6 @@ def setup(args):
     Create configs and perform basic setups.
     """
     cfg = get_cfg()
-    add_MEInst_config(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
     cfg.freeze()
