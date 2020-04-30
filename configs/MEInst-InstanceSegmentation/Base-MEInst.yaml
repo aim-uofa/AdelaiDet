@@ -2,7 +2,7 @@ MODEL:
   MASK_ON: True
   META_ARCHITECTURE: "OneStageDetector"
   BACKBONE:
-    NAME: "build_MEInst_resnet_fpn_backbone"
+    NAME: "build_fcos_resnet_fpn_backbone"
   RESNETS:
     OUT_FEATURES: ["res3", "res4", "res5"]
   FPN:
@@ -20,3 +20,4 @@ SOLVER:
   MAX_ITER: 90000
 INPUT:
   MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+VERSION: 2
