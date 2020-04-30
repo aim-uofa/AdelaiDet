@@ -9,7 +9,7 @@ Rufeng Zhang, Zhi Tian, Chunhua Shen, Mingyu You, Youliang Yan
 ### COCO Instance Segmentation Baselines with [MEInst](https://arxiv.org/abs/2003.11712)
 
 Name | inf. time | box AP | mask AP | download
---- |:---:|:---:|:---|:---:
+--- |:---:|:---:|:---:|:---:
 [MEInst_R_50_1x_none](../configs/MEInst-InstanceSegmentation/MEInst_R_50_1x_none.yaml) | 13 FPS | 39.5 | 30.7 | [model]()
 [MEInst_R_50_1x](../configs/MEInst-InstanceSegmentation/MEInst_R_50_1x.yaml) | 12 FPS | 40.1 | 31.7 | [model]()
 [MEInst_R_50_3x](../../configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model]()
