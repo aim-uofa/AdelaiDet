@@ -35,7 +35,7 @@ Name | inf. time | box AP | download
 
 # Citing FCOS
 If you use FCOS in your research or wish to refer to the baseline results, please use the following BibTeX entries.
-```
+```BibTeX
 @inproceedings{tian2019fcos,
   title     =  {{FCOS}: Fully Convolutional One-Stage Object Detection},
   author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao and He, Tong},
