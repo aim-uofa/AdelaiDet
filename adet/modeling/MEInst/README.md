@@ -10,38 +10,38 @@ Rufeng Zhang, Zhi Tian, Chunhua Shen, Mingyu You, Youliang Yan
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-MEInst_R_50_1x_none | 13 FPS | 39.5 | 30.7 | [model]()
-MEInst_R_50_1x | 12 FPS | 40.1 | 31.7 | [model]()
-MEInst_R_50_3x | 12 FPS | 43.6 | 34.5 | [model]()
-MEInst_R_50_3x_512 | 19 FPS | 40.8 | 32.2 | [model]()
+[MEInst_R_50_1x_none](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_1x_none.yaml) | 13 FPS | 39.5 | 30.7 | [model]()
+[MEInst_R_50_1x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_1x.yaml) | 12 FPS | 40.1 | 31.7 | [model]()
+[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model]()
+[MEInst_R_50_3x_512](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x_512.yaml) | 19 FPS | 40.8 | 32.2 | [model]()
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
 ## Quick Start
 
 1. Download the [matrix]() file for mask encoding during training 
-2. Symlink the [matrix]() path to datasets/components/xxx.npz, e.g., 
+2. Symlink the matrix path to datasets/components/xxx.npz, e.g., 
    `coco/components/coco_2017_train_class_agnosticTrue_whitenTrue_sigmoidTrue_60.npz` 
 3. Follow [AdelaiDet](https://github.com/aim-uofa/AdelaiDet) for install, train and inference
 
 ### Step by step for Mask Encoding (Optional)
 
-We recommend to directly download the [matrix]() file and use it, as it can already handle most cases.
+  We recommend to directly download the [matrix]() file and use it, as it can already handle most cases.
 And we also provide tools to generate encoding matrix yourself.
 
 Example:
 
 * Extract mask from annotations
 
-`python adet/modeling/MEInst/pca/mask_generation.py`
+  `python adet/modeling/MEInst/pca/mask_generation.py`
 
 * Generate encoding matrix
 
-`python adet/modeling/MEInst/pca/pca_labels.py`
+  `python adet/modeling/MEInst/pca/pca_labels.py`
 
 * Evaluate the quality of reconstruction
 
-`python adet/modeling/MEInst/pca/pca_valid.py`
+  `python adet/modeling/MEInst/pca/pca_valid.py`
 
 ## <a name="CitingMEInst"></a>Citing MEInst
 
