@@ -20,7 +20,8 @@ MEInst_R_50_3x_512 | 19 FPS | 40.8 | 32.2 | [model]()
 ## Quick Start
 
 1. Download the [matrix]() file for mask encoding during training 
-2. Symlink the path to datasets/components, e.g., `coco/components` 
+2. Symlink the [matrix]() path to datasets/components/xxx.npz, e.g., 
+   `coco/components/coco_2017_train_class_agnosticTrue_whitenTrue_sigmoidTrue_60.npz` 
 3. Follow [AdelaiDet](https://github.com/aim-uofa/AdelaiDet) for install, train and inference
 
 ### Step by step for Mask Encoding (Optional)
