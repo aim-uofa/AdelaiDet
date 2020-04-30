@@ -19,7 +19,7 @@ MEInst_R_50_3x_512 | 19 FPS | 40.8 | 32.2 | [model]()
 
 ## Quick Start
 
-1. Download the matrix file for mask encoding during training [download]()  
+1. Download the [matrix]() file for mask encoding during training 
 2. Symlink the path to datasets/components, e.g., `coco/components` 
 3. Follow [AdelaiDet](https://github.com/aim-uofa/AdelaiDet) for install, train and inference
 
