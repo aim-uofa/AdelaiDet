@@ -7,6 +7,7 @@ To date, AdelaiDet implements the following algorithms:
 
 * [FCOS](https://arxiv.org/abs/1904.01355)
 * [BlendMask](https://arxiv.org/abs/2001.00309)
+* [MEInst](https://arxiv.org/abs/2003.11712)
 * [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
@@ -113,6 +114,13 @@ If you use this toolbox in your research or wish to refer to the baseline result
 @inproceedings{chen2020blendmask,
   title     =  {{BlendMask}: Top-Down Meets Bottom-Up for Instance Segmentation},
   author    =  {Chen, Hao and Sun, Kunyang and Tian, Zhi and Shen, Chunhua and Huang, Yongming and Yan, Youliang},
+  booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =  {2020}
+}
+
+@inproceedings{zhang2020MEInst,
+  title     =  {Mask Encoding for Single Shot Instance Segmentation},
+  author    =  {Zhang, Rufeng and Tian, Zhi and Shen, Chunhua and You, Mingyu and Yan, Youliang},
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =  {2020}
 }
