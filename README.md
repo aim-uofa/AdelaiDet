@@ -15,39 +15,18 @@ To date, AdelaiDet implements the following algorithms:
 
 
 ## Models
-
-All of our trained models are available in the [Model Zoo](MODEL_ZOO.md).
-
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
-
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
 [FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
-[FCOS_MS_R_50_2x](configs/FCOS-Detection/MS_R_50_2x.yaml) | 16 FPS | 41.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/reA6HVaGX47yKGV/download)
 [FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M3UOT6JcyHy2QW1/download)
 [FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/R7H00WeWKZG45pP/download)
-[FCOS_MS_X_101_64x4d_2x](configs/FCOS-Detection/MS_X_101_64x4d_2x.yaml) | 6.1 FPS | 44.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/XOLUCzqKYckNII7/download)
 [FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/TDsnYK8OXDTrafF/download)
-
-*Except for FCOS_R_50_1x, all other models are trained with multi-scale data augmentation.*
-
-#### FCOS Real-time Models
-
-Name | inf. time | box AP | download
---- |:---:|:---:|:---:
 [FCOS_RT_MS_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/4vc3XwQezyhNvnB/download)
-[FCOS_RT_MS_DLA_34_4x](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/zNPNyTkizaOOsUQ/download)
-[FCOS_RT_MS_R_50_4x](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/TlnlXUr6lNNSyoZ/download)
 
-If you prefer BN in FCOS heads, please try the following models.
+More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 
-Name | inf. time | box AP | download
---- |:---:|:---:|:---:
-[FCOS_RT_MS_DLA_34_4x_shtw_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers_bn_head.yaml) | 52 FPS | 38.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/rdmHHSs4oCg7l7U/download)
-[FCOS_RT_MS_DLA_34_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_bn_head.yaml) | 48 FPS | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/T5httPVo1VndbD4/download)
-[FCOS_RT_MS_R_50_4x_bn](configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml) | 40 FPS | 39.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/dHNUNs0YxVhZAmg/download)
-
-*Inference time is measured on a NVIDIA 1080Ti with batch size 1. Real-time models use shorter side 512 for inference.*
+Inference time is measured on a NVIDIA 1080Ti with batch size 1.
 
 ### COCO Instance Segmentation Baselines with [BlendMask](https://arxiv.org/abs/2001.00309)
 
@@ -73,6 +52,8 @@ git clone https://github.com/aim-uofa/AdelaiDet.git
 cd AdelaiDet
 python setup.py build develop
 ```
+
+Some projects may require special setup, please follow their own `README.md` in [configs](configs).
 
 ## Quick Start
 
@@ -115,7 +96,7 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 - The configs are made for 8-GPU training. To train on another number of GPUs, change the `--num-gpus`.
 - If you want to measure the inference time, please change `--num-gpus` to 1.
 - We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
-
+- This quick start is made for FCOS. If you are using other projects, please check the projects' own `README.md` in [configs](configs). 
 
 ## Citing AdelaiDet
 
