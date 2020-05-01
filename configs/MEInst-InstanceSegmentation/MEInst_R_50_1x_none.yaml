@@ -1,0 +1,15 @@
+_BASE_: "Base-MEInst.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  MEInst:
+    DIM_MASK: 60
+    MASK_SIZE: 28
+INPUT:
+  MIN_SIZE_TRAIN: (800,)
+SOLVER:
+  WARMUP_METHOD: "constant"
+  WARMUP_FACTOR: 0.3333
+  WARMUP_ITERS: 500
+OUTPUT_DIR: "output/MEInst/R_50_1x_none"
