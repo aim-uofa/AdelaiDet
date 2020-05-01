@@ -27,8 +27,6 @@ Name | inf. time | box AP | download
 
 More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 
-Inference time is measured on a NVIDIA 1080Ti with batch size 1.
-
 ### COCO Instance Segmentation Baselines with [BlendMask](https://arxiv.org/abs/2001.00309)
 
 Model | Name |inf. time | box AP | mask AP | download
@@ -46,6 +44,11 @@ Name | inf. time | box AP | mask AP | download
 [MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
 
 For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
+
+
+- Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
+
+- APs are evluated on COCO2017 val split unless specified.
 
 ## Installation
 
