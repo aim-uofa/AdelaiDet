@@ -5,9 +5,9 @@ All instance-level recognition works from our group are open-sourced here.
 
 To date, AdelaiDet implements the following algorithms:
 
-* [FCOS](https://arxiv.org/abs/1904.01355)
-* [BlendMask](https://arxiv.org/abs/2001.00309)
-* [MEInst](https://arxiv.org/abs/2003.11712)
+* [FCOS](configs/FCOS-Detection/README.md)
+* [BlendMask](configs/BlendMask/README.md)
+* [MEInst](configs/MEInst-InstanceSegmentation/README.md)
 * [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
