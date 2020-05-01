@@ -5,7 +5,7 @@
     In: Proc. Int. Conf. Computer Vision (ICCV), 2019.
     arXiv preprint arXiv:1904.01355 
 
-[[`arXiv`](https://arxiv.org/abs/1904.01355)] [[`BibTeX`](#citing-fcos)]
+[[`Paper`](https://arxiv.org/abs/1904.01355)] [[`BibTeX`](#citing-fcos)]
 
 # Installation & Quick Start
 No special setup needed. The [default instruction](../../README.md#Installation) is fine.
