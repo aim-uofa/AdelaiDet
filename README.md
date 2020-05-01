@@ -47,7 +47,7 @@ For more models and information, please refer to MEInst [README.md](configs/MEIn
 
 Note that:
 - Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
-- APs are evluated on COCO2017 val split unless specified.
+- APs are evaluated on COCO2017 val split unless specified.
 
 ## Installation
 
