@@ -45,6 +45,14 @@ Mask R-CNN | [R_101_3x](https://github.com/facebookresearch/detectron2/blob/mast
 BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11 FPS | 44.8 | 39.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/e4fXrliAcMtyEBy/download)
 BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10 FPS | 46.8 | 41.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/vbnKnQtaGlw8TKv/download)
 
+### COCO Instance Segmentation Baselines with [MEInst](https://arxiv.org/abs/2003.11712)
+
+Name | inf. time | box AP | mask AP | download
+--- |:---:|:---:|:---:|:---:
+[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
+
+For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
+
 ## Installation
 
 First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Then build AdelaiDet with:
