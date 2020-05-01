@@ -10,10 +10,10 @@ Rufeng Zhang, Zhi Tian, Chunhua Shen, Mingyu You, Youliang Yan
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[MEInst_R_50_1x_none](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_1x_none.yaml) | 13 FPS | 39.5 | 30.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/v49Av8jn9hDkSAT/download)
-[MEInst_R_50_1x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_1x.yaml) | 12 FPS | 40.1 | 31.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/MB7jJycGDvI7z0E/download)
-[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
-[MEInst_R_50_3x_512](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x_512.yaml) | 19 FPS | 40.8 | 32.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/T5pNmMbTr4wsyTd/download)
+[MEInst_R_50_1x_none](MEInst_R_50_1x_none.yaml) | 13 FPS | 39.5 | 30.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/v49Av8jn9hDkSAT/download)
+[MEInst_R_50_1x](MEInst_R_50_1x.yaml) | 12 FPS | 40.1 | 31.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/MB7jJycGDvI7z0E/download)
+[MEInst_R_50_3x](MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
+[MEInst_R_50_3x_512](MEInst_R_50_3x_512.yaml) | 19 FPS | 40.8 | 32.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/T5pNmMbTr4wsyTd/download)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1.*
 
