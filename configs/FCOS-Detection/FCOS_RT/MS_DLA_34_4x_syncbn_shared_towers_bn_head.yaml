@@ -22,7 +22,8 @@ MODEL:
     NUM_SHARE_CONVS: 4
     NUM_BOX_CONVS: 0
     NUM_CLS_CONVS: 0
+    NORM: "SyncBN"
 SOLVER:
   STEPS: (300000, 340000)
   MAX_ITER: 360000
-OUTPUT_DIR: "output/fcos/FCOS_RT_MS_DLA_34_4x_syncbn_shared_towers"
+OUTPUT_DIR: "output/fcos/FCOS_RT_MS_DLA_34_4x_syncbn_shared_towers_bn_head"

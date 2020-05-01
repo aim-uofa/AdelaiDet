@@ -1,0 +1,9 @@
+_BASE_: "Base-550.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+OUTPUT_DIR: "output/blendmask/550_R_50_3x"

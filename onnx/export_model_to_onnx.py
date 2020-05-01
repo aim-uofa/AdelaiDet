@@ -2,7 +2,8 @@
 A working example to export the R-50 based FCOS model:
 python onnx/export_model_to_onnx.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
-    MODEL.WEIGHTS weights/fcos_R_50_1x.pth
+    --output /data/pretrained/onnx/fcos/FCOS_R_50_1x_bn_head.onnx
+    --opts MODEL.WEIGHTS /data/pretrained/pytorch/fcos/FCOS_R_50_1x_bn_head.pth MODEL.FCOS.NORM "BN"
 
 """
 
@@ -14,16 +15,20 @@ import os
 import time
 import cv2
 import tqdm
+import types
+import torch
+from torch import nn
+from torch.nn import functional as F
+from copy import deepcopy
 
+# multiple versions of Adet/FCOS are installed, remove the conflict ones from the path
 try:
     from remove_python_path import remove_path
     remove_path()
 except:
-    pass
-    #import sys
-    #print(sys.path)
+    import sys
+    print(sys.path)
 
-import torch
 from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
 from detectron2.data import MetadataCatalog
@@ -75,9 +80,6 @@ def main():
     #cfg.MODEL.FCOS.NORM = "BN"
     #cfg.MODEL.FCOS.NORM = "NaiveGN"
 
-    # The onnx model can only be used with DATALOADER.NUM_WORKERS = 0
-    cfg.DATALOADER.NUM_WORKERS = 0
-
     cfg.freeze()
 
     output_dir = cfg.OUTPUT_DIR
@@ -91,6 +93,55 @@ def main():
 
     checkpointer = DetectionCheckpointer(model)
     _ = checkpointer.load(cfg.MODEL.WEIGHTS)
+    logger.info("load Model:\n{}".format(cfg.MODEL.WEIGHTS))
+
+    # patch fcos_head
+    # step 1. config
+    fcos_head = model.proposal_generator.fcos_head
+    norm = None if cfg.MODEL.FCOS.NORM == "none" else cfg.MODEL.FCOS.NORM
+    head_configs = {"cls": (cfg.MODEL.FCOS.NUM_CLS_CONVS,
+                            cfg.MODEL.FCOS.USE_DEFORMABLE),
+                    "bbox": (cfg.MODEL.FCOS.NUM_BOX_CONVS,
+                             cfg.MODEL.FCOS.USE_DEFORMABLE),
+                    "share": (cfg.MODEL.FCOS.NUM_SHARE_CONVS,
+                              False)}
+
+    # step 2. seperate module
+    for l in range(fcos_head.num_levels):
+        for head in head_configs:
+            tower = []
+            num_convs, use_deformable = head_configs[head]
+            for i in range(num_convs):
+                tower.append(deepcopy(getattr(fcos_head, '{}_tower'.format(head))[i*3 + 0]))
+                if norm in ["GN", "NaiveGN"]:
+                    tower.append(deepcopy(getattr(fcos_head, '{}_tower'.format(head))[i*3 + 1]))
+                elif norm in ["BN", "SyncBN"]:
+                    tower.append(deepcopy(getattr(fcos_head, '{}_tower'.format(head))[i*3 + 1][l]))
+                tower.append(deepcopy(getattr(fcos_head, '{}_tower'.format(head))[i*3 + 2]))
+            fcos_head.add_module('{}_tower{}'.format(head, l), torch.nn.Sequential(*tower))
+
+    # step 3. override forward
+    def fcos_head_forward(self, x):
+        logits = []
+        bbox_reg = []
+        ctrness = []
+        bbox_towers = []
+        for l, feature in enumerate(x):
+            feature = self.share_tower(feature)
+            cls_tower = getattr(self, 'cls_tower{}'.format(l))(feature)
+            bbox_tower = getattr(self, 'bbox_tower{}'.format(l))(feature)
+
+            logits.append(self.cls_logits(cls_tower))
+            ctrness.append(self.ctrness(bbox_tower))
+            reg = self.bbox_pred(bbox_tower)
+            if self.scales is not None:
+                reg = self.scales[l](reg)
+            # Note that we use relu, as in the improved FCOS, instead of exp.
+            bbox_reg.append(F.relu(reg))
+
+        return logits, bbox_reg, ctrness, bbox_towers
+
+    fcos_head.forward = types.MethodType(fcos_head_forward, fcos_head)
 
     proposal_generator = FCOS(cfg)
     onnx_model = torch.nn.Sequential(OrderedDict([
@@ -99,17 +150,14 @@ def main():
         ('heads', model.proposal_generator.fcos_head),
     ]))
 
-    height, width = 512, 640
+    height, width = 800, 1088
     input_names = ["input_image"]
     dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
     output_names = []
-    for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
-        fpn_name = "P{}/".format(3 + l)
-        output_names.extend([
-            fpn_name + "logits",
-            fpn_name + "bbox_reg",
-            fpn_name + "centerness"
-        ])
+    for item in ["logits", "bbox_reg", "centerness"]:
+        for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
+            fpn_name = "P{}".format(3 + l)
+            output_names.extend([fpn_name + item])
 
     torch.onnx.export(
         onnx_model,

@@ -102,7 +102,6 @@ _C.MODEL.BASIS_MODULE.COMMON_STRIDE = 8
 _C.MODEL.BASIS_MODULE.NUM_CLASSES = 80
 _C.MODEL.BASIS_MODULE.LOSS_WEIGHT = 0.3
 
-
 # ---------------------------------------------------------------------------- #
 # MEInst Head
 # ---------------------------------------------------------------------------- #
@@ -144,7 +143,6 @@ _C.MODEL.MEInst.NUM_SHARE_CONVS = 0
 _C.MODEL.MEInst.CENTER_SAMPLE = True
 _C.MODEL.MEInst.POS_RADIUS = 1.5
 _C.MODEL.MEInst.LOC_LOSS_TYPE = 'giou'
-
 
 # ---------------------------------------------------------------------------- #
 # Mask Encoding

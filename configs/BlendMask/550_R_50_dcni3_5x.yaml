@@ -1,0 +1,18 @@
+_BASE_: "Base-550.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+    DEFORM_ON_PER_STAGE: [False, True, True, True]
+    DEFORM_MODULATED: True
+    DEFORM_INTERVAL: 3
+INPUT:
+  MIN_SIZE_TRAIN: (440, 594)
+  MIN_SIZE_TRAIN_SAMPLING: "range"
+  MAX_SIZE_TRAIN: 990
+  CROP:
+    ENABLED: True
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+OUTPUT_DIR: "output/blendmask/550_R_50_dcni3_5x"
