@@ -296,6 +296,7 @@ class FCOSOutputs(object):
 
             reg_targets_per_im = reg_targets_per_im[range(len(locations)), locations_to_gt_inds]
             target_inds_per_im = locations_to_gt_inds + num_targets
+            num_targets += len(targets_per_im)
 
             labels_per_im = labels_per_im[locations_to_gt_inds]
             labels_per_im[locations_to_min_area == INF] = self.num_classes
