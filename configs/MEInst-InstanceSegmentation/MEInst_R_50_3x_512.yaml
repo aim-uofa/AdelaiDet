@@ -1,0 +1,18 @@
+_BASE_: "Base-MEInst.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  MEInst:
+    DIM_MASK: 60
+    MASK_SIZE: 28
+    USE_DEFORMABLE: True
+    LAST_DEFORMABLE: True
+    TYPE_DEFORMABLE: "DCNv1"
+INPUT:
+  MIN_SIZE_TRAIN: (384, 416, 448, 480, 512, 544)
+  MIN_SIZE_TEST: 512
+SOLVER:
+  STEPS: (180000, 240000)
+  MAX_ITER: 270000
+OUTPUT_DIR: "output/MEInst/R_50_3x_512"

@@ -101,3 +101,82 @@ _C.MODEL.BASIS_MODULE.NUM_CONVS = 3
 _C.MODEL.BASIS_MODULE.COMMON_STRIDE = 8
 _C.MODEL.BASIS_MODULE.NUM_CLASSES = 80
 _C.MODEL.BASIS_MODULE.LOSS_WEIGHT = 0.3
+
+# ---------------------------------------------------------------------------- #
+# MEInst Head
+# ---------------------------------------------------------------------------- #
+_C.MODEL.MEInst = CN()
+
+# This is the number of foreground classes.
+_C.MODEL.MEInst.NUM_CLASSES = 80
+_C.MODEL.MEInst.IN_FEATURES = ["p3", "p4", "p5", "p6", "p7"]
+_C.MODEL.MEInst.FPN_STRIDES = [8, 16, 32, 64, 128]
+_C.MODEL.MEInst.PRIOR_PROB = 0.01
+_C.MODEL.MEInst.INFERENCE_TH_TRAIN = 0.05
+_C.MODEL.MEInst.INFERENCE_TH_TEST = 0.05
+_C.MODEL.MEInst.NMS_TH = 0.6
+_C.MODEL.MEInst.PRE_NMS_TOPK_TRAIN = 1000
+_C.MODEL.MEInst.PRE_NMS_TOPK_TEST = 1000
+_C.MODEL.MEInst.POST_NMS_TOPK_TRAIN = 100
+_C.MODEL.MEInst.POST_NMS_TOPK_TEST = 100
+_C.MODEL.MEInst.TOP_LEVELS = 2
+_C.MODEL.MEInst.NORM = "GN"  # Support GN or none
+_C.MODEL.MEInst.USE_SCALE = True
+
+# Multiply centerness before threshold
+# This will affect the final performance by about 0.05 AP but save some time
+_C.MODEL.MEInst.THRESH_WITH_CTR = False
+
+# Focal loss parameters
+_C.MODEL.MEInst.LOSS_ALPHA = 0.25
+_C.MODEL.MEInst.LOSS_GAMMA = 2.0
+_C.MODEL.MEInst.SIZES_OF_INTEREST = [64, 128, 256, 512]
+_C.MODEL.MEInst.USE_RELU = True
+_C.MODEL.MEInst.USE_DEFORMABLE = False
+_C.MODEL.MEInst.LAST_DEFORMABLE = False
+_C.MODEL.MEInst.TYPE_DEFORMABLE = "DCNv1"  # or DCNv2.
+
+# the number of convolutions used in the cls and bbox tower
+_C.MODEL.MEInst.NUM_CLS_CONVS = 4
+_C.MODEL.MEInst.NUM_BOX_CONVS = 4
+_C.MODEL.MEInst.NUM_SHARE_CONVS = 0
+_C.MODEL.MEInst.CENTER_SAMPLE = True
+_C.MODEL.MEInst.POS_RADIUS = 1.5
+_C.MODEL.MEInst.LOC_LOSS_TYPE = 'giou'
+
+# ---------------------------------------------------------------------------- #
+# Mask Encoding
+# ---------------------------------------------------------------------------- #
+# Whether to use mask branch.
+_C.MODEL.MEInst.MASK_ON = True
+# IOU overlap ratios [IOU_THRESHOLD]
+# Overlap threshold for an RoI to be considered background (if < IOU_THRESHOLD)
+# Overlap threshold for an RoI to be considered foreground (if >= IOU_THRESHOLD)
+_C.MODEL.MEInst.IOU_THRESHOLDS = [0.5]
+_C.MODEL.MEInst.IOU_LABELS = [0, 1]
+# Whether to use class_agnostic or class_specific.
+_C.MODEL.MEInst.AGNOSTIC = True
+# Some operations in mask encoding.
+_C.MODEL.MEInst.WHITEN = True
+_C.MODEL.MEInst.SIGMOID = True
+
+# The number of convolutions used in the mask tower.
+_C.MODEL.MEInst.NUM_MASK_CONVS = 4
+
+# The dim of mask before/after mask encoding.
+_C.MODEL.MEInst.DIM_MASK = 60
+_C.MODEL.MEInst.MASK_SIZE = 28
+# The default path for parameters of mask encoding.
+_C.MODEL.MEInst.PATH_COMPONENTS = "datasets/coco/components/" \
+                                   "coco_2017_train_class_agnosticTrue_whitenTrue_sigmoidTrue_60.npz"
+# An indicator for encoding parameters loading during training.
+_C.MODEL.MEInst.FLAG_PARAMETERS = False
+# The loss for mask branch, can be mse now.
+_C.MODEL.MEInst.MASK_LOSS_TYPE = "mse"
+
+# Whether to use gcn in mask prediction.
+# Large Kernel Matters -- https://arxiv.org/abs/1703.02719
+_C.MODEL.MEInst.USE_GCN_IN_MASK = False
+_C.MODEL.MEInst.GCN_KERNEL_SIZE = 9
+# Whether to compute loss on original mask (binary mask).
+_C.MODEL.MEInst.LOSS_ON_MASK = False

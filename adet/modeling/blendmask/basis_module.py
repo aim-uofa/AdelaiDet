@@ -97,7 +97,7 @@ class ProtoNet(nn.Module):
             gt_sem = F.interpolate(
                 gt_sem, scale_factor=1 / self.common_stride)
             seg_loss = F.cross_entropy(
-                sem_out, gt_sem.squeeze().long())
+                sem_out, gt_sem.squeeze(1).long())
             losses['loss_basis_sem'] = seg_loss * self.sem_loss_weight
         elif self.visualize and hasattr(self, "seg_head"):
             outputs["seg_thing_out"] = self.seg_head(features[self.in_features[0]])
