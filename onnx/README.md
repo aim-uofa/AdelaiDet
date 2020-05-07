@@ -1,7 +1,17 @@
 
+# update history
+
+2020.05.07:
+
+1. add onnxruntime verification demo
+
+2. add RT model all-in-one script
+
 # Export to onnx/caffe/ncnn
 
 Refer all-in-one script: [pytorch-onnx-caffe-ncnn.sh](https://github.com/blueardour/uofa-AdelaiDet/blob/master/onnx/pytorch-onnx-caffe-ncnn.sh) (BN instead of GN used in the FCOS head)
+
+Refer another all-in-one script: [pytorch-onnx-caffe-ncnn-rt.sh] for the RT model alone with onnxruntime verification demo
 
 note: to convert model to *Caffe* and *NCNN* requires BN in the FCOS head
 

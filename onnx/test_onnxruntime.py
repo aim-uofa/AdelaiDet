@@ -1,6 +1,7 @@
+
 """
 A working example to export the R-50 based FCOS model:
-python onnx/export_model_to_onnx.py \
+python onnx/test_onnxruntime.py \
     --config-file configs/FCOS-Detection/R_50_1x.yaml \
     --output /data/pretrained/onnx/fcos/FCOS_R_50_1x_bn_head.onnx
     --opts MODEL.WEIGHTS /data/pretrained/pytorch/fcos/FCOS_R_50_1x_bn_head.pth MODEL.FCOS.NORM "BN"
@@ -17,9 +18,11 @@ import cv2
 import tqdm
 import types
 import torch
+from copy import deepcopy
 from torch import nn
 from torch.nn import functional as F
-from copy import deepcopy
+import numpy as np
+import onnxruntime as rt
 
 # multiple versions of Adet/FCOS are installed, remove the conflict ones from the path
 try:
@@ -166,18 +169,34 @@ def main():
             fpn_name = "P{}".format(3 + l)
             output_names.extend([fpn_name + item])
 
-    torch.onnx.export(
-        onnx_model,
-        dummy_input,
-        args.output,
-        verbose=True,
-        input_names=input_names,
-        output_names=output_names,
-        keep_initializers_as_inputs=True
-    )
+    logger.info("Load onnx model from {}.".format(args.output))
+    sess = rt.InferenceSession(args.output)
+    
+    for in_blob in sess.get_inputs():
+        if in_blob.name not in input_names:
+            print("Input blob name not match that in the mode")
+        else:
+            print("Input {}, shape {} and type {}".format(in_blob.name, in_blob.shape, in_blob.type))
+    for out_blob in sess.get_outputs():
+        if out_blob.name not in output_names:
+            print("Output blob name not match that in the mode")
+        else:
+            print("Output {}, shape {} and type {}".format(out_blob.name, out_blob.shape, out_blob.type))
 
-    logger.info("Done. The onnx model is saved into {}.".format(args.output))
+    with torch.no_grad():
+        torch_output = onnx_model(dummy_input)
+        logits, bbox_reg, ctrness, bbox_towers = torch_output
+        lists = logits + bbox_reg + ctrness + bbox_towers
 
+    onnx_output = sess.run(None, {input_names[0]: dummy_input.cpu().numpy()})
+    for i, out in enumerate(onnx_output):
+        try:
+            np.testing.assert_allclose(lists[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
+        except AssertionError as e:
+            print("ouput {} mismatch {}".format(output_names[i], e))
+            continue
+        print("ouput {} match".format(output_names[i]))
 
 if __name__ == "__main__":
     main()
+
