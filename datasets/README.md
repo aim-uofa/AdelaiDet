@@ -38,8 +38,8 @@ To evaluate on Total Text and CTW1500, first download the zipped annotations wit
 ```
 mkdir evaluation
 cd evaluation
-wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/uoeFl0pCN9BOCN5
-wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/pEMs0KjCocL2nvV
+wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/uoeFl0pCN9BOCN5/download
+wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/pEMs0KjCocL2nvV/download
 ```
 
 ## Person In Context instance detection

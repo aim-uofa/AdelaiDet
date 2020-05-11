@@ -29,7 +29,7 @@ Name | inf. time | e2e-hmean | det-hmean | download
 ```
 wget -O ctw1500_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/AexPQx2gB7CrCnQ/download
 python demo/demo.py \
-    --config-file configs/BAText/CTW1500/attn_R_50_1x.yaml \
+    --config-file configs/BAText/CTW1500/attn_R_50.yaml \
     --input input.jpg \
     --opts MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
@@ -52,7 +52,7 @@ Finetuning on Total Text:
 
 ```
 OMP_NUM_THREADS=1 python tools/train_net.py \
-    --config-file configs/BAText/TotalText/attn_R_50_1x.yaml \
+    --config-file configs/BAText/TotalText/attn_R_50.yaml \
     --num-gpus 4 \
     MODEL.WEIGHTS text_pretraining/attn_R_50/model_final.pth
 ```
@@ -61,9 +61,9 @@ Finetuning on CTW 1500:
 
 ```
 OMP_NUM_THREADS=1 python tools/train_net.py \
-    --config-file configs/BAText/CTW1500/attn_R_50_1x.yaml \
+    --config-file configs/BAText/CTW1500/attn_R_50.yaml \
     --num-gpus 4 \
-    MODEL.WEIGHTS training_dir/attn/model_final.pth
+    MODEL.WEIGHTS text_pretraining/attn_R_50/model_final.pth
 ```
 
 # Cite

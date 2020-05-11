@@ -1,4 +1,4 @@
-_BASE_: "Base-TotalText.yaml"
+_BASE_: "Base-CTW1500.yaml"
 MODEL:
   WEIGHTS: "attn_pretrain.pth"
   RESNETS:
@@ -8,9 +8,9 @@ MODEL:
 SOLVER:
   IMS_PER_BATCH: 8
   BASE_LR: 0.0005
-  STEPS: (80000, 120000)
+  STEPS: (80000,120000)
   MAX_ITER: 150000
   CHECKPOINT_PERIOD: 10000
 TEST:
   EVAL_PERIOD: 10000
-OUTPUT_DIR: "output/batext/totaltext/attn_R_50_1x"
+OUTPUT_DIR: "output/batext/ctw/attn_R_50"
