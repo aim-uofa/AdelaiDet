@@ -5,12 +5,12 @@
 ### CTW15000 results with ABCNet.
 
 Name | inf. time | e2e-hmean | det-hmean | download
---- |:---:|:---:|:---:|:---:|:---:
+--- |:---:|:---:|:---:|:---:
 [attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 8.7 FPS | 45.2 | 81.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/AexPQx2gB7CrCnQ/download)
 
 * Best E2E result is achieved with threshold 0.6 and Det with 0.5.
 
-### Total_Text results with ABCNet.
+### Total Text results with ABCNet.
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
