@@ -1,0 +1,16 @@
+_BASE_: "Base-SynText.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  BATEXT:
+    RECOGNIZER: "attn" 
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.0005
+  STEPS: (200000, 240000)
+  MAX_ITER: 260000
+  CHECKPOINT_PERIOD: 20000
+TEST:
+  EVAL_PERIOD: 20000
+OUTPUT_DIR: "output/batext/pretrain/attn_R_50"
