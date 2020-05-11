@@ -9,6 +9,13 @@ from detectron2.data.detection_utils import SizeMismatchError
 from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
 
+from .detection_utils import (
+    build_transform_gen,
+    transform_instance_annotations,
+    annotations_to_instances,
+    gen_crop_transform_with_instance,
+)
+
 """
 This file contains the default mapping that's applied to "dataset dicts".
 """
@@ -24,9 +31,13 @@ class DatasetMapperWithBasis(DatasetMapper):
     def __init__(self, cfg, is_train=True):
         super().__init__(cfg, is_train)
 
+        # rebuild transform gen
+        self.tfm_gens = build_transform_gen(cfg, is_train)
+
         # fmt: off
         self.basis_loss_on  = cfg.MODEL.BASIS_MODULE.LOSS_ON
         self.ann_set        = cfg.MODEL.BASIS_MODULE.ANN_SET
+        self.crop_box       = cfg.INPUT.CROP.CROP_INSTANCE
         # fmt: on
 
     def __call__(self, dataset_dict):
@@ -64,10 +75,11 @@ class DatasetMapperWithBasis(DatasetMapper):
             # Crop around an instance if there are instances in the image.
             # USER: Remove if you don't use cropping
             if self.crop_gen:
-                crop_tfm = utils.gen_crop_transform_with_instance(
+                crop_tfm = gen_crop_transform_with_instance(
                     self.crop_gen.get_crop_size(image.shape[:2]),
                     image.shape[:2],
-                    np.random.choice(dataset_dict["annotations"]),
+                    dataset_dict["annotations"],
+                    crop_box=self.crop_box,
                 )
                 image = crop_tfm.apply_image(image)
             image, transforms = T.apply_transform_gens(self.tfm_gens, image)
@@ -104,13 +116,13 @@ class DatasetMapperWithBasis(DatasetMapper):
 
             # USER: Implement additional transformations if you have other types of data
             annos = [
-                utils.transform_instance_annotations(
+                transform_instance_annotations(
                     obj, transforms, image_shape, keypoint_hflip_indices=self.keypoint_hflip_indices
                 )
                 for obj in dataset_dict.pop("annotations")
                 if obj.get("iscrowd", 0) == 0
             ]
-            instances = utils.annotations_to_instances(
+            instances = annotations_to_instances(
                 annos, image_shape, mask_format=self.mask_format
             )
             # Create a tight bounding box from masks, useful when image is cropped
