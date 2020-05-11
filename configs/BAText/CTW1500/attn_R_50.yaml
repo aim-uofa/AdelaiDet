@@ -1,6 +1,8 @@
 _BASE_: "Base-CTW1500.yaml"
 MODEL:
   WEIGHTS: "attn_pretrain.pth"
+  FCOS:
+    INFERENCE_TH_TEST: 0.6
   RESNETS:
     DEPTH: 50
   BATEXT:
@@ -13,4 +15,4 @@ SOLVER:
   CHECKPOINT_PERIOD: 10000
 TEST:
   EVAL_PERIOD: 10000
-OUTPUT_DIR: "output/batext/ctw/attn_R_50"
+OUTPUT_DIR: "output/batext/ctw1500/attn_R_50"

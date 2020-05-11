@@ -90,7 +90,6 @@ _C.MODEL.BATEXT.NUM_CONV = 2
 _C.MODEL.BATEXT.RECOGNITION_LOSS = "ctc"
 _C.MODEL.BATEXT.RECOGNIZER = "attn"
 _C.MODEL.BATEXT.CANONICAL_SIZE = 96  # largest min_size for level 3 (stride=8)
-_C.MODEL.BATEXT.TEST_CONFIDENCE_THRESHOLD = 0.7 # [0.0 - 1.0]
 
 # ---------------------------------------------------------------------------- #
 # BlendMask Options

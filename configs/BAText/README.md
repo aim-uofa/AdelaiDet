@@ -8,15 +8,15 @@ Name | inf. time | e2e-hmean | det-hmean | download
 --- |:---:|:---:|:---:|:---:
 [attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 8.7 FPS | 45.2 | 81.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/AexPQx2gB7CrCnQ/download)
 
-* Best E2E result is achieved with threshold 0.6 and Det with 0.5.
+* E2E result is achieved with threshold 0.6 and Det with 0.5.
 
 ### Total Text results with ABCNet.
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 62.7 | 82.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/nyyNRdP7VBYqfgl/download)
+[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 63.0 | 82.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/nyyNRdP7VBYqfgl/download)
 
-* Best E2E result is achieved with threshold 0.6 and Det with 0.55.
+* E2E result is achieved with threshold 0.6 and Det with 0.55.
 
 
 ## Quick Start 

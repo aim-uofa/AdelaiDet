@@ -53,7 +53,7 @@ class TextEvaluator(DatasetEvaluator):
         elif "ctw1500" in dataset_name:
             self._text_eval_gt_path = "datasets/evaluation/gt_ctw1500.zip"
             self._word_spotting = False
-        self._text_eval_confidence = cfg.MODEL.BATEXT.TEST_CONFIDENCE_THRESHOLD
+        self._text_eval_confidence = cfg.MODEL.FCOS.INFERENCE_TH_TEST
 
     def reset(self):
         self._predictions = []
