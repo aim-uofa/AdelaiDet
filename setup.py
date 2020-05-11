@@ -79,8 +79,11 @@ setup(
         "matplotlib",
         "tqdm>4.29.0",
         "tensorboard",
+        "python-Levenshtein",
+        "Polygon3",
+        "shapely",
     ],
-    extras_require={"all": ["shapely", "psutil"]},
+    extras_require={"all": ["psutil"]},
     ext_modules=get_extensions(),
     cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
 )
