@@ -1,4 +1,4 @@
-## AdelaiDet instance detection
+## BlendMask instance detection
 
 ```
 coco/
