@@ -28,7 +28,7 @@ To train a model with "train_net.py", first
 setup the corresponding datasets following
 [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md),
 
-Then follow [these steps](https://github.com/aim-uofa/AdelaiDet/tree/master/datasets#expected-dataset-structure-for-adelaidet-instance-detection) to generate blendmask format annotations for instance segmentation.
+Then follow [these steps](https://github.com/aim-uofa/AdelaiDet/blob/master/datasets/README.md#blendmask-instance-detection) to generate blendmask format annotations for instance segmentation.
 
 then run:
 
