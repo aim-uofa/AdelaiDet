@@ -3,6 +3,7 @@ import numpy as np
 import torch
 from fvcore.common.file_io import PathManager
 from PIL import Image
+import logging
 
 from detectron2.data.dataset_mapper import DatasetMapper
 from detectron2.data.detection_utils import SizeMismatchError
@@ -22,6 +23,8 @@ This file contains the default mapping that's applied to "dataset dicts".
 
 __all__ = ["DatasetMapperWithBasis"]
 
+logger = logging.getLogger(__name__)
+
 
 class DatasetMapperWithBasis(DatasetMapper):
     """
@@ -31,7 +34,8 @@ class DatasetMapperWithBasis(DatasetMapper):
     def __init__(self, cfg, is_train=True):
         super().__init__(cfg, is_train)
 
-        # rebuild transform gen
+        # Rebuild transform gen
+        logger.info("Rebuilding the transform generators. The previous generators will be overridden.")
         self.tfm_gens = build_transform_gen(cfg, is_train)
 
         # fmt: off
