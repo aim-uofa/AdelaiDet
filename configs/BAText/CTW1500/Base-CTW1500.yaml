@@ -7,6 +7,5 @@ DATASETS:
   TRAIN: ("ctw1500_word_train",)
   TEST: ("ctw1500_word_test",)
 INPUT:
-  HFLIP: False
   MIN_SIZE_TEST: 800
   MAX_SIZE_TEST: 1024
