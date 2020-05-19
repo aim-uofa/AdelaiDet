@@ -70,7 +70,8 @@ def create_coco_semantic_from_instance(instance_json, sem_seg_root, categories):
             anns_ids = coco_detection.getAnnIds(img_id)
             anns = coco_detection.loadAnns(anns_ids)
             img = coco_detection.loadImgs(int(img_id))[0]
-            output = os.path.join(sem_seg_root, img["file_name"].replace('jpg', 'npz'))
+            file_name = os.path.splitext(img["file_name"])[0]
+            output = os.path.join(sem_seg_root, file_name + '.npz')
             yield anns, output, img
 
     # single process

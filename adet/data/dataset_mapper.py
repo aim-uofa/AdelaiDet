@@ -1,5 +1,6 @@
 import copy
 import numpy as np
+import os.path as osp
 import torch
 from fvcore.common.file_io import PathManager
 from PIL import Image
@@ -86,7 +87,11 @@ class DatasetMapperWithBasis(DatasetMapper):
                     crop_box=self.crop_box,
                 )
                 image = crop_tfm.apply_image(image)
-            image, transforms = T.apply_transform_gens(self.tfm_gens, image)
+            try:
+                image, transforms = T.apply_transform_gens(self.tfm_gens, image)
+            except ValueError as e:
+                print(dataset_dict["file_name"])
+                raise e
             if self.crop_gen:
                 transforms = crop_tfm + transforms
 
@@ -148,8 +153,9 @@ class DatasetMapperWithBasis(DatasetMapper):
             if self.ann_set == "coco":
                 basis_sem_path = dataset_dict["file_name"].replace('train2017', 'thing_train2017').replace('image/train', 'thing_train')
             else:
-                basis_sem_path = dataset_dict["file_name"].replace('coco', 'lvis').replace('train2017', 'thing_train').replace('jpg', 'npz')
-            basis_sem_path = basis_sem_path.replace('jpg', 'npz')
+                basis_sem_path = dataset_dict["file_name"].replace('coco', 'lvis').replace('train2017', 'thing_train')
+            # change extension to npz
+            basis_sem_path = osp.splitext(basis_sem_path)[0] + ".npz"
             basis_sem_gt = np.load(basis_sem_path)["mask"]
             basis_sem_gt = transforms.apply_segmentation(basis_sem_gt)
             basis_sem_gt = torch.as_tensor(basis_sem_gt.astype("long"))
