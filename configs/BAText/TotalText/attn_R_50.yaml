@@ -1,8 +1,6 @@
 _BASE_: "Base-TotalText.yaml"
 MODEL:
   WEIGHTS: "attn_pretrain.pth"
-  FCOS:
-    INFERENCE_TH_TEST: 0.6
   RESNETS:
     DEPTH: 50
   BATEXT:
