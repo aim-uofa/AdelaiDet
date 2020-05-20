@@ -69,7 +69,7 @@ Model | Name | inf. time | box AP | mask AP | download
 Mask R-CNN | [550_R_50_3x](configs/RCNN/550_R_50_FPN_3x.yaml) | 16 FPS | 39.1 | 35.3 |
 BlendMask | [550_R_50_3x](configs/BlendMask/550_R_50_3x.yaml) | 28 FPS | 38.7 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/R3Qintf7N8UCiIt/download)
 BlendMask | [RT_R_50_4x](configs/BlendMask/RT_R_50_4x.yaml) | 30 FPS | 40.1 | 34.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/fmmciLkyaOoY1Tc/download)
-BlendMask | [DLA_34_4x](configs/BlendMask/DLA_34_syncbn_4x.yaml) | 32 FPS | 40.9 | 35.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/Lx94rWNnZ8TRd2Y/download)
+BlendMask | [DLA_34_4x](configs/BlendMask/DLA_34_syncbn_4x.yaml) | 32 FPS | 40.8 | 36.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/JO2xPUGMSbUkKFZ/download)
 
 # Citing BlendMask
 If you use BlendMask in your research or wish to refer to the baseline results, please use the following BibTeX entries.
