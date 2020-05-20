@@ -1,4 +1,4 @@
-_BASE_: "Base-SynText.yaml"
+_BASE_: "Base-Pretrain.yaml"
 MODEL:
   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
   RESNETS:
@@ -7,8 +7,8 @@ MODEL:
     RECOGNIZER: "attn" 
 SOLVER:
   IMS_PER_BATCH: 8
-  BASE_LR: 0.0005
-  STEPS: (200000, 240000)
+  BASE_LR: 0.01
+  STEPS: (160000, 220000)
   MAX_ITER: 260000
   CHECKPOINT_PERIOD: 20000
 TEST:

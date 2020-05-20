@@ -45,7 +45,7 @@ def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=
         while modified:
             modified, x0, y0, crop_size = adjust_crop(x0, y0, crop_size, instances)
 
-    return T.CropTransform(x0, y0, crop_size[1], crop_size[0])
+    return T.CropTransform(*map(int, (x0, y0, crop_size[1], crop_size[0])))
 
 
 def adjust_crop(x0, y0, crop_size, instances):
