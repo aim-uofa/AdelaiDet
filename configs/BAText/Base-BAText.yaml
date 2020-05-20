@@ -16,6 +16,7 @@ MODEL:
     THRESH_WITH_CTR: False
     USE_SCALE: False
     NUM_CLASSES: 1
+    INFERENCE_TH_TEST: 0.6
   ROI_HEADS:
     NAME: "TextHead"
     IOU_THRESHOLDS: [0.5]
