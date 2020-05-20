@@ -29,6 +29,7 @@ text/
     train_images/
     test_images/
   mlt2017/
+    annotations/train.json
     images/
     ...
   syntext1/
