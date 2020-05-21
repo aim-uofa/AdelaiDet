@@ -21,9 +21,9 @@ _PREDEFINED_SPLITS_TEXT = {
     "totaltext_val": ("totaltext/test_images", "totaltext/test.json"),
     "ctw1500_word_train": ("CTW1500/ctwtrain_text_image", "CTW1500/annotations/train_ctw1500_maxlen100_v2.json"),
     "ctw1500_word_test": ("CTW1500/ctwtest_text_image","CTW1500/annotations/test_ctw1500_maxlen100.json"),
-    "syntext1_train": ("syntext1/syntext_word_eng", "syntext1/annotations/becan_syn_word_maxlen25.json"),
-    "syntext2_train": ("syntext2/emcs_imgs", "syntext2/annotations/ecms_v1_maxlen25.json"),
-    "mltbezier_word_train": ("extract/MLT_train_images","extract/annotations/train.json"),
+    "syntext1_train": ("syntext1/images", "syntext1/annotations/train.json"),
+    "syntext2_train": ("syntext2/images", "syntext2/annotations/train.json"),
+    "mltbezier_word_train": ("mlt2017/images","mlt2017/annotations/train.json"),
 }
 
 metadata_text = {
