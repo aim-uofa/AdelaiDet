@@ -4,9 +4,6 @@ MODEL:
     NAME: "build_fcos_resnet_fpn_backbone"
   RESNETS:
     OUT_FEATURES: ["res2", "res3", "res4", "res5"]
-  RPN:
-    POSITIVE_FRACTION: 0.2
-    NMS_THRESH: 0.7
   FPN:
     IN_FEATURES: ["res2", "res3", "res4", "res5"]
   PROPOSAL_GENERATOR:
