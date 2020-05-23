@@ -1,6 +1,6 @@
 _BASE_: "Base-CTW1500.yaml"
 MODEL:
-  WEIGHTS: "attn_pretrain.pth"
+  WEIGHTS: "weights/batext/pretrain_attn_R_50.pth"
   RESNETS:
     DEPTH: 50
   BATEXT:
