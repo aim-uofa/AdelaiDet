@@ -3,6 +3,8 @@ MODEL:
   BATEXT:
     POOLER_RESOLUTION: (8,128)
     NUM_CHARS: 100
+  FCOS:
+    INFERENCE_TH_TEST: 0.45
 DATASETS:
   TRAIN: ("ctw1500_word_train",)
   TEST: ("ctw1500_word_test",)
