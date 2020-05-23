@@ -49,7 +49,7 @@ For more models and information, please refer to MEInst [README.md](configs/MEIn
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 63.0 | 82.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/nyyNRdP7VBYqfgl/download)
+[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
