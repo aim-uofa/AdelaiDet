@@ -70,6 +70,15 @@ Mask R-CNN | [550_R_50_3x](../RCNN/550_R_50_FPN_3x.yaml) | 16 FPS | 39.1 | 35.3 
 BlendMask | [550_R_50_3x](550_R_50_3x.yaml) | 28 FPS | 38.7 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/R3Qintf7N8UCiIt/download)
 BlendMask | [DLA_34_4x](DLA_34_syncbn_4x.yaml) | 32 FPS | 40.8 | 36.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/JO2xPUGMSbUkKFZ/download)
 
+### COCO Panoptic Segmentation Baselines with BlendMask
+Model | Name | PQ | PQ<sup>Th</sup> | PQ<sup>St</sup> | download
+--- |:---:|:---:|:---:|:---:|:---:
+Panoptic FPN | [R_50_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-PanopticSegmentation/panoptic_fpn_R_50_3x.yaml) | 41.5 | 48.3 | 31.2 | 
+BlendMask | [R_50_3x](Panoptic/R_50_3x.yaml) | 42.5 | 49.5 | 32.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/oDgi0826JOJXCr5/download)
+Panoptic FPN | [R_101_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/panoptic_fpn_R_101_3x.yaml) | 43.0 | 49.7 | 32.9 |
+BlendMask | [R_101_3x](Panoptic/R_101_3x.yaml) | 44.3 | 51.6 | 33.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/u6gZwj06MWDEkYe/download)
+BlendMask | [R_101_dcni3_5x](Panoptic/R_101_dcni3_5x.yaml) | 46.0 | 52.9 | 35.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/Jwp41WEzDdrhWsN/download)
+
 # Citing BlendMask
 If you use BlendMask in your research or wish to refer to the baseline results, please use the following BibTeX entries.
 ```BibTeX
