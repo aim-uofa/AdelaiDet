@@ -28,7 +28,7 @@ paper reported|17.9 FPS|64.2||
 wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
 python demo/demo.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
-    --input input.jpg \
+    --input datasets/CTW1500/ctwtest_text_image/ \
     --opts MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
 or
@@ -36,7 +36,7 @@ or
 wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
 python demo/demo.py \
     --config-file configs/BAText/TotalText/attn_R_50.yaml \
-    --input input.jpg \
+    --input datasets/totaltext/test_images/ \
     --opts MODEL.WEIGHTS tt_attn_R_50.pth
 ```
 ### Train Your Own Models
