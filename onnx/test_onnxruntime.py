@@ -8,6 +8,8 @@ python onnx/test_onnxruntime.py \
 
 """
 
+import onnx
+import caffe2.python.onnx.backend as backend
 import argparse
 import os
 import glob
@@ -254,8 +256,24 @@ def main():
     # run onnx by onnxruntime
     onnx_output = sess.run(None, {input_names[0]: dummy_input.cpu().numpy()})
 
+    # run onnx by tensorrt
+    logger.info("Load onnx model from {}.".format(args.output))
+    load_model = onnx.load(args.output)
+    onnx.checker.check_model(load_model)
+    onnx_model = backend.prepare(load_model)
+    tensorrt_output = onnx_model.run(dummy_input.data.numpy())
+
     # compare the result
     for i, out in enumerate(onnx_output):
+        try:
+            np.testing.assert_allclose(torch_output[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
+        except AssertionError as e:
+            print("ouput {} mismatch {}".format(output_names[i], e))
+            continue
+        print("ouput {} match\n".format(output_names[i]))
+
+    # compare the result
+    for i, out in enumerate(tensorrt_output):
         try:
             np.testing.assert_allclose(torch_output[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
         except AssertionError as e:
