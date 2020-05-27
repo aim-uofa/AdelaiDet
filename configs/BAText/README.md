@@ -2,20 +2,20 @@
 [ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework. Note that the implementation details have slight different with original paper (less data, different recognition decoder, etc). 
 
 ## Models
-### CTW1500 results with ABCNet.
+### CTW1500 results with ABCNet. 
 
 Name | inf. time | e2e-hmean | det-hmean | download
 --- |:---:|:---:|:---:|:---:
 paper reported||45.2||
-[attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth)
+[attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 2080ti 8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth)
 
-### Total Text results with ABCNet.
+### Total Text results with ABCNet. 
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-paper reported|17.9 FPS|64.2||
-[tt_attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
-[pretrain_attn_R_50](configs/BAText/Pretrain/attn_R_50.yaml) | 11 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/UenknKbsWAuBUcz/download)
+paper reported|V100 17.9 FPS|64.2||
+[tt_attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 2080ti 11.3 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
+[pretrain_attn_R_50](configs/BAText/Pretrain/attn_R_50.yaml) | 2080ti 11.3 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/UenknKbsWAuBUcz/download)
 
 ## Quick Start 
 
@@ -28,7 +28,7 @@ paper reported|17.9 FPS|64.2||
 wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
 python demo/demo.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
-    --input input.jpg \
+    --input datasets/CTW1500/ctwtest_text_image/ \
     --opts MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
 or
@@ -36,7 +36,7 @@ or
 wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
 python demo/demo.py \
     --config-file configs/BAText/TotalText/attn_R_50.yaml \
-    --input input.jpg \
+    --input datasets/totaltext/test_images/ \
     --opts MODEL.WEIGHTS tt_attn_R_50.pth
 ```
 ### Train Your Own Models
@@ -80,7 +80,7 @@ For evaluation only (we will produce both e2e and detection results):
 ```
 python tools/train_net.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
-    --eval-only
+    --eval-only \
     MODEL.WEIGHTS your_model.pth
 ```
 
