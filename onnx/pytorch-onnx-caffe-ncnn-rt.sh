@@ -80,7 +80,7 @@ then
   python -V # ensure python3.x
   python onnx/test_onnxruntime.py \
     --config-file $config \
-    --output $onnx_repo/$case.onnx \
+    --output $onnx_repo/$case-update.onnx \
     --width 768 --height 640 \
     --opts MODEL.WEIGHTS $pytorch_repo/$case.pth MODEL.FCOS.NORM "BN" MODEL.DEVICE cpu
   if [ $? -ne 0 ]; then exit; fi

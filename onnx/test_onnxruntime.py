@@ -9,7 +9,7 @@ python onnx/test_onnxruntime.py \
 """
 
 import onnx
-import caffe2.python.onnx.backend as backend
+import caffe2.python.onnx.backend as caffe2_backend
 import argparse
 import os
 import glob
@@ -32,7 +32,7 @@ try:
     remove_path()
 except:
     import sys
-    print(sys.path)
+    print("debug", sys.path)
 
 from detectron2.data.detection_utils import read_image
 from detectron2.utils.logger import setup_logger
@@ -43,6 +43,8 @@ from detectron2.modeling import ProposalNetwork
 
 from adet.config import get_cfg
 from adet.modeling import FCOS, BlendMask
+
+import onnx_tensorrt.backend as tensorrt_backend
 
 def patch_blendmask(cfg, model, output_names):
     def forward(self, tensor):
@@ -256,14 +258,20 @@ def main():
     # run onnx by onnxruntime
     onnx_output = sess.run(None, {input_names[0]: dummy_input.cpu().numpy()})
 
-    # run onnx by tensorrt
     logger.info("Load onnx model from {}.".format(args.output))
     load_model = onnx.load(args.output)
     onnx.checker.check_model(load_model)
-    onnx_model = backend.prepare(load_model)
+
+    # run onnx by caffe2
+    onnx_model = caffe2_backend.prepare(load_model)
+    caffe2_output = onnx_model.run(dummy_input.data.numpy())
+
+    # run onnx by tensorrt
+    onnx_model = tensorrt_backend.prepare(load_model)
     tensorrt_output = onnx_model.run(dummy_input.data.numpy())
 
     # compare the result
+    print("onnxruntime")
     for i, out in enumerate(onnx_output):
         try:
             np.testing.assert_allclose(torch_output[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
@@ -273,13 +281,27 @@ def main():
         print("ouput {} match\n".format(output_names[i]))
 
     # compare the result
-    for i, out in enumerate(tensorrt_output):
+    print("caffe2")
+    for i, out in enumerate(caffe2_output):
         try:
             np.testing.assert_allclose(torch_output[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
         except AssertionError as e:
             print("ouput {} mismatch {}".format(output_names[i], e))
             continue
         print("ouput {} match\n".format(output_names[i]))
+
+    # compare the result
+    print("tensorrt")
+    for i, name in enumerate(output_names):
+        try:
+            out = tensorrt_output[name]
+            np.testing.assert_allclose(torch_output[i].cpu().detach().numpy(), out, rtol=1e-03, atol=2e-04)
+        except AssertionError as e:
+            print("ouput {} mismatch {}".format(output_names[i], e))
+            continue
+        print("ouput {} match\n".format(output_names[i]))
+
+    print("script done")
 
 if __name__ == "__main__":
     main()
