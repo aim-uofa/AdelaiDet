@@ -56,18 +56,20 @@ class FCOSOutputs(nn.Module):
         self.focal_loss_alpha = cfg.MODEL.FCOS.LOSS_ALPHA
         self.focal_loss_gamma = cfg.MODEL.FCOS.LOSS_GAMMA
         self.center_sample = cfg.MODEL.FCOS.CENTER_SAMPLE
-        self.strides = cfg.MODEL.FCOS.FPN_STRIDES
         self.radius = cfg.MODEL.FCOS.POS_RADIUS
         self.pre_nms_thresh_train = cfg.MODEL.FCOS.INFERENCE_TH_TRAIN
         self.pre_nms_topk_train = cfg.MODEL.FCOS.PRE_NMS_TOPK_TRAIN
+        self.post_nms_topk_train = cfg.MODEL.FCOS.POST_NMS_TOPK_TRAIN
+        self.loc_loss_func = IOULoss(cfg.MODEL.FCOS.LOC_LOSS_TYPE)
+
         self.pre_nms_thresh_test = cfg.MODEL.FCOS.INFERENCE_TH_TEST
         self.pre_nms_topk_test = cfg.MODEL.FCOS.PRE_NMS_TOPK_TEST
-        self.nms_thresh = cfg.MODEL.FCOS.NMS_TH
-        self.post_nms_topk_train = cfg.MODEL.FCOS.POST_NMS_TOPK_TRAIN
         self.post_nms_topk_test = cfg.MODEL.FCOS.POST_NMS_TOPK_TEST
+        self.nms_thresh = cfg.MODEL.FCOS.NMS_TH
         self.thresh_with_ctr = cfg.MODEL.FCOS.THRESH_WITH_CTR
-        self.loc_loss_func = IOULoss(cfg.MODEL.FCOS.LOC_LOSS_TYPE)
+
         self.num_classes = cfg.MODEL.FCOS.NUM_CLASSES
+        self.strides = cfg.MODEL.FCOS.FPN_STRIDES
 
         # generate sizes of interest
         soi = []
@@ -255,7 +257,7 @@ class FCOSOutputs(nn.Module):
         ctrness_pred = cat(
             [
                 # Reshape: (N, 1, Hi, Wi) -> (N*Hi*Wi,)
-                x.reshape(-1) for x in ctrness_pred
+                x.permute(0, 2, 3, 1).reshape(-1) for x in ctrness_pred
             ], dim=0,)
 
         labels = cat(
@@ -393,18 +395,19 @@ class FCOSOutputs(nn.Module):
         return boxlists
 
     def forward_for_single_feature_map(
-            self, locations, box_cls,
-            reg_pred, ctrness,
-            image_sizes, top_feat=None):
-        N, C, H, W = box_cls.shape
+            self, locations, logits_pred,
+            reg_pred, ctrness_pred,
+            image_sizes, top_feat=None
+    ):
+        N, C, H, W = logits_pred.shape
 
         # put in the same format as locations
-        box_cls = box_cls.view(N, C, H, W).permute(0, 2, 3, 1)
-        box_cls = box_cls.reshape(N, -1, C).sigmoid()
+        logits_pred = logits_pred.view(N, C, H, W).permute(0, 2, 3, 1)
+        logits_pred = logits_pred.reshape(N, -1, C).sigmoid()
         box_regression = reg_pred.view(N, 4, H, W).permute(0, 2, 3, 1)
         box_regression = box_regression.reshape(N, -1, 4)
-        ctrness = ctrness.view(N, 1, H, W).permute(0, 2, 3, 1)
-        ctrness = ctrness.reshape(N, -1).sigmoid()
+        ctrness_pred = ctrness_pred.view(N, 1, H, W).permute(0, 2, 3, 1)
+        ctrness_pred = ctrness_pred.reshape(N, -1).sigmoid()
         if top_feat is not None:
             top_feat = top_feat.view(N, -1, H, W).permute(0, 2, 3, 1)
             top_feat = top_feat.reshape(N, H * W, -1)
@@ -412,17 +415,17 @@ class FCOSOutputs(nn.Module):
         # if self.thresh_with_ctr is True, we multiply the classification
         # scores with centerness scores before applying the threshold.
         if self.thresh_with_ctr:
-            box_cls = box_cls * ctrness[:, :, None]
-        candidate_inds = box_cls > self.pre_nms_thresh
+            logits_pred = logits_pred * ctrness_pred[:, :, None]
+        candidate_inds = logits_pred > self.pre_nms_thresh
         pre_nms_top_n = candidate_inds.view(N, -1).sum(1)
         pre_nms_top_n = pre_nms_top_n.clamp(max=self.pre_nms_topk)
 
         if not self.thresh_with_ctr:
-            box_cls = box_cls * ctrness[:, :, None]
+            logits_pred = logits_pred * ctrness_pred[:, :, None]
 
         results = []
         for i in range(N):
-            per_box_cls = box_cls[i]
+            per_box_cls = logits_pred[i]
             per_candidate_inds = candidate_inds[i]
             per_box_cls = per_box_cls[per_candidate_inds]
 
