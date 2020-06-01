@@ -372,15 +372,16 @@ class FCOSOutputs(nn.Module):
         if len(top_feats) > 0:
             bundle["t"] = top_feats
 
-        for i, instance in enumerate(zip(*bundle.values())):
-            instance_dict = dict(zip(bundle.keys(), instance))
+        for i, per_bundle in enumerate(zip(*bundle.values())):
+            # get per-level bundle
+            per_bundle = dict(zip(bundle.keys(), per_bundle))
             # recall that during training, we normalize regression targets with FPN's stride.
             # we denormalize them here.
-            l = instance_dict["l"]
-            o = instance_dict["o"]
-            r = instance_dict["r"] * instance_dict["s"]
-            c = instance_dict["c"]
-            t = instance_dict["t"] if "t" in bundle else None
+            l = per_bundle["l"]
+            o = per_bundle["o"]
+            r = per_bundle["r"] * per_bundle["s"]
+            c = per_bundle["c"]
+            t = per_bundle["t"] if "t" in bundle else None
 
             sampled_boxes.append(
                 self.forward_for_single_feature_map(
