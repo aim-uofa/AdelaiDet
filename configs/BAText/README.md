@@ -44,10 +44,7 @@ python demo/demo.py \
 To train a model with "train_net.py", first setup the corresponding datasets following
 [datasets/README.md](../../datasets/README.md). 
 
-You can also prepare your custom dataset using the example scripts:
-- Generate Bezier-curve control points from polygons. [[link]](https://drive.google.com/file/d/1bFmdXCCsW0bj0qFgQl1MJarlWkwPSv_U/view)
-- Generate Bezier-curve json file. [[link]](https://universityofadelaide.box.com/s/ytfhetwat4fqnq4ptfprxu93wp4zb4as)
-
+You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/tv06s4u5sz43s4hkultcuh1dbgdhwrby).
 
 Pretrainining with synthetic data:
 
