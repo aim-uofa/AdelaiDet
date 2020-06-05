@@ -73,13 +73,17 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
     MODEL.WEIGHTS text_pretraining/attn_R_50/model_final.pth
 ```
 
-For evaluation only (we will produce both e2e and detection results):
+### Evaluate on Trained Model
+Produce both e2e and detection results:
 ```
+wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
 python tools/train_net.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
     --eval-only \
-    MODEL.WEIGHTS your_model.pth
+    MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
+
+You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/izfgz7z0vb7b72rzj9w0flo3jc9soydf.zip). We provide examples for evaluating on both totaltext and ctw1500.
 
 # Cite
 
