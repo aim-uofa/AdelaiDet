@@ -63,7 +63,7 @@ def get_extensions():
 
 setup(
     name="AdelaiDet",
-    version="0.1.1",
+    version="0.2.0",
     author="Adelaide Intelligent Machines",
     url="https://github.com/stanstarks/AdelaiDet",
     description="AdelaiDet is AIM's research "

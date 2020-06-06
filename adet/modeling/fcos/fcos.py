@@ -8,6 +8,7 @@ from detectron2.layers import ShapeSpec, NaiveSyncBatchNorm
 from detectron2.modeling.proposal_generator.build import PROPOSAL_GENERATOR_REGISTRY
 
 from adet.layers import DFConv2d, NaiveGroupNorm
+from adet.utils.comm import compute_locations
 from .fcos_outputs import FCOSOutputs
 
 
@@ -74,7 +75,8 @@ class FCOS(nn.Module):
         features = [features[f] for f in self.in_features]
         locations = self.compute_locations(features)
         logits_pred, reg_pred, ctrness_pred, top_feats, bbox_towers = self.fcos_head(
-            features, top_module, self.yield_proposal)
+            features, top_module, self.yield_proposal
+        )
 
         results = {}
         if self.yield_proposal:
@@ -83,58 +85,35 @@ class FCOS(nn.Module):
             }
 
         if self.training:
-            losses, extras = self.fcos_outputs.losses(
+            results, losses = self.fcos_outputs.losses(
                 logits_pred, reg_pred, ctrness_pred,
-                locations, gt_instances
+                locations, gt_instances, top_feats
             )
             
-            if top_module is not None:
-                results["extras"] = extras
-                results["top_feats"] = top_feats
             if self.yield_proposal:
                 with torch.no_grad():
                     results["proposals"] = self.fcos_outputs.predict_proposals(
-                        top_feats, logits_pred, reg_pred,
-                        ctrness_pred, locations, images.image_sizes
+                        logits_pred, reg_pred, ctrness_pred,
+                        locations, images.image_sizes, top_feats
                     )
+            return results, losses
         else:
-            losses = {}
-            with torch.no_grad():
-                proposals = self.fcos_outputs.predict_proposals(
-                    top_feats, logits_pred, reg_pred,
-                    ctrness_pred, locations, images.image_sizes
-                )
-            if self.yield_proposal:
-                results["proposals"] = proposals
-            else:
-                results = proposals
+            results = self.fcos_outputs.predict_proposals(
+                logits_pred, reg_pred, ctrness_pred,
+                locations, images.image_sizes, top_feats
+            )
 
-        return results, losses
+            return results, {}
 
     def compute_locations(self, features):
         locations = []
         for level, feature in enumerate(features):
             h, w = feature.size()[-2:]
-            locations_per_level = self.compute_locations_per_level(
+            locations_per_level = compute_locations(
                 h, w, self.fpn_strides[level],
                 feature.device
             )
             locations.append(locations_per_level)
-        return locations
-
-    def compute_locations_per_level(self, h, w, stride, device):
-        shifts_x = torch.arange(
-            0, w * stride, step=stride,
-            dtype=torch.float32, device=device
-        )
-        shifts_y = torch.arange(
-            0, h * stride, step=stride,
-            dtype=torch.float32, device=device
-        )
-        shift_y, shift_x = torch.meshgrid(shifts_y, shifts_x)
-        shift_x = shift_x.reshape(-1)
-        shift_y = shift_y.reshape(-1)
-        locations = torch.stack((shift_x, shift_y), dim=1) + stride // 2
         return locations
 
 
