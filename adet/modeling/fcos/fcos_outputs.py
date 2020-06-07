@@ -150,8 +150,8 @@ class FCOSOutputs(nn.Module):
             center_x = m10 / m00
             center_y = m01 / m00
         else:
-            center_x = boxes[..., [0, 2]].sum() * 0.5
-            center_y = boxes[..., [1, 3]].sum() * 0.5
+            center_x = boxes[..., [0, 2]].sum(dim=-1) * 0.5
+            center_y = boxes[..., [1, 3]].sum(dim=-1) * 0.5
 
         num_gts = boxes.shape[0]
         K = len(loc_xs)
