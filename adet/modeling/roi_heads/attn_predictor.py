@@ -118,11 +118,11 @@ class ATTPredictor(nn.Module):
         if self.training:
             target_variable = targets
             _init = torch.zeros((rois.size()[1], 1)).long()
-            _init = torch.LongTensor(_init).cuda()
+            _init = torch.LongTensor(_init).to(rois.device)
             target_variable = torch.cat((_init, target_variable.long()), 1)
-            target_variable = target_variable.cuda()
+            target_variable = target_variable.to(rois.device)
             decoder_input = target_variable[:,0] # init decoder, from 0
-            decoder_hidden = self.attention.initHidden(rois.size()[1]).cuda() # batch rois.size[1]
+            decoder_hidden = self.attention.initHidden(rois.size()[1]).to(rois.device) # batch rois.size[1]
             loss = 0.0
             try:
                 for di in range(1, target_variable.shape[1]):
@@ -144,8 +144,8 @@ class ATTPredictor(nn.Module):
             n = rois.size()[1]
             decodes = torch.zeros((n, self.attention.max_len))
             prob = 1.0
-            decoder_input = torch.zeros(n).long().cuda() 
-            decoder_hidden = self.attention.initHidden(n).cuda()
+            decoder_input = torch.zeros(n).long().to(rois.device) 
+            decoder_hidden = self.attention.initHidden(n).to(rois.device)
             for di in range(self.attention.max_len):
                 decoder_output, decoder_hidden, decoder_attention = self.attention(
                     decoder_input, decoder_hidden, rois)
@@ -154,6 +154,5 @@ class ATTPredictor(nn.Module):
                 ni = topi.squeeze()
                 decoder_input = ni
                 prob *= probs[:, ni]
-                decodes[:, di] = decoder_input.clone()
-            decodes = torch.as_tensor(decodes).cuda()
+                decodes[:, di] = decoder_input
             return decodes, None
