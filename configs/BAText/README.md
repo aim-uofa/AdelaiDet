@@ -73,8 +73,17 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
     MODEL.WEIGHTS text_pretraining/attn_R_50/model_final.pth
 ```
 
-### Evaluate on Trained Model
-Produce both e2e and detection results:
+### Evaluate on Trained Model 
+Download test GT [here](../../datasets/README.md) so that the directory has the following structure:
+
+```
+datasets
+|_ evaluation
+|  |_ gt_totaltext.zip
+|  |_ gt_ctw1500.zip
+```
+
+Producing both e2e and detection results on CTW1500:
 ```
 wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
 python tools/train_net.py \
@@ -82,8 +91,16 @@ python tools/train_net.py \
     --eval-only \
     MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
+or Totaltex:
+```
+wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
+python tools/train_net.py \
+    --config-file configs/BAText/TotalText/attn_R_50.yaml \
+    --eval-only \
+    MODEL.WEIGHTS tt_attn_R_50.pth
+```
 
-You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/izfgz7z0vb7b72rzj9w0flo3jc9soydf.zip). We provide examples for evaluating on both totaltext and ctw1500.
+You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/izfgz7z0vb7b72rzj9w0flo3jc9soydf.zip). If you want to measure the ***inference time***, please change --num-gpus to 1.
 
 # Cite
 
