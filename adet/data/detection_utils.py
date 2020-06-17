@@ -9,6 +9,9 @@ from detectron2.data.detection_utils import annotations_to_instances as d2_anno_
 from detectron2.structures import BoxMode
 
 
+logger = logging.getLogger(__name__)
+
+
 def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=True):
     """
     Generate a CropTransform so that the cropping region contains
@@ -41,14 +44,22 @@ def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=
 
     # if some instance is cropped extend the box
     if not crop_box:
+        num_modifications = 0
         modified = True
+
+        # convert crop_size to float
+        crop_size = crop_size.astype(np.float32)
         while modified:
             modified, x0, y0, crop_size = adjust_crop(x0, y0, crop_size, instances)
+            num_modifications += 1
+            if num_modifications > 100:
+                logger.info("Cannot finished cropping adjustment within 100 tries (#instances {}).".format(len(instances)))
+                return T.CropTransform(0, 0, image_size[1], image_size[0])
 
     return T.CropTransform(*map(int, (x0, y0, crop_size[1], crop_size[0])))
 
 
-def adjust_crop(x0, y0, crop_size, instances):
+def adjust_crop(x0, y0, crop_size, instances, eps=1e-3):
     modified = False
 
     x1 = x0 + crop_size[1]
@@ -57,22 +68,22 @@ def adjust_crop(x0, y0, crop_size, instances):
     for instance in instances:
         bbox = BoxMode.convert(instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS)
 
-        if bbox[0] < x0 and bbox[2] > x0:
+        if bbox[0] < x0 - eps and bbox[2] > x0 + eps:
             crop_size[1] += x0 - bbox[0]
             x0 = bbox[0]
             modified = True
 
-        if bbox[0] < x1 and bbox[2] > x1:
+        if bbox[0] < x1 - eps and bbox[2] > x1 + eps:
             crop_size[1] += bbox[2] - x1
             x1 = bbox[2]
             modified = True
         
-        if bbox[1] < y0 and bbox[3] > y0:
+        if bbox[1] < y0 - eps and bbox[3] > y0 + eps:
             crop_size[0] += y0 - bbox[1]
             y0 = bbox[1]
             modified = True
 
-        if bbox[1] < y1 and bbox[3] > y1:
+        if bbox[1] < y1 - eps and bbox[3] > y1 + eps:
             crop_size[0] += bbox[3] - y1
             y1 = bbox[3]
             modified = True
@@ -153,7 +164,6 @@ def build_transform_gen(cfg, is_train):
             len(min_size)
         )
 
-    logger = logging.getLogger(__name__)
     tfm_gens = []
     tfm_gens.append(T.ResizeShortestEdge(min_size, max_size, sample_style))
     if is_train:
