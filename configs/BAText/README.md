@@ -44,7 +44,7 @@ python demo/demo.py \
 To train a model with "train_net.py", first setup the corresponding datasets following
 [datasets/README.md](../../datasets/README.md). 
 
-You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/tv06s4u5sz43s4hkultcuh1dbgdhwrby).
+You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/fo7odnmqe370btm7sdotqve1c0zsu8p3).
 
 Pretrainining with synthetic data:
 
@@ -91,7 +91,7 @@ python tools/train_net.py \
     --eval-only \
     MODEL.WEIGHTS ctw1500_attn_R_50.pth
 ```
-or Totaltex:
+or Totaltext:
 ```
 wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
 python tools/train_net.py \
