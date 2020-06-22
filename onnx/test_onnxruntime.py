@@ -2,9 +2,10 @@
 """
 A working example to export the R-50 based FCOS model:
 python onnx/test_onnxruntime.py \
-    --config-file configs/FCOS-Detection/R_50_1x.yaml \
-    --output /data/pretrained/onnx/fcos/FCOS_R_50_1x_bn_head.onnx
-    --opts MODEL.WEIGHTS /data/pretrained/pytorch/fcos/FCOS_R_50_1x_bn_head.pth MODEL.FCOS.NORM "BN"
+    --config-file configs/FCOS-Detection/FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml \
+    --onnx /data/pretrained/onnx/fcos/FCOS_RT_MS_R_50_4x_syncbn_bn_head-update.onnx \
+    --width 768 --height 640 \
+    --opts MODEL.WEIGHTS /data/pretrained/pytorch/fcos/FCOS_RT_MS_R_50_4x_syncbn_bn_head.pth MODEL.FCOS.NORM "BN" MODEL.DEVICE cpu
 
 """
 
@@ -174,10 +175,10 @@ def main():
     parser.add_argument('--height', default=0, type=int)
     parser.add_argument('--level', default=0, type=int)
     parser.add_argument(
-        "--output",
+        "--onnx", "--output",
         default="output/fcos.onnx",
         metavar="FILE",
-        help="path to the output onnx file",
+        help="path to the onnx file",
     )
     parser.add_argument(
         "--opts",
@@ -234,9 +235,8 @@ def main():
             patch_fcos(cfg, model.proposal_generator)
             patch_fcos_head(cfg, model.proposal_generator.fcos_head)
 
-
-    logger.info("Load onnx model from {}.".format(args.output))
-    sess = rt.InferenceSession(args.output)
+    logger.info("Load onnx model from {}.".format(args.onnx))
+    sess = rt.InferenceSession(args.onnx)
     
     # check input and output
     for in_blob in sess.get_inputs():
@@ -258,17 +258,17 @@ def main():
     # run onnx by onnxruntime
     onnx_output = sess.run(None, {input_names[0]: dummy_input.cpu().numpy()})
 
-    logger.info("Load onnx model from {}.".format(args.output))
-    load_model = onnx.load(args.output)
+    logger.info("Load onnx model from {}.".format(args.onnx))
+    load_model = onnx.load(args.onnx)
     onnx.checker.check_model(load_model)
 
     # run onnx by caffe2
     onnx_model = caffe2_backend.prepare(load_model)
-    caffe2_output = onnx_model.run(dummy_input.data.numpy())
+    caffe2_output = onnx_model.run(dummy_input.cpu().numpy())
 
     # run onnx by tensorrt
     onnx_model = tensorrt_backend.prepare(load_model)
-    tensorrt_output = onnx_model.run(dummy_input.data.numpy())
+    tensorrt_output = onnx_model.run(dummy_input.cpu().numpy())
 
     # compare the result
     print("onnxruntime")
