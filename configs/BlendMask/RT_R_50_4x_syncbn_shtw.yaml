@@ -1,0 +1,15 @@
+_BASE_: "Base-RT.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+  BACKBONE:
+    FREEZE_AT: -1
+  FCOS:
+    NUM_SHARE_CONVS: 3
+    NUM_CLS_CONVS: 0
+    NUM_BOX_CONVS: 0
+  BASIS_MODULE:
+    NUM_CONVS: 2
+OUTPUT_DIR: "output/blendmask/RT_R_50_4x_syncbn_shtw"

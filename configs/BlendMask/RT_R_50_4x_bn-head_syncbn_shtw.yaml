@@ -1,0 +1,5 @@
+_BASE_: "RT_R_50_4x_syncbn_shtw.yaml"
+MODEL:
+  FCOS:
+    NORM: "SyncBN"
+OUTPUT_DIR: "output/blendmask/RT_R_50_4x_bn-head_syncbn_shtw"

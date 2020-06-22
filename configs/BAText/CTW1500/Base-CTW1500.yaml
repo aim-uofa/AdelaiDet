@@ -1,0 +1,13 @@
+_BASE_: "../Base-BAText.yaml"
+MODEL:
+  BATEXT:
+    POOLER_RESOLUTION: (8,128)
+    NUM_CHARS: 100
+  FCOS:
+    INFERENCE_TH_TEST: 0.6
+DATASETS:
+  TRAIN: ("ctw1500_word_train",)
+  TEST: ("ctw1500_word_test",)
+INPUT:
+  MIN_SIZE_TEST: 800
+  MAX_SIZE_TEST: 1024
