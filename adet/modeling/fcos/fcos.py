@@ -4,7 +4,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from detectron2.layers import ShapeSpec, NaiveSyncBatchNorm
+from detectron2.layers import ShapeSpec, NaiveSyncBatchNorm, get_norm, Conv2d
 from detectron2.modeling.proposal_generator.build import PROPOSAL_GENERATOR_REGISTRY
 
 from adet.layers import DFConv2d, IOULoss, NaiveGroupNorm
@@ -210,7 +210,7 @@ class FCOSHead(nn.Module):
                 if use_deformable and i == num_convs - 1:
                     conv_func = DFConv2d
                 else:
-                    conv_func = nn.Conv2d
+                    conv_func = Conv2d
                 tower.append(conv_func(
                     in_channels, in_channels,
                     kernel_size=3, stride=1,
