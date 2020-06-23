@@ -2,7 +2,7 @@
 
 # Quantization version of AdelaiDet
 
-TO avoid disrupt the file in the AdelaiDet project, information about the quantization is presented in [detection.md](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md)
+To avoid disrupt the file in the AdelaiDet project, information about the quantization is presented in [detection.md](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md)
 
 The following is from the original AdelaiDet project. Or Following the [Quantization version of Detectron2](https://github.com/blueardour/detectron2) if you do not perfer the AdelaiDet project. 
 
