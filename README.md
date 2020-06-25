@@ -5,7 +5,6 @@
 To avoid disrupting the files in the AdelaiDet project, information about the quantization is presented in [detection.md](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md)
 
 ***This project requires the [Quantization version of Detectron2](https://github.com/blueardour/detectron2)***
-
 The support of quantization is modified based on detectron2. Thus it is possible to employ the mentioned project alone for quantization. 
 The following is from the original AdelaiDet project. 
 
