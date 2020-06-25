@@ -6,8 +6,8 @@ To avoid disrupting the files in the AdelaiDet project, information about the qu
 
 ***This project requires the [Quantization version of Detectron2](https://github.com/blueardour/detectron2)***
 
-The support of quantization is modified based on detectron2. Thus it is possible to employ the mentioned project alone for quantization.
-The following is from the original AdelaiDet project. Or Following the [Quantization version of Detectron2](https://github.com/blueardour/detectron2) if you do not perfer the AdelaiDet project. 
+The support of quantization is modified based on detectron2. Thus it is possible to employ the mentioned project alone for quantization. 
+The following is from the original AdelaiDet project. 
 
 
 AdelaiDet is an open source toolbox for multiple instance-level recognition tasks on top of [Detectron2](https://github.com/facebookresearch/detectron2).
