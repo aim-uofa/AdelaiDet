@@ -30,9 +30,4 @@ jobs:
         echo Auto merge master
         git remote -v
         git status
-        #git remote add upstream https://github.com/facebookresearch/detectron2
-        #git pull --unshallow
-        #git checkout master
-        #git pull upstream master          
-        #git checkout quantization
         git merge --no-edit master
