@@ -164,13 +164,16 @@ def build_augmentation(cfg, is_train):
             len(min_size)
         )
 
-    tfm_gens = []
-    tfm_gens.append(T.ResizeShortestEdge(min_size, max_size, sample_style))
+    augmentation = []
+    augmentation.append(T.ResizeShortestEdge(min_size, max_size, sample_style))
     if is_train:
         if cfg.INPUT.HFLIP_TRAIN:
-            tfm_gens.append(T.RandomFlip())
-        logger.info("Augmentations used in training: " + str(tfm_gens))
+            augmentation.append(T.RandomFlip())
+        logger.info("Augmentations used in training: " + str(augmentation))
     return tfm_gens
 
 
 build_transform_gen = build_augmentation
+"""
+Alias for backward-compatibility.
+"""
