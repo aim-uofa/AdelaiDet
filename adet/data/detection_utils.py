@@ -77,7 +77,7 @@ def adjust_crop(x0, y0, crop_size, instances, eps=1e-3):
             crop_size[1] += bbox[2] - x1
             x1 = bbox[2]
             modified = True
-        
+
         if bbox[1] < y0 - eps and bbox[3] > y0 + eps:
             crop_size[0] += y0 - bbox[1]
             y0 = bbox[1]
@@ -89,7 +89,7 @@ def adjust_crop(x0, y0, crop_size, instances, eps=1e-3):
             modified = True
 
     return modified, x0, y0, crop_size
- 
+
 
 def transform_instance_annotations(
     annotation, transforms, image_size, *, keypoint_hflip_indices=None
@@ -98,7 +98,7 @@ def transform_instance_annotations(
     annotation = d2_transform_inst_anno(
         annotation, transforms, image_size,
         keypoint_hflip_indices=keypoint_hflip_indices)
-    
+
     if "beziers" in annotation:
         beziers = transform_beziers_annotations(
             annotation["beziers"], transforms
@@ -140,16 +140,16 @@ def annotations_to_instances(annos, image_size, mask_format="polygon"):
         text = [obj.get("rec", []) for obj in annos]
         instance.text = torch.as_tensor(
             text, dtype=torch.int32)
-        
+
     return instance
 
 
-def build_transform_gen(cfg, is_train):
+def build_augmentation(cfg, is_train):
     """
     With option to don't use hflip
 
     Returns:
-        list[TransformGen]
+        list[Augmentation]
     """
     if is_train:
         min_size = cfg.INPUT.MIN_SIZE_TRAIN
@@ -169,5 +169,8 @@ def build_transform_gen(cfg, is_train):
     if is_train:
         if cfg.INPUT.HFLIP_TRAIN:
             tfm_gens.append(T.RandomFlip())
-        logger.info("TransformGens used in training: " + str(tfm_gens))
+        logger.info("Augmentations used in training: " + str(tfm_gens))
     return tfm_gens
+
+
+build_transform_gen = build_augmentation
