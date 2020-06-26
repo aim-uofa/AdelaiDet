@@ -170,7 +170,7 @@ def build_augmentation(cfg, is_train):
         if cfg.INPUT.HFLIP_TRAIN:
             augmentation.append(T.RandomFlip())
         logger.info("Augmentations used in training: " + str(augmentation))
-    return tfm_gens
+    return augmentation
 
 
 build_transform_gen = build_augmentation
