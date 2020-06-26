@@ -1,0 +1,16 @@
+_BASE_: "Base-CTW1500.yaml"
+MODEL:
+  WEIGHTS: "weights/batext/pretrain_attn_R_50.pth"
+  RESNETS:
+    DEPTH: 50
+  BATEXT:
+    RECOGNIZER: "attn" # "attn" "rnn"
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.001
+  STEPS: (80000,)
+  MAX_ITER: 120000
+  CHECKPOINT_PERIOD: 10000
+TEST:
+  EVAL_PERIOD: 10000
+OUTPUT_DIR: "output/batext/ctw1500/attn_R_50"

@@ -8,6 +8,8 @@ from detectron2.config import CfgNode as CN
 _C.MODEL.MOBILENET = False
 _C.MODEL.BACKBONE.ANTI_ALIAS = False
 _C.MODEL.RESNETS.DEFORM_INTERVAL = 1
+_C.INPUT.HFLIP_TRAIN = True
+_C.INPUT.CROP.CROP_INSTANCE = True
 
 # ---------------------------------------------------------------------------- #
 # FCOS Head
@@ -72,6 +74,22 @@ _C.MODEL.DLA.OUT_FEATURES = ["stage2", "stage3", "stage4", "stage5"]
 
 # Options: FrozenBN, GN, "SyncBN", "BN"
 _C.MODEL.DLA.NORM = "FrozenBN"
+
+# ---------------------------------------------------------------------------- #
+# BAText Options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.BATEXT = CN()
+_C.MODEL.BATEXT.VOC_SIZE = 96
+_C.MODEL.BATEXT.NUM_CHARS = 25
+_C.MODEL.BATEXT.POOLER_RESOLUTION = (8, 32)
+_C.MODEL.BATEXT.IN_FEATURES = ["p2", "p3", "p4"]
+_C.MODEL.BATEXT.POOLER_SCALES = (0.25, 0.125, 0.0625)
+_C.MODEL.BATEXT.SAMPLING_RATIO = 1
+_C.MODEL.BATEXT.CONV_DIM = 256
+_C.MODEL.BATEXT.NUM_CONV = 2
+_C.MODEL.BATEXT.RECOGNITION_LOSS = "ctc"
+_C.MODEL.BATEXT.RECOGNIZER = "attn"
+_C.MODEL.BATEXT.CANONICAL_SIZE = 96  # largest min_size for level 3 (stride=8)
 
 # ---------------------------------------------------------------------------- #
 # BlendMask Options
@@ -180,3 +198,10 @@ _C.MODEL.MEInst.USE_GCN_IN_MASK = False
 _C.MODEL.MEInst.GCN_KERNEL_SIZE = 9
 # Whether to compute loss on original mask (binary mask).
 _C.MODEL.MEInst.LOSS_ON_MASK = False
+
+# ---------------------------------------------------------------------------- #
+# TOP Module Options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.TOP_MODULE = CN()
+_C.MODEL.TOP_MODULE.NAME = "conv"
+_C.MODEL.TOP_MODULE.DIM = 16

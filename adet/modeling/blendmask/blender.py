@@ -35,20 +35,13 @@ class Blender(object):
         if gt_instances is not None:
             # training
             # reshape attns
-            extras = proposals["extras"]
-            attns = proposals["top_feats"]
-            pos_inds = extras["pos_inds"]
+            dense_info = proposals["instances"]
+            attns = dense_info.top_feats
+            pos_inds = dense_info.pos_inds
             if pos_inds.numel() == 0:
                 return None, {"loss_mask": sum([x.sum() * 0 for x in attns]) + bases[0].sum() * 0}
 
-            gt_inds = extras["gt_inds"]
-            attns = cat(
-                [
-                    # Reshape: (N, C, Hi, Wi) -> (N, Hi, Wi, C) -> (N*Hi*Wi, C)
-                    x.permute(0, 2, 3, 1).reshape(-1, self.attn_len)
-                    for x in attns
-                ], dim=0,)
-            attns = attns[pos_inds]
+            gt_inds = dense_info.gt_inds
 
             rois = self.pooler(bases, [x.gt_boxes for x in gt_instances])
             rois = rois[gt_inds]
@@ -68,8 +61,8 @@ class Blender(object):
             N = gt_masks.size(0)
             gt_masks = gt_masks.view(N, -1)
 
-            gt_ctr = extras["gt_ctr"]
-            loss_denorm = extras["loss_denorm"]
+            gt_ctr = dense_info.gt_ctrs
+            loss_denorm = proposals["loss_denorm"]
             mask_losses = F.binary_cross_entropy_with_logits(
                 pred_mask_logits, gt_masks.to(dtype=torch.float32), reduction="none")
             mask_loss = ((mask_losses.mean(dim=-1) * gt_ctr).sum()

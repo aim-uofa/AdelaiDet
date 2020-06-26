@@ -35,10 +35,12 @@ from detectron2.evaluation import (
     verify_results,
 )
 from detectron2.modeling import GeneralizedRCNNWithTTA
+from detectron2.utils.logger import setup_logger
 
 from adet.data.dataset_mapper import DatasetMapperWithBasis
 from adet.config import get_cfg
 from adet.checkpoint import AdetCheckpointer
+from adet.evaluation import TextEvaluator
 
 
 class Trainer(DefaultTrainer):
@@ -87,7 +89,7 @@ class Trainer(DefaultTrainer):
         Args:
             start_iter, max_iter (int): See docs above
         """
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger("adet.trainer")
         logger.info("Starting training from iteration {}".format(start_iter))
 
         self.iter = self.start_iter = start_iter
@@ -155,6 +157,8 @@ class Trainer(DefaultTrainer):
             return PascalVOCDetectionEvaluator(dataset_name)
         if evaluator_type == "lvis":
             return LVISEvaluator(dataset_name, cfg, True, output_folder)
+        if evaluator_type == "text":
+            return TextEvaluator(dataset_name, cfg, True, output_folder)
         if len(evaluator_list) == 0:
             raise NotImplementedError(
                 "no Evaluator for the dataset {} with the type {}".format(
@@ -167,7 +171,7 @@ class Trainer(DefaultTrainer):
 
     @classmethod
     def test_with_TTA(cls, cfg, model):
-        logger = logging.getLogger("detectron2.trainer")
+        logger = logging.getLogger("adet.trainer")
         # In the end of training, run an evaluation with TTA
         # Only support some R-CNN models.
         logger.info("Running inference with test-time augmentation ...")
@@ -192,6 +196,10 @@ def setup(args):
     cfg.merge_from_list(args.opts)
     cfg.freeze()
     default_setup(cfg, args)
+
+    rank = comm.get_rank()
+    setup_logger(cfg.OUTPUT_DIR, distributed_rank=rank, name="adet")
+
     return cfg
 
 
@@ -203,7 +211,7 @@ def main(args):
         AdetCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
-        res = Trainer.test(cfg, model)
+        res = Trainer.test(cfg, model) # d2 defaults.py
         if comm.is_main_process():
             verify_results(cfg, res)
         if cfg.TEST.AUG.ENABLED:

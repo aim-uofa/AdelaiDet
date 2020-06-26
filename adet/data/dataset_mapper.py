@@ -1,19 +1,30 @@
 import copy
 import numpy as np
+import os.path as osp
 import torch
 from fvcore.common.file_io import PathManager
 from PIL import Image
+import logging
 
 from detectron2.data.dataset_mapper import DatasetMapper
 from detectron2.data.detection_utils import SizeMismatchError
 from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
 
+from .detection_utils import (
+    build_transform_gen,
+    transform_instance_annotations,
+    annotations_to_instances,
+    gen_crop_transform_with_instance,
+)
+
 """
 This file contains the default mapping that's applied to "dataset dicts".
 """
 
 __all__ = ["DatasetMapperWithBasis"]
+
+logger = logging.getLogger(__name__)
 
 
 class DatasetMapperWithBasis(DatasetMapper):
@@ -24,9 +35,14 @@ class DatasetMapperWithBasis(DatasetMapper):
     def __init__(self, cfg, is_train=True):
         super().__init__(cfg, is_train)
 
+        # Rebuild transform gen
+        logger.info("Rebuilding the transform generators. The previous generators will be overridden.")
+        self.tfm_gens = build_transform_gen(cfg, is_train)
+
         # fmt: off
         self.basis_loss_on  = cfg.MODEL.BASIS_MODULE.LOSS_ON
         self.ann_set        = cfg.MODEL.BASIS_MODULE.ANN_SET
+        self.crop_box       = cfg.INPUT.CROP.CROP_INSTANCE
         # fmt: on
 
     def __call__(self, dataset_dict):
@@ -64,13 +80,18 @@ class DatasetMapperWithBasis(DatasetMapper):
             # Crop around an instance if there are instances in the image.
             # USER: Remove if you don't use cropping
             if self.crop_gen:
-                crop_tfm = utils.gen_crop_transform_with_instance(
+                crop_tfm = gen_crop_transform_with_instance(
                     self.crop_gen.get_crop_size(image.shape[:2]),
                     image.shape[:2],
-                    np.random.choice(dataset_dict["annotations"]),
+                    dataset_dict["annotations"],
+                    crop_box=self.crop_box,
                 )
                 image = crop_tfm.apply_image(image)
-            image, transforms = T.apply_transform_gens(self.tfm_gens, image)
+            try:
+                image, transforms = T.apply_transform_gens(self.tfm_gens, image)
+            except ValueError as e:
+                print(dataset_dict["file_name"])
+                raise e
             if self.crop_gen:
                 transforms = crop_tfm + transforms
 
@@ -104,13 +125,13 @@ class DatasetMapperWithBasis(DatasetMapper):
 
             # USER: Implement additional transformations if you have other types of data
             annos = [
-                utils.transform_instance_annotations(
+                transform_instance_annotations(
                     obj, transforms, image_shape, keypoint_hflip_indices=self.keypoint_hflip_indices
                 )
                 for obj in dataset_dict.pop("annotations")
                 if obj.get("iscrowd", 0) == 0
             ]
-            instances = utils.annotations_to_instances(
+            instances = annotations_to_instances(
                 annos, image_shape, mask_format=self.mask_format
             )
             # Create a tight bounding box from masks, useful when image is cropped
@@ -132,8 +153,9 @@ class DatasetMapperWithBasis(DatasetMapper):
             if self.ann_set == "coco":
                 basis_sem_path = dataset_dict["file_name"].replace('train2017', 'thing_train2017').replace('image/train', 'thing_train')
             else:
-                basis_sem_path = dataset_dict["file_name"].replace('coco', 'lvis').replace('train2017', 'thing_train').replace('jpg', 'npz')
-            basis_sem_path = basis_sem_path.replace('jpg', 'npz')
+                basis_sem_path = dataset_dict["file_name"].replace('coco', 'lvis').replace('train2017', 'thing_train')
+            # change extension to npz
+            basis_sem_path = osp.splitext(basis_sem_path)[0] + ".npz"
             basis_sem_gt = np.load(basis_sem_path)["mask"]
             basis_sem_gt = transforms.apply_segmentation(basis_sem_gt)
             basis_sem_gt = torch.as_tensor(basis_sem_gt.astype("long"))

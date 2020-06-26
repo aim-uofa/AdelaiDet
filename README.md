@@ -17,7 +17,7 @@ To date, AdelaiDet implements the following algorithms:
 * [FCOS](configs/FCOS-Detection/README.md)
 * [BlendMask](configs/BlendMask/README.md)
 * [MEInst](configs/MEInst-InstanceSegmentation/README.md)
-* [ABCNet](https://arxiv.org/abs/2002.10200) _to be released_ ([demo](https://github.com/Yuliang-Liu/bezier_curve_text_spotting))
+* [ABCNet](configs/BAText/README.md)
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
@@ -53,6 +53,14 @@ Name | inf. time | box AP | mask AP | download
 [MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
 
 For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
+
+### Total_Text results with [ABCNet](https://arxiv.org/abs/2002.10200)
+
+Name | inf. time | e2e-hmean | det-hmean | download
+---  |:---------:|:---------:|:---------:|:---:
+[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
+
+For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
 Note that:
 - Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
