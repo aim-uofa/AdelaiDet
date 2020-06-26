@@ -1,6 +1,8 @@
 // Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 
 #include "ml_nms/ml_nms.h"
+#include "DefROIAlign/DefROIAlign.h"
+#include "BezierAlign/BezierAlign.h"
 
 namespace adet {
 
@@ -52,6 +54,10 @@ std::string get_compiler_version() {
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
   m.def("ml_nms", &ml_nms, "Multi-Label NMS");
+  m.def("def_roi_align_forward", &DefROIAlign_forward, "def_roi_align_forward");
+  m.def("def_roi_align_backward", &DefROIAlign_backward, "def_roi_align_backward");
+  m.def("bezier_align_forward", &BezierAlign_forward, "bezier_align_forward");
+  m.def("bezier_align_backward", &BezierAlign_backward, "bezier_align_backward");
 }
 
 } // namespace adet

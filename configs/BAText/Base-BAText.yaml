@@ -1,0 +1,32 @@
+MODEL:
+  META_ARCHITECTURE: "OneStageRCNN"
+  BACKBONE:
+    NAME: "build_fcos_resnet_fpn_backbone"
+  RESNETS:
+    OUT_FEATURES: ["res2", "res3", "res4", "res5"]
+  FPN:
+    IN_FEATURES: ["res2", "res3", "res4", "res5"]
+  PROPOSAL_GENERATOR:
+    NAME: "BAText"
+  FCOS:
+    NMS_TH: 0.5
+    THRESH_WITH_CTR: False
+    USE_SCALE: False
+    NUM_CLASSES: 1
+    INFERENCE_TH_TEST: 0.45
+  ROI_HEADS:
+    NAME: "TextHead"
+    IOU_THRESHOLDS: [0.5]
+SOLVER:
+  CLIP_GRADIENTS:
+    ENABLED: True
+INPUT:
+  HFLIP_TRAIN: False
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800, 832, 864, 896)
+  MAX_SIZE_TRAIN: 1600
+  MIN_SIZE_TEST: 1000
+  MAX_SIZE_TEST: 1824
+  CROP:
+    ENABLED: True
+    CROP_INSTANCE: False
+    SIZE: [0.1, 0.1]

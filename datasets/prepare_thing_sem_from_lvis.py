@@ -64,7 +64,8 @@ def create_lvis_semantic_from_instance(instance_json, sem_seg_root):
             anns_ids = lvis_detection.get_ann_ids([img_id])
             anns = lvis_detection.load_anns(anns_ids)
             img = lvis_detection.load_imgs([img_id])[0]
-            output = os.path.join(sem_seg_root, img["file_name"].replace('jpg', 'npz'))
+            file_name = os.path.splitext(img["file_name"])[0]
+            output = os.path.join(sem_seg_root, file_name + '.npz')
             yield anns, output, img
 
     # # single process

@@ -1,4 +1,4 @@
-## Expected dataset structure for AdelaiDet instance detection:
+## BlendMask instance detection
 
 ```
 coco/
@@ -13,7 +13,43 @@ Run `python prepare_thing_sem_from_instance.py`, to extract semantic labels from
 
 Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVIS annotations.
 
-## Expected dataset structure for Person In Context instance detection:
+## Text Recognition
+
+- Totaltext training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/3eq5ti7z45qfq5gu96gg5t1xwh1yrrt7.zip) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270088/) [[code]](https://github.com/cs-chan/Total-Text-Dataset). 
+- CTW1500 training, testing images, and annotations [[link]](https://universityofadelaide.box.com/s/yb9red8pi9eszuzqompo593b6zhz87qw) [[paper]](https://www.sciencedirect.com/science/article/pii/S0031320319300664) [[code]](https://github.com/Yuliang-Liu/Curve-Text-Detector).
+- MLT [[dataset]](https://universityofadelaide.box.com/s/tsiimvp65tkf7dw1nuh8l71cjcs0fyif) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270168).
+- Syntext-150k: 
+  - Part1: 94,723 [[dataset]](https://universityofadelaide.box.com/s/alta996w4fym6arh977h3k3xv55clhg3) 
+  - Part2: 54,327 [[dataset]](https://universityofadelaide.box.com/s/7k7d6nvf951s4i01szs4udpu2yv5dlqe)
+
+```
+text/
+  totaltext/
+    annotations/
+    train_images/
+    test_images/
+  mlt2017/
+    annotations/train.json
+    images/
+    ...
+  syntext1/
+  syntext2/
+  ...
+  evaluation/
+    gt_ctw1500.zip
+    gt_totaltext.zip
+```
+
+To evaluate on Total Text and CTW1500, first download the zipped annotations with
+
+```
+mkdir evaluation
+cd evaluation
+wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/uoeFl0pCN9BOCN5/download
+wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/pEMs0KjCocL2nvV/download
+```
+
+## Person In Context instance detection
 
 ```
 pic/

@@ -3,7 +3,6 @@ import torch.nn.parallel
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
-from IPython import embed
 
 
 class Downsample(nn.Module):

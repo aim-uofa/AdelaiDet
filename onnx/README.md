@@ -3,7 +3,7 @@
 
 2020.05.07:
 
-1. add onnxruntime verification demo
+1. add [onnxruntime](https://github.com/microsoft/onnxruntime) verification demo 
 
 2. add RT model all-in-one script
 
