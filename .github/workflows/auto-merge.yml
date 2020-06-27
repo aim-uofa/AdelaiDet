@@ -6,7 +6,7 @@ name: auto-merge
 # events but only for the master branch
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '* * * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,6 +19,8 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        ref: 'master'
 
     # Runs a set of commands using the runners shell
     - name: Run update master from upstream
@@ -27,8 +29,9 @@ jobs:
         git remote add upstream https://github.com/aim-uofa/AdelaiDet
         git remote -v
         git status
-        git branch -v
-        git checkout master
+        git fetch upstream
+        git merge --no-edit upstream/master
+        git push origin master
         git status
         
         
