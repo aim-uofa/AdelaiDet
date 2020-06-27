@@ -25,10 +25,13 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run update master from upstream
       run: |
-        echo Merge upstream        
+        echo Merge upstream
+        git config --global user.name 'blueardour'
+        git config --global user.email 'blueardour@gmail.com'
+        git pull --unshallow
         git remote add upstream https://github.com/aim-uofa/AdelaiDet
         git remote -v
-        git status
+        git status        
         git fetch upstream
         git merge --no-edit upstream/master
         git push origin master
