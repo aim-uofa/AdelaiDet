@@ -39,3 +39,18 @@ jobs:
         git status
         
         
+    - uses: actions/checkout@v2
+      with:
+        ref: 'quantization'
+            # Runs a set of commands using the runners shell
+          
+    - name: merge branch
+      run: |
+        echo Merge branch
+        git config --global user.name 'blueardour'
+        git config --global user.email 'blueardour@gmail.com'
+        git status
+        git merge --no-edit master
+        git status
+        
+        
