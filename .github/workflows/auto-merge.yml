@@ -24,7 +24,7 @@ jobs:
     - name: Run update master from upstream
       run: |
         echo Merge upstream        
-        git remtoe add upstream https://github.com/aim-uofa/AdelaiDet
+        git remote add upstream https://github.com/aim-uofa/AdelaiDet
         git remote -v
         git status
         git branch -v
