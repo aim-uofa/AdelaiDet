@@ -56,4 +56,5 @@ train.sh
 benchmark.sh
 
 
-
+# dataset
+datasets/totaltext

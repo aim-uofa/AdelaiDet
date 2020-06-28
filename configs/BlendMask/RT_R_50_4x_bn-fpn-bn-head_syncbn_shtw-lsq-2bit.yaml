@@ -1,0 +1,38 @@
+_BASE_: "RT_R_50_4x_syncbn_shtw.yaml"
+MODEL:
+  EXTRA_WEIGHTS: "output/blendmask/RT_R_50_4x_syncbn-fpn-syncbn-head_syncbn_shtw/model_final.pth"
+  WEIGHTS: "weights/det-resnet50/dali-dorefa-wtet-wt_var-finetune-2bit-wd2e-5-sgd_9-O1-model_best.pth.tar"
+  FPN:
+    NORM: "SyncBN"
+    USE_RELU: True
+  FCOS:
+    NORM: "SyncBN"
+  fp16: True
+  QUANTIZATION:
+    scope: [
+            'backbone.bottom_up.res2',
+            'backbone.bottom_up.res3',
+            'backbone.bottom_up.res4',
+            'backbone.bottom_up.res5',
+            # continue for more branch
+            # FPN
+            'backbone.fpn_lateral3',
+            'backbone.fpn_output3',
+            'backbone.fpn_lateral4',
+            'backbone.fpn_output4',
+            'backbone.fpn_lateral5',
+            'backbone.fpn_output5',
+            'backbone.top_block',
+            # Head tower
+            'proposal_generator.fcos_head.cls_tower',
+            'proposal_generator.fcos_head.bbox_tower',
+           ]
+    keyword: ["debug", "dorefa", "lsq"]
+    fm_enable: True 
+    wt_enable: True 
+    fm_bit: 2.0
+    wt_bit: 2.0
+    fm_quant_group: 1
+    wt_quant_group: 1
+    wt_adaptive: "var-mean"
+OUTPUT_DIR: "output/blendmask/RT_R_50_4x_syncbn-fpn-syncbn-head_syncbn_shtw-lsq-2bit"
