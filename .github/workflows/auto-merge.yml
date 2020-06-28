@@ -1,14 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: merge-master
+name: auto-merge
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches:
-      - master
-        
+  schedule:
+    - cron: '0 0 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,13 +19,38 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        ref: 'master'
 
     # Runs a set of commands using the runners shell
-    - name: Merge master
+    - name: Run update master from upstream
       run: |
-        echo Auto merge master
+        echo Merge upstream
+        git config --global user.name 'blueardour'
+        git config --global user.email 'blueardour@gmail.com'
+        git config pull.ff only
+        git pull --unshallow
+        git remote add upstream https://github.com/aim-uofa/AdelaiDet
+        git remote -v
+        git status        
+        git fetch upstream
+        git merge --no-edit upstream/master
+        git push origin master
+        git status
+        
+        
+    - uses: actions/checkout@v2
+      with:
+        ref: 'quantization'
+            # Runs a set of commands using the runners shell
+          
+    - name: merge branch
+      run: |
+        echo Merge branch
         git config --global user.name 'blueardour'
         git config --global user.email 'blueardour@gmail.com'
         git status
         git merge --no-edit origin/master
-        git push origin quantization
+        git status
+        
+        
