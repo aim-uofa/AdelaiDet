@@ -50,7 +50,7 @@ jobs:
         git config --global user.name 'blueardour'
         git config --global user.email 'blueardour@gmail.com'
         git status
-        git merge --no-edit master
+        git merge --no-edit origin/master
         git status
         
         
