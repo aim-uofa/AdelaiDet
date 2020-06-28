@@ -14,6 +14,8 @@ MODEL:
     USE_RELU: True
   FCOS:
     NORM: "SyncBN"
+  # open the mix precision if GPU memory not enough
+  #fp16: True
   QUANTIZATION:
     scope: [
             'backbone.bottom_up.res2',

@@ -1,13 +1,21 @@
-_BASE_: "RT_R_50_4x_syncbn_shtw.yaml"
+_BASE_: "Base-550.yaml"
 MODEL:
-  EXTRA_WEIGHTS: "output/blendmask/RT_R_50_4x_syncbn-fpn-syncbn-head_syncbn_shtw/model_final.pth"
-  WEIGHTS: "weights/det-resnet50/dali-dorefa-wtet-wt_var-finetune-2bit-wd2e-5-sgd_9-O1-model_best.pth.tar"
+  EXTRA_WEIGHTS: "output/blendmask/550_R_18_1x_full_syncbn/model_final.pth"
+  WEIGHTS: "weights/det-resnet18/lsq_best_model_a2w2.pth"
+  RESNETS:
+    DEPTH: 18
+    RES2_OUT_CHANNELS: 64
+    NORM: "SyncBN"
+    STRIDE_IN_1X1: False
+  BACKBONE:
+    FREEZE_AT: 0
   FPN:
     NORM: "SyncBN"
     USE_RELU: True
   FCOS:
     NORM: "SyncBN"
-  fp16: True
+  # open the mix precision if GPU memory not enough
+  #fp16: True
   QUANTIZATION:
     scope: [
             'backbone.bottom_up.res2',
@@ -26,13 +34,19 @@ MODEL:
             # Head tower
             'proposal_generator.fcos_head.cls_tower',
             'proposal_generator.fcos_head.bbox_tower',
+            'proposal_generator.fcos_head.share_tower',
+            # basis_module
+            'basis_module.refine',
+            'basis_module.tower',
+            'basis_module.seg_head',
            ]
     keyword: ["debug", "dorefa", "lsq"]
     fm_enable: True 
     wt_enable: True 
     fm_bit: 2.0
     wt_bit: 2.0
-    fm_quant_group: 1
+    fm_boundary: 1.0
+    wt_boundary: 1.0
     wt_quant_group: 1
     wt_adaptive: "var-mean"
-OUTPUT_DIR: "output/blendmask/RT_R_50_4x_syncbn-fpn-syncbn-head_syncbn_shtw-lsq-2bit"
+OUTPUT_DIR: "output/blendmask/550_R_18_1x_full_syncbn-lsq-2bit"

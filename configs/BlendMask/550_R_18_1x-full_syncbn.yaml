@@ -1,4 +1,4 @@
-_BASE_: "Base-FCOS.yaml"
+_BASE_: "Base-550.yaml"
 MODEL:
   WEIGHTS: "weights/det-resnet18/resnet18_w32a32.pth"
   RESNETS:
@@ -15,6 +15,4 @@ MODEL:
     NORM: "SyncBN"
   # open the mix precision if GPU memory not enough
   #fp16: True
-INPUT:
-  MIN_SIZE_TRAIN: (800,)
-OUTPUT_DIR: "output/fcos/R_18_1x-Full-SyncBN"
+OUTPUT_DIR: "output/blendmask/550_R_18_1x_full_syncbn"

@@ -1,9 +1,0 @@
-_BASE_: "RT_R_50_4x_syncbn_shtw.yaml"
-MODEL:
-  WEIGHTS: "weights/det-resnet50/official-r50.pth.raw"
-  FPN:
-    NORM: "SyncBN"
-    USE_RELU: True
-  FCOS:
-    NORM: "SyncBN"
-OUTPUT_DIR: "output/blendmask/RT_R_50_4x_syncbn-fpn-syncbn-head_syncbn_shtw"
