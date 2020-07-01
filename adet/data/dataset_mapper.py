@@ -35,7 +35,10 @@ class DatasetMapperWithBasis(DatasetMapper):
     def __init__(self, cfg, is_train=True):
         super().__init__(cfg, is_train)
         
-        self.crop = self.augmentation[0]
+        if cfg.INPUT.CROP.ENABLED and is_train:
+            self.crop = self.augmentation[0]
+        else:
+            self.crop = None
         # Rebuild augmentations
         logger.info("Rebuilding the augmentations. The previous augmentations will be overridden.")
         self.augmentation = build_augmentation(cfg, is_train)
