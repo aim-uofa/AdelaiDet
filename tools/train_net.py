@@ -61,6 +61,13 @@ class Trainer(DefaultTrainer):
         optimizer = self.build_optimizer(cfg, model)
         data_loader = self.build_train_loader(cfg)
 
+        if cfg.MODEL.fp16:
+            import apex
+            from apex import amp
+            if cfg.MODEL.apex_sync_bn:
+                model = apex.parallel.convert_syncbn_model(model)
+            model, optimizer = amp.initialize(model, optimizer, opt_level="O1")
+
         # For training, wrap with DDP. But don't need this for inference.
         if comm.get_world_size() > 1:
             model = DistributedDataParallel(
@@ -77,6 +84,7 @@ class Trainer(DefaultTrainer):
             cfg.OUTPUT_DIR,
             optimizer=optimizer,
             scheduler=self.scheduler,
+            amp=amp if cfg.MODEL.fp16 else None,
         )
         self.start_iter = 0
         self.max_iter = cfg.SOLVER.MAX_ITER

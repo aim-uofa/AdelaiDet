@@ -22,6 +22,8 @@ class IOULoss(nn.Module):
             target: Nx4 target bounding boxes
             weight: N loss weight for each instance
         """
+        if isinstance(target, torch.Tensor) and isinstance(pred, torch.Tensor) and pred.dtype != target.dtype:
+            target = target.half()
         pred_left = pred[:, 0]
         pred_top = pred[:, 1]
         pred_right = pred[:, 2]

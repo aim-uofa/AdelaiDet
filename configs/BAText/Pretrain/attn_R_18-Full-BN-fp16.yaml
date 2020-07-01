@@ -1,0 +1,28 @@
+_BASE_: "Base-Pretrain.yaml"
+MODEL:
+  WEIGHTS: "weights/det-resnet18/resnet18_w32a32.pth"
+  RESNETS:
+    DEPTH: 18
+    RES2_OUT_CHANNELS: 64
+    NORM: "BN"
+    STRIDE_IN_1X1: False
+  BACKBONE:
+    FREEZE_AT: 0
+  FPN:
+    NORM: "BN"
+    USE_RELU: True
+  FCOS:
+    NORM: "BN"
+  # turn on for mix precision training
+  fp16: True
+  BATEXT:
+    RECOGNIZER: "attn" 
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.01
+  STEPS: (160000, 220000)
+  MAX_ITER: 260000
+  CHECKPOINT_PERIOD: 20000
+TEST:
+  EVAL_PERIOD: 20000
+OUTPUT_DIR: "output/batext/pretrain/attn_R_18-Full-BN-fp16"

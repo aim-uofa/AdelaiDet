@@ -408,7 +408,7 @@ at::Tensor BezierAlign_forward_cuda(
     return output;
   }
 
-  AT_DISPATCH_FLOATING_TYPES(input.scalar_type(), "BezierAlign_forward", [&] {
+  AT_DISPATCH_FLOATING_TYPES_AND_HALF(input.scalar_type(), "BezierAlign_forward", [&] {
     BezierAlignForward<scalar_t><<<grid, block, 0, stream>>>(
         output_size,
         input.contiguous().data_ptr<scalar_t>(),
@@ -468,7 +468,7 @@ at::Tensor BezierAlign_backward_cuda(
     return grad_input;
   }
 
-  AT_DISPATCH_FLOATING_TYPES(grad.scalar_type(), "BezierAlign_backward", [&] {
+  AT_DISPATCH_FLOATING_TYPES_AND_HALF(grad.scalar_type(), "BezierAlign_backward", [&] {
     BezierAlignBackwardFeature<scalar_t><<<grid, block, 0, stream>>>(
         grad.numel(),
         grad.contiguous().data_ptr<scalar_t>(),
