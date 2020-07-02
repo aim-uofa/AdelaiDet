@@ -1,22 +1,21 @@
 import copy
-import numpy as np
+import logging
 import os.path as osp
+
+import numpy as np
 import torch
 from fvcore.common.file_io import PathManager
 from PIL import Image
-import logging
+from pycocotools import mask as maskUtils
 
-from detectron2.data.dataset_mapper import DatasetMapper
-from detectron2.data.detection_utils import SizeMismatchError
 from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
+from detectron2.data.dataset_mapper import DatasetMapper
+from detectron2.data.detection_utils import SizeMismatchError
 
-from .detection_utils import (
-    build_augmentation,
-    transform_instance_annotations,
-    annotations_to_instances,
-    gen_crop_transform_with_instance,
-)
+from .augmentation import InstanceAugInput, RandomCropWithInstance
+from .detection_utils import (annotations_to_instances, build_augmentation,
+                              transform_instance_annotations)
 
 """
 This file contains the default mapping that's applied to "dataset dicts".
@@ -25,6 +24,28 @@ This file contains the default mapping that's applied to "dataset dicts".
 __all__ = ["DatasetMapperWithBasis"]
 
 logger = logging.getLogger(__name__)
+
+
+def segmToRLE(segm, img_size):
+    h, w = img_size
+    if type(segm) == list:
+        # polygon -- a single object might consist of multiple parts
+        # we merge all parts into one mask rle code
+        rles = maskUtils.frPyObjects(segm, h, w)
+        rle = maskUtils.merge(rles)
+    elif type(segm["counts"]) == list:
+        # uncompressed RLE
+        rle = maskUtils.frPyObjects(segm, h, w)
+    else:
+        # rle
+        rle = segm
+    return rle
+
+
+def segmToMask(segm, img_size):
+    rle = segmToRLE(segm, img_size)
+    m = maskUtils.decode(rle)
+    return m
 
 
 class DatasetMapperWithBasis(DatasetMapper):
@@ -36,13 +57,27 @@ class DatasetMapperWithBasis(DatasetMapper):
         super().__init__(cfg, is_train)
 
         # Rebuild augmentations
-        logger.info("Rebuilding the augmentations. The previous augmentations will be overridden.")
+        logger.info(
+            "Rebuilding the augmentations. The previous augmentations will be overridden."
+        )
         self.augmentation = build_augmentation(cfg, is_train)
 
+        if cfg.INPUT.CROP.ENABLED and is_train:
+            self.augmentation.insert(
+                0,
+                RandomCropWithInstance(
+                    cfg.INPUT.CROP.TYPE,
+                    cfg.INPUT.CROP.SIZE,
+                    cfg.INPUT.CROP.CROP_INSTANCE,
+                ),
+            )
+            logging.getLogger(__name__).info(
+                "Cropping used in training: " + str(self.augmentation[0])
+            )
+
         # fmt: off
-        self.basis_loss_on  = cfg.MODEL.BASIS_MODULE.LOSS_ON
-        self.ann_set        = cfg.MODEL.BASIS_MODULE.ANN_SET
-        self.crop_box       = cfg.INPUT.CROP.CROP_INSTANCE
+        self.basis_loss_on       = cfg.MODEL.BASIS_MODULE.LOSS_ON
+        self.ann_set             = cfg.MODEL.BASIS_MODULE.ANN_SET
         # fmt: on
 
     def __call__(self, dataset_dict):
@@ -72,35 +107,27 @@ class DatasetMapperWithBasis(DatasetMapper):
             else:
                 raise e
 
-        if "annotations" not in dataset_dict or len(dataset_dict["annotations"]) == 0:
-            image, transforms = T.apply_augmentations(
-                ([self.crop] if self.crop else []) + self.augmentation, image
-            )
+        # USER: Remove if you don't do semantic/panoptic segmentation.
+        if "sem_seg_file_name" in dataset_dict:
+            sem_seg_gt = utils.read_image(
+                dataset_dict.pop("sem_seg_file_name"), "L"
+            ).squeeze(2)
         else:
-            # Crop around an instance if there are instances in the image.
-            # USER: Remove if you don't use cropping
-            if self.crop:
-                crop_tfm = gen_crop_transform_with_instance(
-                    self.crop.get_crop_size(image.shape[:2]),
-                    image.shape[:2],
-                    dataset_dict["annotations"],
-                    crop_box=self.crop_box,
-                )
-                image = crop_tfm.apply_image(image)
-            try:
-                image, transforms = T.apply_augmentations(self.augmentation, image)
-            except ValueError as e:
-                print(dataset_dict["file_name"])
-                raise e
-            if self.crop:
-                transforms = crop_tfm + transforms
+            sem_seg_gt = None
+
+        aug_input = InstanceAugInput(image, sem_seg=sem_seg_gt, instances=dataset_dict["annotations"])
+        transforms = aug_input.apply_augmentations(self.augmentation)
+        image, sem_seg_gt = aug_input.image, aug_input.sem_seg
 
         image_shape = image.shape[:2]  # h, w
-
         # Pytorch's dataloader is efficient on torch.Tensor due to shared-memory,
         # but not efficient on large generic data structures due to the use of pickle & mp.Queue.
         # Therefore it's important to use torch.Tensor.
-        dataset_dict["image"] = torch.as_tensor(np.ascontiguousarray(image.transpose(2, 0, 1)))
+        dataset_dict["image"] = torch.as_tensor(
+            np.ascontiguousarray(image.transpose(2, 0, 1))
+        )
+        if sem_seg_gt is not None:
+            dataset_dict["sem_seg"] = torch.as_tensor(sem_seg_gt.astype("long"))
 
         # USER: Remove if you don't use pre-computed proposals.
         # Most users would not need this feature.
@@ -130,7 +157,10 @@ class DatasetMapperWithBasis(DatasetMapper):
             # USER: Implement additional transformations if you have other types of data
             annos = [
                 transform_instance_annotations(
-                    obj, transforms, image_shape, keypoint_hflip_indices=self.keypoint_hflip_indices
+                    obj,
+                    transforms,
+                    image_shape,
+                    keypoint_hflip_indices=self.keypoint_hflip_indices,
                 )
                 for obj in dataset_dict.pop("annotations")
                 if obj.get("iscrowd", 0) == 0
@@ -143,24 +173,24 @@ class DatasetMapperWithBasis(DatasetMapper):
             # tightly bound the object. As an example, imagine a triangle object
             # [(0,0), (2,0), (0,2)] cropped by a box [(1,0),(2,2)] (XYXY format). The tight
             # bounding box of the cropped triangle should be [(1,0),(2,1)], which is not equal to
-            # the intersection of original bounding box and the cropping box.
-            if self.crop and instances.has("gt_masks"):
+            if self.compute_tight_boxes and instances.has("gt_masks"):
                 instances.gt_boxes = instances.gt_masks.get_bounding_boxes()
             dataset_dict["instances"] = utils.filter_empty_instances(instances)
-
-        # USER: Remove if you don't do semantic/panoptic segmentation.
-        if "sem_seg_file_name" in dataset_dict:
-            sem_seg_gt = utils.read_image(dataset_dict.pop("sem_seg_file_name"), "L").squeeze(2)
-            sem_seg_gt = transforms.apply_segmentation(sem_seg_gt)
-            sem_seg_gt = torch.as_tensor(sem_seg_gt.astype("long"))
-            dataset_dict["sem_seg"] = sem_seg_gt
 
         if self.basis_loss_on and self.is_train:
             # load basis supervisions
             if self.ann_set == "coco":
-                basis_sem_path = dataset_dict["file_name"].replace('train2017', 'thing_train2017').replace('image/train', 'thing_train')
+                basis_sem_path = (
+                    dataset_dict["file_name"]
+                    .replace("train2017", "thing_train2017")
+                    .replace("image/train", "thing_train")
+                )
             else:
-                basis_sem_path = dataset_dict["file_name"].replace('coco', 'lvis').replace('train2017', 'thing_train')
+                basis_sem_path = (
+                    dataset_dict["file_name"]
+                    .replace("coco", "lvis")
+                    .replace("train2017", "thing_train")
+                )
             # change extension to npz
             basis_sem_path = osp.splitext(basis_sem_path)[0] + ".npz"
             basis_sem_gt = np.load(basis_sem_path)["mask"]
