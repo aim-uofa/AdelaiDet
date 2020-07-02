@@ -1,0 +1,56 @@
+_BASE_: "../Base-FCOS.yaml"
+INPUT:
+  MIN_SIZE_TRAIN: (256, 288, 320, 352, 384, 416, 448, 480, 512, 544, 576, 608)
+  MAX_SIZE_TRAIN: 900
+  MAX_SIZE_TEST: 736
+  MIN_SIZE_TEST: 512
+MODEL:
+  EXTRA_WEIGHTS: "output/fcos/FCOS_RT_MS_R_50_4x_full-syncbn/model_final.pth"
+  WEIGHTS: "weights/det-resnet50/lsq_best_model_a2w2.pth"
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+  BACKBONE:
+    FREEZE_AT: 0
+  FPN:
+    NORM: "SyncBN"
+    USE_RELU: True
+  FCOS:
+    TOP_LEVELS: 0
+    SIZES_OF_INTEREST: [64, 128]
+    FPN_STRIDES: [8, 16, 32]
+    IN_FEATURES: ['p3', 'p4', 'p5']
+    NORM: "SyncBN"
+  # open the mix precision if GPU memory not enough. Known issue: fp16 conflicts with SyncBN for multi GPU training
+  #fp16: True
+  QUANTIZATION:
+    scope: [
+            'backbone.bottom_up.res2',
+            'backbone.bottom_up.res3',
+            'backbone.bottom_up.res4',
+            'backbone.bottom_up.res5',
+            # continue for more branch
+            # FPN
+            'backbone.fpn_lateral3',
+            'backbone.fpn_output3',
+            'backbone.fpn_lateral4',
+            'backbone.fpn_output4',
+            'backbone.fpn_lateral5',
+            'backbone.fpn_output5',
+            # Head tower
+            'proposal_generator.fcos_head.cls_tower',
+            'proposal_generator.fcos_head.bbox_tower',
+           ]
+    keyword: ["debug", "dorefa", "lsq"]
+    fm_enable: True 
+    wt_enable: True 
+    fm_bit: 2.0
+    wt_bit: 2.0
+    fm_boundary: 1.0
+    wt_boundary: 1.0
+    wt_quant_group: 1
+    wt_adaptive: "var-mean"
+SOLVER:
+  STEPS: (300000, 340000)
+  MAX_ITER: 360000
+OUTPUT_DIR: "output/fcos/FCOS_RT_MS_R_50_4x_full-syncbn-lsq-2bit"

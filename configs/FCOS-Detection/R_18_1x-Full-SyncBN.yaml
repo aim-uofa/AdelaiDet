@@ -13,7 +13,7 @@ MODEL:
     USE_RELU: True
   FCOS:
     NORM: "SyncBN"
-  # open the mix precision if GPU memory not enough
+  # open the mix precision if GPU memory not enough. Known issue: fp16 conflicts with SyncBN for multi GPU training
   #fp16: True
 INPUT:
   MIN_SIZE_TRAIN: (800,)
