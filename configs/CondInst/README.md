@@ -64,7 +64,7 @@ Name | inf. time | box AP | mask AP | download
 [CondInst_MS_R_50_BiFPN_1x](MS_R_50_BiFPN_1x.yaml) | 13 FPS | 42.5 | 37.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/RyCG82WhTop99j2/download)
 [CondInst_MS_R_50_BiFPN_3x](MS_R_50_BiFPN_3x.yaml) | 13 FPS | 44.3 | 38.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/W9ZCcxJF0P5NhJQ/download)
 [CondInst_MS_R_50_BiFPN_3x_sem](MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
-[CondInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | - | 45.3 | 39.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/HyB0O0D7hfpUC2n/download)
+[CondInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.3 | 39.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/HyB0O0D7hfpUC2n/download)
 
 
 *Disclaimer:*
