@@ -9,8 +9,7 @@
 
 
 # Installation & Quick Start
-First, follow the [default instruction](../../README.md#Installation) to install the project, and 
-follow [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md) 
+First, follow the [default instruction](../../README.md#Installation) to install the project and [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md) 
 set up the datasets (e.g., MS-COCO).
 
 For demo, run the following command lines:

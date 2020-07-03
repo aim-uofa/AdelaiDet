@@ -71,7 +71,10 @@ Note that:
 
 ## Installation
 
-First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Then build AdelaiDet with:
+First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Please use Detectron2 with commit id [45a4d97](https://github.com/facebookresearch/detectron2/tree/45a4d970bb2242ce0630c5ce03f860ad14382169) for now. The incompatibility with the latest one will be fixed soon.
+
+Then build AdelaiDet with:
+
 ```
 git clone https://github.com/aim-uofa/AdelaiDet.git
 cd AdelaiDet
