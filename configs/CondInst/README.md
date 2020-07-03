@@ -7,6 +7,7 @@
 
 [[`Paper`](https://arxiv.org/abs/2003.05664)] [[`BibTeX`](#citing-condinst)]
 
+
 # Installation & Quick Start
 First, follow the [default instruction](../../README.md#Installation) to install the project, and 
 follow [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md) 
@@ -71,6 +72,7 @@ Name | inf. time | box AP | mask AP | download
 - All models are trained with multi-scale data augmentation. Inference time is measured on a single NVIDIA 1080Ti with batch size 1.
 - The final mask's resolution is 1/4 of the input image (i.e., `MODEL.CONDINST.MASK_OUT_STRIDE = 4`, which is enough on MS-COCO and different from our original paper. In the paper, we used `MODEL.CONDINST.MASK_OUT_STRIDE = 2`. If you want high-resolution mask results, please reduce it.
 - This is a reimplementation. Thus, the numbers are slightly different from our original paper (within 0.1% in mask AP).
+
 
 # Citing CondInst
 If you use CondInst in your research or wish to refer to the baseline results, please use the following BibTeX entries.
