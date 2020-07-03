@@ -45,7 +45,7 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_1x](MS_R_50_1x.yaml) | - | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
+[CondInst_MS_R_50_1x](MS_R_50_1x.yaml) | 13 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
 [CondInst_MS_R_50_3x](MS_R_50_3x.yaml) | - | 41.9 | 37.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/T3OGVBiaSVLvo5E/download)
 [CondInst_MS_R_101_3x](MS_R_101_3x.yaml) | - | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
 
