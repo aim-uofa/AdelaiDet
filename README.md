@@ -53,10 +53,6 @@ Name | inf. time | e2e-hmean | det-hmean | download
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
-Note that:
-- Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
-- APs are evaluated on COCO2017 val split unless specified.
-
 ### COCO Instance Segmentation Baselines with [CondInst](https://arxiv.org/abs/2003.05664)
 
 Name | inf. time | box AP | mask AP | download
@@ -67,6 +63,11 @@ Name | inf. time | box AP | mask AP | download
 [CondInst_MS_R_101_3x_sem](configs/CondInst/MS_R_101_3x_sem.yaml) | 10 FPS | 44.6 | 39.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
 
 For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
+
+Note that:
+- Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
+- APs are evaluated on COCO2017 val split unless specified.
+
 
 ## Installation
 
