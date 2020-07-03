@@ -200,6 +200,29 @@ _C.MODEL.MEInst.GCN_KERNEL_SIZE = 9
 _C.MODEL.MEInst.LOSS_ON_MASK = False
 
 # ---------------------------------------------------------------------------- #
+# CondInst Options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.CONDINST = CN()
+
+# the downsampling ratio of the final instance masks to the input image
+_C.MODEL.CONDINST.MASK_OUT_STRIDE = 4
+_C.MODEL.CONDINST.MAX_PROPOSALS = -1
+
+_C.MODEL.CONDINST.MASK_HEAD = CN()
+_C.MODEL.CONDINST.MASK_HEAD.CHANNELS = 8
+_C.MODEL.CONDINST.MASK_HEAD.NUM_LAYERS = 3
+_C.MODEL.CONDINST.MASK_HEAD.USE_FP16 = False
+_C.MODEL.CONDINST.MASK_HEAD.DISABLE_REL_COORDS = False
+
+_C.MODEL.CONDINST.MASK_BRANCH = CN()
+_C.MODEL.CONDINST.MASK_BRANCH.OUT_CHANNELS = 8
+_C.MODEL.CONDINST.MASK_BRANCH.IN_FEATURES = ["p3", "p4", "p5"]
+_C.MODEL.CONDINST.MASK_BRANCH.CHANNELS = 128
+_C.MODEL.CONDINST.MASK_BRANCH.NORM = "BN"
+_C.MODEL.CONDINST.MASK_BRANCH.NUM_CONVS = 4
+_C.MODEL.CONDINST.MASK_BRANCH.SEMANTIC_LOSS_ON = False
+
+# ---------------------------------------------------------------------------- #
 # TOP Module Options
 # ---------------------------------------------------------------------------- #
 _C.MODEL.TOP_MODULE = CN()
