@@ -46,15 +46,15 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
 [CondInst_MS_R_50_1x](MS_R_50_1x.yaml) | 13 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
-[CondInst_MS_R_50_3x](MS_R_50_3x.yaml) | - | 41.9 | 37.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/T3OGVBiaSVLvo5E/download)
-[CondInst_MS_R_101_3x](MS_R_101_3x.yaml) | - | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
+[CondInst_MS_R_50_3x](MS_R_50_3x.yaml) | 13 FPS | 37.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/T3OGVBiaSVLvo5E/download)
+[CondInst_MS_R_101_3x](MS_R_101_3x.yaml) | 10 FPS | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
 
 With semantic segmentation loss (set `MODEL.CONDINST.MASK_BRANCH.SEMANTIC_LOSS_ON = True` to enable it):
 
 Name | inf. time | box AP | mask AP | mask AP (test-dev) | download
 --- |:---:|:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_3x_sem](MS_R_50_3x_sem.yaml) | - | 42.6 | 38.2 | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/75Ag8VvC6WedVNh/download)
-[CondInst_MS_R_101_3x_sem](MS_R_101_3x_sem.yaml) | - | 44.6 | 39.8 | 40.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
+[CondInst_MS_R_50_3x_sem](MS_R_50_3x_sem.yaml) | 13 FPS | 42.6 | 38.2 | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/75Ag8VvC6WedVNh/download)
+[CondInst_MS_R_101_3x_sem](MS_R_101_3x_sem.yaml) | 10 FPS | 44.6 | 39.8 | 40.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
 
 With BiFPN:
 
