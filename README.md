@@ -9,10 +9,10 @@ To date, AdelaiDet implements the following algorithms:
 * [BlendMask](configs/BlendMask/README.md)
 * [MEInst](configs/MEInst-InstanceSegmentation/README.md)
 * [ABCNet](configs/BAText/README.md)
+* [CondInst](configs/CondInst/README.md)
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
-* [CondInst](https://arxiv.org/abs/2003.05664) _to be released_
 
 
 ## Models
@@ -56,6 +56,17 @@ For more models and information, please refer to ABCNet [README.md](configs/BATe
 Note that:
 - Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
 - APs are evaluated on COCO2017 val split unless specified.
+
+### COCO Instance Segmentation Baselines with [CondInst](https://arxiv.org/abs/2003.05664)
+
+Name | inf. time | box AP | mask AP | download
+--- |:---:|:---:|:---:|:---:
+[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | - | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
+[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | - | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
+[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | - | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
+[CondInst_MS_R_101_3x_sem](configs/CondInst/MS_R_101_3x_sem.yaml) | - | 44.6 | 39.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
+
+For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
 
 ## Installation
 
@@ -165,11 +176,11 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year    =  {2019}
 }
 
-@article{tian2020conditional,
-  title   = {Conditional Convolutions for Instance Segmentation},
-  author  = {Tian, Zhi and Shen, Chunhua and Chen, Hao},
-  journal = {arXiv preprint arXiv:2003.05664},
-  year    = {2020}
+@inproceedings{tian2020conditional,
+  title     =  {Conditional Convolutions for Instance Segmentation},
+  author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao},
+  booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
+  year      =  {2020}
 }
 ```
 

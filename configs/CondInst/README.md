@@ -75,7 +75,7 @@ Name | inf. time | box AP | mask AP | download
 If you use CondInst in your research or wish to refer to the baseline results, please use the following BibTeX entries.
 ```BibTeX
 @inproceedings{tian2020conditional,
-  title     =  {{FCOS}: Fully Convolutional One-Stage Object Detection},
+  title     =  {Conditional Convolutions for Instance Segmentation},
   author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao},
   booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
   year      =  {2020}
