@@ -159,11 +159,11 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year      =  {2020}
 }
 
-@article{wang2019solo,
-  title   =  {{SOLO}: Segmenting Objects by Locations},
-  author  =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
-  journal =  {arXiv preprint arXiv:1912.04488},
-  year    =  {2019}
+@inproceedings{wang2020solo,
+  title     =  {{SOLO}: Segmenting Objects by Locations},
+  author    =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
+  booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
+  year      =  {2020}
 }
 
 @article{wang2020solov2,
