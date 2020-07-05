@@ -60,7 +60,7 @@ Name | inf. time | box AP | mask AP | download
 [CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
 [CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
 [CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
-[CondInst_MS_R_101_3x_sem](configs/CondInst/MS_R_101_3x_sem.yaml) | 10 FPS | 44.6 | 39.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
+[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/2p1ashxl54Su8vv/download)
 
 For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
 
