@@ -1,5 +1,5 @@
-# ABCNet
-[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework. Note that the implementation details have slight different with original paper (less data, different recognition decoder, etc). 
+# ABCNet (CVPR'20 oral)
+[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework over 10x faster than previous SoTA. 
 
 ## Models
 ### CTW1500 results with ABCNet. 
