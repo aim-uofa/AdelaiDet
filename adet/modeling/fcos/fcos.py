@@ -51,6 +51,8 @@ class FCOS(nn.Module):
         self.yield_proposal = cfg.MODEL.FCOS.YIELD_PROPOSAL
 
         self.fcos_head = FCOSHead(cfg, [input_shape[f] for f in self.in_features])
+        self.in_channels_to_top_module = self.fcos_head.in_channels_to_top_module
+
         self.fcos_outputs = FCOSOutputs(cfg)
 
     def forward_head(self, features, top_module=None):
@@ -139,6 +141,8 @@ class FCOSHead(nn.Module):
         in_channels = [s.channels for s in input_shape]
         assert len(set(in_channels)) == 1, "Each level must have the same channel!"
         in_channels = in_channels[0]
+
+        self.in_channels_to_top_module = in_channels
 
         for head in head_configs:
             tower = []

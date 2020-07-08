@@ -18,10 +18,10 @@ To date, AdelaiDet implements the following algorithms:
 * [BlendMask](configs/BlendMask/README.md)
 * [MEInst](configs/MEInst-InstanceSegmentation/README.md)
 * [ABCNet](configs/BAText/README.md)
+* [CondInst](configs/CondInst/README.md)
 * [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
-* [CondInst](https://arxiv.org/abs/2003.05664) _to be released_
 
 
 ## Models
@@ -62,13 +62,28 @@ Name | inf. time | e2e-hmean | det-hmean | download
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
+### COCO Instance Segmentation Baselines with [CondInst](https://arxiv.org/abs/2003.05664)
+
+Name | inf. time | box AP | mask AP | download
+--- |:---:|:---:|:---:|:---:
+[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
+[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
+[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
+[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/2p1ashxl54Su8vv/download)
+
+For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
+
 Note that:
 - Inference time for all projects is measured on a NVIDIA 1080Ti with batch size 1.
 - APs are evaluated on COCO2017 val split unless specified.
 
+
 ## Installation
 
-First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Then build AdelaiDet with:
+First install Detectron2 following the official guide: [INSTALL.md](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md). Please use Detectron2 with commit id [45a4d97](https://github.com/facebookresearch/detectron2/tree/45a4d970bb2242ce0630c5ce03f860ad14382169) for now. The incompatibility with the latest one will be fixed soon.
+
+Then build AdelaiDet with:
+
 ```
 git clone https://github.com/aim-uofa/AdelaiDet.git
 cd AdelaiDet
@@ -153,11 +168,11 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year      =  {2020}
 }
 
-@article{wang2019solo,
-  title   =  {{SOLO}: Segmenting Objects by Locations},
-  author  =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
-  journal =  {arXiv preprint arXiv:1912.04488},
-  year    =  {2019}
+@inproceedings{wang2020solo,
+  title     =  {{SOLO}: Segmenting Objects by Locations},
+  author    =  {Wang, Xinlong and Kong, Tao and Shen, Chunhua and Jiang, Yuning and Li, Lei},
+  booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
+  year      =  {2020}
 }
 
 @article{wang2020solov2,
@@ -174,11 +189,11 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year    =  {2019}
 }
 
-@article{tian2020conditional,
-  title   = {Conditional Convolutions for Instance Segmentation},
-  author  = {Tian, Zhi and Shen, Chunhua and Chen, Hao},
-  journal = {arXiv preprint arXiv:2003.05664},
-  year    = {2020}
+@inproceedings{tian2020conditional,
+  title     =  {Conditional Convolutions for Instance Segmentation},
+  author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao},
+  booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
+  year      =  {2020}
 }
 ```
 
