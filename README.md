@@ -2,12 +2,7 @@
 
 # Quantization version of AdelaiDet
 
-To avoid disrupting the files in the AdelaiDet project, information about the quantization is presented in [detection.md](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md)
-
-***This project requires the [Quantization version of Detectron2](https://github.com/blueardour/detectron2)***
-The support of quantization is modified based on detectron2. Thus it is possible to employ the mentioned project alone for quantization. 
-The following is from the original AdelaiDet project. 
-
+***This project requires the [Dedicated version of Detectron2](https://github.com/blueardour/detectron2)***
 
 AdelaiDet is an open source toolbox for multiple instance-level recognition tasks on top of [Detectron2](https://github.com/facebookresearch/detectron2).
 All instance-level recognition works from our group are open-sourced here.
