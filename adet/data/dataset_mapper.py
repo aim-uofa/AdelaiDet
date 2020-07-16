@@ -91,7 +91,7 @@ class DatasetMapperWithBasis(DatasetMapper):
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         # USER: Write your own image loading if it's not from a file
         try:
-            image = utils.read_image(dataset_dict["file_name"], format=self.img_format)
+            image = utils.read_image(dataset_dict["file_name"], format=self.image_format)
         except Exception as e:
             print(dataset_dict["file_name"])
             print(e)
@@ -131,7 +131,7 @@ class DatasetMapperWithBasis(DatasetMapper):
 
         # USER: Remove if you don't use pre-computed proposals.
         # Most users would not need this feature.
-        if self.load_proposals:
+        if self.proposal_topk:
             utils.transform_proposals(
                 dataset_dict,
                 image_shape,
@@ -149,9 +149,9 @@ class DatasetMapperWithBasis(DatasetMapper):
         if "annotations" in dataset_dict:
             # USER: Modify this if you want to keep them for some reason.
             for anno in dataset_dict["annotations"]:
-                if not self.mask_on:
+                if not self.use_instance_mask:
                     anno.pop("segmentation", None)
-                if not self.keypoint_on:
+                if not self.use_keypoint:
                     anno.pop("keypoints", None)
 
             # USER: Implement additional transformations if you have other types of data
@@ -166,14 +166,14 @@ class DatasetMapperWithBasis(DatasetMapper):
                 if obj.get("iscrowd", 0) == 0
             ]
             instances = annotations_to_instances(
-                annos, image_shape, mask_format=self.mask_format
+                annos, image_shape, mask_format=self.instance_mask_format
             )
 
             # After transforms such as cropping are applied, the bounding box may no longer
             # tightly bound the object. As an example, imagine a triangle object
             # [(0,0), (2,0), (0,2)] cropped by a box [(1,0),(2,2)] (XYXY format). The tight
             # bounding box of the cropped triangle should be [(1,0),(2,1)], which is not equal to
-            if self.compute_tight_boxes and instances.has("gt_masks"):
+            if self.recompute_boxes:
                 instances.gt_boxes = instances.gt_masks.get_bounding_boxes()
             dataset_dict["instances"] = utils.filter_empty_instances(instances)
 
