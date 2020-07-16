@@ -2,7 +2,7 @@
 
 # Quantization version of AdelaiDet
 
-***This project requires the [Dedicated version of Detectron2](https://github.com/blueardour/detectron2).*** For instructions, refer to [detection.md](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md)
+***This project requires the [Dedicated version of Detectron2](https://github.com/blueardour/detectron2).*** For instructions, refer to [detectron2.md](https://github.com/blueardour/model-quantization/blob/master/doc/detectron2.md)
 
 For quantization performance, refer [performance results](https://github.com/blueardour/model-quantization/blob/master/doc/detection.md#pretrained-models-and-quantization-results).
 
