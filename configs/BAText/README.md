@@ -100,7 +100,7 @@ python tools/train_net.py \
     MODEL.WEIGHTS tt_attn_R_50.pth
 ```
 
-You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/izfgz7z0vb7b72rzj9w0flo3jc9soydf.zip). If you want to measure the ***inference time***, please change --num-gpus to 1.
+You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/ys234cg1rtgke051hu33lbm5ri0bvxr0.zip). If you want to measure the ***inference time***, please change --num-gpus to 1.
 
 # Cite
 
