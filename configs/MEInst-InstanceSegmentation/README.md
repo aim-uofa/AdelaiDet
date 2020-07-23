@@ -10,6 +10,7 @@ Rufeng Zhang, Zhi Tian, Chunhua Shen, Mingyu You, Youliang Yan
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
+
 [MEInst_R_50_1x_none](MEInst_R_50_1x_none.yaml) | 13 FPS | 39.5 | 30.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/v49Av8jn9hDkSAT/download)
 [MEInst_R_50_1x](MEInst_R_50_1x.yaml) | 12 FPS | 40.1 | 31.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/MB7jJycGDvI7z0E/download)
 [MEInst_R_50_3x](MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
@@ -31,17 +32,13 @@ And we also provide tools to generate encoding matrix yourself.
 
 Example:
 
-* Extract mask from annotations
-
-  `python adet/modeling/MEInst/pca/mask_generation.py`
-
 * Generate encoding matrix
 
-  `python adet/modeling/MEInst/pca/pca_labels.py`
+  `python adet/modeling/MEInst/LME/mask_generation.py`
 
 * Evaluate the quality of reconstruction
 
-  `python adet/modeling/MEInst/pca/pca_valid.py`
+  `python adet/modeling/MEInst/LME/mask_evaluation.py`
 
 ## <a name="CitingMEInst"></a>Citing MEInst
 
