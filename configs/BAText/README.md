@@ -1,5 +1,5 @@
-# ABCNet
-[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework. Note that the implementation details have slight different with original paper (less data, different recognition decoder, etc). 
+# ABCNet (CVPR'20 oral)
+[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework over 10x faster than previous SoTA. 
 
 ## Models
 ### CTW1500 results with ABCNet. 
@@ -100,7 +100,7 @@ python tools/train_net.py \
     MODEL.WEIGHTS tt_attn_R_50.pth
 ```
 
-You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/izfgz7z0vb7b72rzj9w0flo3jc9soydf.zip). If you want to measure the ***inference time***, please change --num-gpus to 1.
+You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/bf4022ishwq0mf3kwt1id5a3exfr7x0k.zip), including an example of how to evaluate on a custom dataset. If you want to measure the ***inference time***, please change --num-gpus to 1.
 
 # Cite
 
