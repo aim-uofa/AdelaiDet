@@ -24,9 +24,6 @@ Name | inf. time | box AP | mask AP | download
    `coco/components/coco_2017_train_class_agnosticTrue_whitenTrue_sigmoidTrue_60.npz` 
 3. Follow [AdelaiDet](https://github.com/aim-uofa/AdelaiDet) for install, train and inference
 
-### Demo
-tune to be.
-
 ### Step by step for Mask Encoding (Optional)
 
   We recommend to directly download the [matrix](https://cloudstor.aarnet.edu.au/plus/s/rOLg2frN3MCeWr9/download) file and use it, as it can already handle most cases.
