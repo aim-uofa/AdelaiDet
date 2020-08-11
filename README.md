@@ -14,7 +14,7 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
-Quantized AdelaiDet can be found [here](https://github.com/aim-uofa/AdelaiDet-Quantization).
+
 
 
 ## Models
