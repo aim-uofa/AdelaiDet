@@ -1,0 +1,16 @@
+_BASE_: "../Base-BlendMask.yaml"
+MODEL:
+  RESNETS:
+    OUT_FEATURES: ["res2", "res3", "res4", "res5"]
+  FPN:
+    IN_FEATURES: ["res2", "res3", "res4", "res5"]
+  SEM_SEG_HEAD:
+    LOSS_WEIGHT: 0.5
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.45
+      OVERLAP_THRESH: 0.4
+DATASETS:
+  TRAIN: ("coco_2017_train_panoptic_separated",)
+  TEST: ("coco_2017_val_panoptic_separated",)

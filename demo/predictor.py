@@ -13,6 +13,8 @@ from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.video_visualizer import VideoVisualizer
 from detectron2.utils.visualizer import ColorMode, Visualizer
 
+from adet.utils.visualizer import TextVisualizer
+
 
 class VisualizationDemo(object):
     def __init__(self, cfg, instance_mode=ColorMode.IMAGE, parallel=False):
@@ -28,6 +30,7 @@ class VisualizationDemo(object):
         )
         self.cpu_device = torch.device("cpu")
         self.instance_mode = instance_mode
+        self.vis_text = cfg.MODEL.ROI_HEADS.NAME == "TextHead"
 
         self.parallel = parallel
         if parallel:
@@ -50,9 +53,11 @@ class VisualizationDemo(object):
         predictions = self.predictor(image)
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
-        visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
-        if "inst" in predictions:
-            visualizer.vis_inst(predictions["inst"])
+        if self.vis_text:
+            visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode)
+        else:
+            visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
+
         if "bases" in predictions:
             self.vis_bases(predictions["bases"])
         if "panoptic_seg" in predictions:

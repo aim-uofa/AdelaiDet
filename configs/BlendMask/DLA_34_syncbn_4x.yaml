@@ -1,0 +1,12 @@
+_BASE_: "Base-RT.yaml"
+MODEL:
+  BACKBONE:
+    NAME: "build_fcos_dla_fpn_backbone"
+    FREEZE_AT: -1
+  WEIGHTS: "http://dl.yf.io/dla/models/imagenet/dla34-ba72cf86.pth"
+  DLA:
+    CONV_BODY: "DLA34"
+    NORM: "SyncBN"
+  FPN:
+    IN_FEATURES: ["level3", "level4", "level5"]
+OUTPUT_DIR: "output/blendmask/DLA_34_syncbn_4x"

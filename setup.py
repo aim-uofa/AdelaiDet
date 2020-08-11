@@ -63,7 +63,7 @@ def get_extensions():
 
 setup(
     name="AdelaiDet",
-    version="0.1.1",
+    version="0.2.0",
     author="Adelaide Intelligent Machines",
     url="https://github.com/stanstarks/AdelaiDet",
     description="AdelaiDet is AIM's research "
@@ -79,8 +79,11 @@ setup(
         "matplotlib",
         "tqdm>4.29.0",
         "tensorboard",
+        "python-Levenshtein",
+        "Polygon3",
+        "shapely",
     ],
-    extras_require={"all": ["shapely", "psutil"]},
+    extras_require={"all": ["psutil"]},
     ext_modules=get_extensions(),
     cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
 )

@@ -1,4 +1,4 @@
-import pickle
+import pickle, os
 from fvcore.common.file_io import PathManager
 from detectron2.checkpoint import DetectionCheckpointer
 
@@ -22,11 +22,15 @@ class AdetCheckpointer(DetectionCheckpointer):
                     # Detection models have "blobs", but ImageNet models don't
                     data = data["blobs"]
                 data = {k: v for k, v in data.items() if not k.endswith("_momentum")}
+                if "weight_order" in data:
+                    del data["weight_order"]
                 return {"model": data, "__author__": "Caffe2", "matching_heuristics": True}
 
         loaded = super()._load_file(filename)  # load native pth checkpoint
         if "model" not in loaded:
             loaded = {"model": loaded}
-        if "lpf" in filename:
+
+        basename = os.path.basename(filename).lower()
+        if "lpf" in basename or "dla" in basename:
             loaded["matching_heuristics"] = True
         return loaded

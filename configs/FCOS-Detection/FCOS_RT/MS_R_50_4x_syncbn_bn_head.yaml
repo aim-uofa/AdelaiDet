@@ -1,0 +1,21 @@
+_BASE_: "../Base-FCOS.yaml"
+INPUT:
+  MIN_SIZE_TRAIN: (256, 288, 320, 352, 384, 416, 448, 480, 512, 544, 576, 608)
+  MAX_SIZE_TRAIN: 900
+  MAX_SIZE_TEST: 736
+  MIN_SIZE_TEST: 512
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+  FCOS:
+    TOP_LEVELS: 0
+    SIZES_OF_INTEREST: [64, 128]
+    FPN_STRIDES: [8, 16, 32]
+    IN_FEATURES: ['p3', 'p4', 'p5']
+    NORM: "SyncBN"
+SOLVER:
+  STEPS: (300000, 340000)
+  MAX_ITER: 360000
+OUTPUT_DIR: "output/fcos/FCOS_RT_MS_R_50_4x_syncbn_bn_head"
