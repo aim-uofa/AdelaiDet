@@ -118,10 +118,14 @@ class DatasetMapperWithBasis(DatasetMapper):
         else:
             sem_seg_gt = None
 
-        boxes = [
-            BoxMode.convert(instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS)
-            for instance in dataset_dict["annotations"]
-        ]
+        boxes = np.asarray(
+            [
+                BoxMode.convert(
+                    instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS
+                )
+                for instance in dataset_dict["annotations"]
+            ]
+        )
         aug_input = T.StandardAugInput(image, boxes=boxes, sem_seg=sem_seg_gt)
         transforms = aug_input.apply_augmentations(self.augmentation)
         image, sem_seg_gt = aug_input.image, aug_input.sem_seg
