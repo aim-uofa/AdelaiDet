@@ -12,8 +12,9 @@ from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
 from detectron2.data.dataset_mapper import DatasetMapper
 from detectron2.data.detection_utils import SizeMismatchError
+from detectron2.structures import BoxMode
 
-from .augmentation import InstanceAugInput, RandomCropWithInstance
+from .augmentation import RandomCropWithInstance
 from .detection_utils import (annotations_to_instances, build_augmentation,
                               transform_instance_annotations)
 
@@ -91,7 +92,9 @@ class DatasetMapperWithBasis(DatasetMapper):
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         # USER: Write your own image loading if it's not from a file
         try:
-            image = utils.read_image(dataset_dict["file_name"], format=self.image_format)
+            image = utils.read_image(
+                dataset_dict["file_name"], format=self.image_format
+            )
         except Exception as e:
             print(dataset_dict["file_name"])
             print(e)
@@ -115,7 +118,15 @@ class DatasetMapperWithBasis(DatasetMapper):
         else:
             sem_seg_gt = None
 
-        aug_input = InstanceAugInput(image, sem_seg=sem_seg_gt, instances=dataset_dict["annotations"])
+        boxes = np.asarray(
+            [
+                BoxMode.convert(
+                    instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS
+                )
+                for instance in dataset_dict["annotations"]
+            ]
+        )
+        aug_input = T.StandardAugInput(image, boxes=boxes, sem_seg=sem_seg_gt)
         transforms = aug_input.apply_augmentations(self.augmentation)
         image, sem_seg_gt = aug_input.image, aug_input.sem_seg
 
