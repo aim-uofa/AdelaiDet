@@ -13,9 +13,7 @@ RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda install -y p
 RUN bash -c "/root/anaconda3/bin/conda init bash"
 
 WORKDIR /root
-
 RUN mkdir code
-
 WORKDIR code
 
 RUN git clone https://github.com/facebookresearch/detectron2.git
@@ -24,5 +22,6 @@ RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda activate bas
 RUN git clone https://github.com/aim-uofa/AdelaiDet.git adet
 
 WORKDIR adet
-
 RUN bash -c "source /root/anaconda3/etc/profile.d/conda.sh && conda activate base && python setup.py build develop"
+
+RUN rm /root/Anaconda3-2020.07-Linux-x86_64.sh
