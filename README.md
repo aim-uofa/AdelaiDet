@@ -83,6 +83,12 @@ cd AdelaiDet
 python setup.py build develop
 ```
 
+If you are using docker, a pre-built image can be pulled with:
+
+```
+docker pull tianzhi0549/adet:latest
+```
+
 Some projects may require special setup, please follow their own `README.md` in [configs](configs).
 
 ## Quick Start
