@@ -10,7 +10,7 @@ from detectron2.modeling.proposal_generator import build_proposal_generator
 from detectron2.modeling.backbone import build_backbone
 from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
 from detectron2.structures.instances import Instances
-from detectron2.structures.masks import polygons_to_bitmask
+from detectron2.structures.masks import PolygonMasks, polygons_to_bitmask
 
 from .dynamic_mask_head import build_dynamic_mask_head
 from .mask_branch import build_mask_branch
@@ -139,24 +139,34 @@ class CondInst(nn.Module):
         for per_im_gt_inst in instances:
             if not per_im_gt_inst.has("gt_masks"):
                 continue
-            polygons = per_im_gt_inst.get("gt_masks").polygons
-            per_im_bitmasks = []
-            per_im_bitmasks_full = []
-            for per_polygons in polygons:
-                bitmask = polygons_to_bitmask(per_polygons, im_h, im_w)
-                bitmask = torch.from_numpy(bitmask).to(self.device).float()
-                start = int(self.mask_out_stride // 2)
-                bitmask_full = bitmask.clone()
-                bitmask = bitmask[start::self.mask_out_stride, start::self.mask_out_stride]
+            start = int(self.mask_out_stride // 2)
+            if isinstance(per_im_gt_inst.get("gt_masks"), PolygonMasks):
+                polygons = per_im_gt_inst.get("gt_masks").polygons
+                per_im_bitmasks = []
+                per_im_bitmasks_full = []
+                for per_polygons in polygons:
+                    bitmask = polygons_to_bitmask(per_polygons, im_h, im_w)
+                    bitmask = torch.from_numpy(bitmask).to(self.device).float()
+                    start = int(self.mask_out_stride // 2)
+                    bitmask_full = bitmask.clone()
+                    bitmask = bitmask[start::self.mask_out_stride, start::self.mask_out_stride]
 
-                assert bitmask.size(0) * self.mask_out_stride == im_h
-                assert bitmask.size(1) * self.mask_out_stride == im_w
+                    assert bitmask.size(0) * self.mask_out_stride == im_h
+                    assert bitmask.size(1) * self.mask_out_stride == im_w
 
-                per_im_bitmasks.append(bitmask)
-                per_im_bitmasks_full.append(bitmask_full)
+                    per_im_bitmasks.append(bitmask)
+                    per_im_bitmasks_full.append(bitmask_full)
 
-            per_im_gt_inst.gt_bitmasks = torch.stack(per_im_bitmasks, dim=0)
-            per_im_gt_inst.gt_bitmasks_full = torch.stack(per_im_bitmasks_full, dim=0)
+                per_im_gt_inst.gt_bitmasks = torch.stack(per_im_bitmasks, dim=0)
+                per_im_gt_inst.gt_bitmasks_full = torch.stack(per_im_bitmasks_full, dim=0)
+            else: # RLE format bitmask
+                bitmasks = per_im_gt_inst.get("gt_masks").tensor
+                h, w = bitmasks.size()[1:]
+                # pad to new size
+                bitmasks_full = F.pad(bitmasks, (0, im_w - w, 0, im_h - h), "constant", 0)
+                bitmasks = bitmasks_full[:, start::self.mask_out_stride, start::self.mask_out_stride]
+                per_im_gt_inst.gt_bitmasks = bitmasks
+                per_im_gt_inst.gt_bitmasks_full = bitmasks_full
 
     def postprocess(self, results, output_height, output_width, padded_im_h, padded_im_w, mask_threshold=0.5):
         """

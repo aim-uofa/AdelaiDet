@@ -14,7 +14,7 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
-Quantized AdelaiDet can be found [here](https://github.com/aim-uofa/AdelaiDet-Quantization).
+
 
 
 ## Models
@@ -81,6 +81,12 @@ Then build AdelaiDet with:
 git clone https://github.com/aim-uofa/AdelaiDet.git
 cd AdelaiDet
 python setup.py build develop
+```
+
+If you are using docker, a pre-built image can be pulled with:
+
+```
+docker pull tianzhi0549/adet:latest
 ```
 
 Some projects may require special setup, please follow their own `README.md` in [configs](configs).

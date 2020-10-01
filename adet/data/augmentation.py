@@ -1,20 +1,10 @@
+import random
+
 import numpy as np
 from fvcore.transforms import transform as T
 
 from detectron2.data.transforms import RandomCrop, StandardAugInput
 from detectron2.structures import BoxMode
-
-
-class InstanceAugInput(StandardAugInput):
-    """
-    Keep the old behavior of instance-aware augmentation
-    """
-
-    def __init__(self, *args, **kwargs):
-        instances = kwargs.pop("instances", None)
-        super().__init__(*args, **kwargs)
-        if instances is not None:
-            self.instances = instances
 
 
 def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=True):
@@ -28,10 +18,8 @@ def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=
         instance (dict): an annotation dict of one instance, in Detectron2's
             dataset format.
     """
-    instance = (np.random.choice(instances),)
-    instance = instance[0]
+    bbox = random.choice(instances)
     crop_size = np.asarray(crop_size, dtype=np.int32)
-    bbox = BoxMode.convert(instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS)
     center_yx = (bbox[1] + bbox[3]) * 0.5, (bbox[0] + bbox[2]) * 0.5
     assert (
         image_size[0] >= center_yx[0] and image_size[1] >= center_yx[1]
@@ -74,10 +62,7 @@ def adjust_crop(x0, y0, crop_size, instances, eps=1e-3):
     x1 = x0 + crop_size[1]
     y1 = y0 + crop_size[0]
 
-    for instance in instances:
-        bbox = BoxMode.convert(
-            instance["bbox"], instance["bbox_mode"], BoxMode.XYXY_ABS
-        )
+    for bbox in instances:
 
         if bbox[0] < x0 - eps and bbox[2] > x0 + eps:
             crop_size[1] += x0 - bbox[0]
@@ -113,11 +98,11 @@ class RandomCropWithInstance(RandomCrop):
         """
         super().__init__(crop_type, crop_size)
         self.crop_instance = crop_instance
-        self.input_args = ("image", "instances")
+        self.input_args = ("image", "boxes")
 
-    def get_transform(self, img, instances):
+    def get_transform(self, img, boxes):
         image_size = img.shape[:2]
         crop_size = self.get_crop_size(image_size)
         return gen_crop_transform_with_instance(
-            crop_size, image_size, instances, crop_box=self.crop_instance
+            crop_size, image_size, boxes, crop_box=self.crop_instance
         )

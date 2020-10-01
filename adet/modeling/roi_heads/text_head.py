@@ -86,7 +86,7 @@ def ctc_loss(preds, targets, voc_size):
     input_lengths = torch.full((x.size(1),), x.size(0), dtype=torch.long)
     return F.ctc_loss(
         x, targets, input_lengths, target_lengths,
-        blank=voc_size
+        blank=voc_size, zero_infinity=True
     )
 
 
