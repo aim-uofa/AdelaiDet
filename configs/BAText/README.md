@@ -7,15 +7,15 @@
 Name | inf. time | e2e-hmean | det-hmean | download
 --- |:---:|:---:|:---:|:---:
 paper reported||45.2||
-[attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 2080ti 8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth)
+[attn_R_50](configs/BAText/CTW1500/attn_R_50.yaml) | 2080ti 8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth)
 
 ### Total Text results with ABCNet. 
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
 paper reported|V100 17.9 FPS|64.2||
-[tt_attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 2080ti 11.3 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
-[pretrain_attn_R_50](configs/BAText/Pretrain/attn_R_50.yaml) | 2080ti 11.3 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/UenknKbsWAuBUcz/download)
+[tt_attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 2080ti 11.3 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download)
+[pretrain_attn_R_50](configs/BAText/Pretrain/attn_R_50.yaml) | 2080ti 11.3 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/dEzxhTlEumICiq0/download)
 
 ## Quick Start 
 
@@ -25,7 +25,7 @@ paper reported|V100 17.9 FPS|64.2||
 2. Run the demo with
 
 ```
-wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
+wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth
 python demo/demo.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
     --input datasets/CTW1500/ctwtest_text_image/ \
@@ -33,7 +33,7 @@ python demo/demo.py \
 ```
 or
 ```
-wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
+wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download
 python demo/demo.py \
     --config-file configs/BAText/TotalText/attn_R_50.yaml \
     --input datasets/totaltext/test_images/ \
@@ -44,7 +44,7 @@ python demo/demo.py \
 To train a model with "train_net.py", first setup the corresponding datasets following
 [datasets/README.md](../../datasets/README.md). 
 
-You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/fo7odnmqe370btm7sdotqve1c0zsu8p3).
+You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/phqfzpvhe0obmkvn17akn9qw47u1m44i).
 
 Pretrainining with synthetic data:
 
@@ -85,7 +85,7 @@ datasets
 
 Producing both e2e and detection results on CTW1500:
 ```
-wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/1bqpg9hijtn2rcooqjpffateguh9eeme.pth
+wget -O ctw1500_attn_R_50.pth https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth
 python tools/train_net.py \
     --config-file configs/BAText/CTW1500/attn_R_50.yaml \
     --eval-only \
@@ -93,14 +93,14 @@ python tools/train_net.py \
 ```
 or Totaltext:
 ```
-wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download
+wget -O tt_attn_R_50.pth https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download
 python tools/train_net.py \
     --config-file configs/BAText/TotalText/attn_R_50.yaml \
     --eval-only \
     MODEL.WEIGHTS tt_attn_R_50.pth
 ```
 
-You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/bf4022ishwq0mf3kwt1id5a3exfr7x0k.zip), including an example of how to evaluate on a custom dataset. If you want to measure the ***inference time***, please change --num-gpus to 1.
+You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/e3yha5080jzvjuyfeayprnkbu265t3hr.zip), including an example of how to evaluate on a custom dataset. If you want to measure the ***inference time***, please change --num-gpus to 1.
 
 # Cite
 
@@ -113,5 +113,4 @@ You can also evalute the json result file offline following the [evaluation_exam
 }
 
 ```
-
 
