@@ -15,12 +15,12 @@ Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVI
 
 ## Text Recognition
 
-- Totaltext training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/3eq5ti7z45qfq5gu96gg5t1xwh1yrrt7.zip) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270088/) [[code]](https://github.com/cs-chan/Total-Text-Dataset). 
-- CTW1500 training, testing images, and annotations [[link]](https://universityofadelaide.box.com/s/yb9red8pi9eszuzqompo593b6zhz87qw) [[paper]](https://www.sciencedirect.com/science/article/pii/S0031320319300664) [[code]](https://github.com/Yuliang-Liu/Curve-Text-Detector).
-- MLT [[dataset]](https://universityofadelaide.box.com/s/tsiimvp65tkf7dw1nuh8l71cjcs0fyif) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270168).
+- Totaltext training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/32p6xsdtu0keu2o6pb5aqhyjotnljxep.zip) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270088/) [[code]](https://github.com/cs-chan/Total-Text-Dataset). 
+- CTW1500 training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/6ui89vca7cbp15ysnxqg5r494ix7l6cu.zip) [[paper]](https://www.sciencedirect.com/science/article/pii/S0031320319300664) [[code]](https://github.com/Yuliang-Liu/Curve-Text-Detector).
+- MLT [[dataset]](https://universityofadelaide.box.com/s/qu2wctdcsxh73bb94krdredpmx9nzf8m) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270168).
 - Syntext-150k: 
-  - Part1: 94,723 [[dataset]](https://universityofadelaide.box.com/s/alta996w4fym6arh977h3k3xv55clhg3) 
-  - Part2: 54,327 [[dataset]](https://universityofadelaide.box.com/s/7k7d6nvf951s4i01szs4udpu2yv5dlqe)
+  - Part1: 94,723 [[dataset]](https://universityofadelaide.box.com/s/xyqgqx058jlxiymiorw8fsfmxzf1n03p) 
+  - Part2: 54,327 [[dataset]](https://universityofadelaide.box.com/s/e0owoic8xacralf4j5slpgu50xfjoirs)
 
 ```
 text/
@@ -45,8 +45,8 @@ To evaluate on Total Text and CTW1500, first download the zipped annotations wit
 ```
 mkdir evaluation
 cd evaluation
-wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/uoeFl0pCN9BOCN5/download
-wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/pEMs0KjCocL2nvV/download
+wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/xU3yeM3GnidiSTr/download
+wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/SFHvin8BLUM4cNd/download
 ```
 
 ## Person In Context instance detection
