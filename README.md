@@ -174,10 +174,10 @@ If you use this toolbox in your research or wish to refer to the baseline result
   year      =  {2020}
 }
 
-@article{wang2020solov2,
+@inproceedings{wang2020solov2,
   title   =  {{SOLOv2}: Dynamic, Faster and Stronger},
   author  =  {Wang, Xinlong and Zhang, Rufeng and Kong, Tao and Li, Lei and Shen, Chunhua},
-  journal =  {arXiv preprint arXiv:2003.10152},
+  booktitle =  {Proc. Advances in Neural Information Processing Systems (NeurIPS)},
   year    =  {2020}
 }
 
@@ -198,4 +198,4 @@ If you use this toolbox in your research or wish to refer to the baseline result
 
 ## License
 
-For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact [Chunhua Shen](https://cs.adelaide.edu.au/~chhshen/).
+For academic use, this project is licensed under the 2-clause BSD License - see the LICENSE file for details. For commercial use, please contact [Chunhua Shen](mailto:chhshen@gmail.com).
