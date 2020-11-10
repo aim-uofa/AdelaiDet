@@ -20,7 +20,7 @@ To date, AdelaiDet implements the following algorithms:
 ## Models
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 Name | inf. time | box AP | download
---- |:---:|:---:|:---:
+--- |:---:|:---:|:---
 [FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
 [FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M3UOT6JcyHy2QW1/download)
 [FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/R7H00WeWKZG45pP/download)
@@ -175,7 +175,7 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @inproceedings{wang2020solov2,
-  title   =  {{SOLOv2}: Dynamic, Faster and Stronger},
+  title   =  {{SOLOv2}: Dynamic and Fast Instance Segmentation},
   author  =  {Wang, Xinlong and Zhang, Rufeng and Kong, Tao and Li, Lei and Shen, Chunhua},
   booktitle =  {Proc. Advances in Neural Information Processing Systems (NeurIPS)},
   year    =  {2020}
