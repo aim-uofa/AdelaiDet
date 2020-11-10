@@ -134,6 +134,12 @@ Note that:
 - We set `OMP_NUM_THREADS=1` by default, which achieves the best speed on our machines, please change it as needed.
 - This quick start is made for FCOS. If you are using other projects, please check the projects' own `README.md` in [configs](configs). 
 
+
+## Acknowledgements
+
+The authors are grateful to
+Nvidia, Huawei Noah's Ark Lab, ByteDance, Adobe who generously donated GPU computing in the past a few years.
+
 ## Citing AdelaiDet
 
 If you use this toolbox in your research or wish to refer to the baseline results published in the Model Zoo, please use the following BibTeX entries.
