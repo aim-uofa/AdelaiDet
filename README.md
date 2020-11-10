@@ -148,7 +148,7 @@ If you use this toolbox in your research or wish to refer to the baseline result
 
 @misc{tian2019adelaidet,
   author =       {Tian, Zhi and Chen, Hao and Wang, Xinlong and Liu, Yuliang and Shen, Chunhua},
-  title =        {AdelaiDet},
+  title =        {{AdelaiDet}: A Toolbox for Instance-level Recognition Tasks},
   howpublished = {\url{https://git.io/adelaidet}},
   year =         {2019}
 }
