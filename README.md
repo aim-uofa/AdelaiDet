@@ -142,7 +142,7 @@ Nvidia, Huawei Noah's Ark Lab, ByteDance, Adobe who generously donated GPU compu
 
 ## Citing AdelaiDet
 
-If you use this toolbox in your research or wish to refer to the baseline results published in the Model Zoo, please use the following BibTeX entries.
+If you use this toolbox in your research or wish to refer to the baseline results published here, please use the following BibTeX entries:
 
 ```BibTeX
 
