@@ -136,9 +136,17 @@ Note that:
 
 ## Citing AdelaiDet
 
-If you use this toolbox in your research or wish to refer to the baseline results, please use the following BibTeX entries.
+If you use this toolbox in your research or wish to refer to the baseline results published in the Model Zoo, please use the following BibTeX entries.
 
 ```BibTeX
+
+@misc{tian2019adelaidet,
+  author =       {Tian, Zhi and Chen, Hao and Wang, Xinlong and Liu, Yuliang and Shen, Chunhua},
+  title =        {AdelaiDet},
+  howpublished = {\url{https://git.io/adelaidet}},
+  year =         {2019}
+}
+
 @inproceedings{tian2019fcos,
   title     =  {{FCOS}: Fully Convolutional One-Stage Object Detection},
   author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao and He, Tong},
@@ -161,7 +169,7 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @inproceedings{liu2020abcnet,
-  title     =  {{ABCNet}: Real-time Scene Text Spotting with Adaptive Bezier-Curve Network},
+  title     =  {{ABCNet}: Real-time Scene Text Spotting with Adaptive {B}ezier-Curve Network},
   author    =  {Liu, Yuliang and Chen, Hao and Shen, Chunhua and He, Tong and Jin, Lianwen and Wang, Liangwei},
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =  {2020}
