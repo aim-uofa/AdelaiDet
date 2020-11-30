@@ -10,8 +10,8 @@ To date, AdelaiDet implements the following algorithms:
 * [MEInst](configs/MEInst-InstanceSegmentation/README.md)
 * [ABCNet](configs/BAText/README.md)
 * [CondInst](configs/CondInst/README.md)
-* [SOLO](https://arxiv.org/abs/1912.04488) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
-* [SOLOv2](https://arxiv.org/abs/2003.10152) _to be released_ ([mmdet version](https://github.com/WXinlong/SOLO))
+* [SOLO](https://arxiv.org/abs/1912.04488) ([mmdet version](https://github.com/WXinlong/SOLO))
+* [SOLOv2](configs/SOLOv2/README.md)
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 
