@@ -16,7 +16,7 @@ from detectron2.structures import Boxes, ImageList, Instances
 from detectron2.utils.logger import log_first_n
 from fvcore.nn import sigmoid_focal_loss_jit
 
-from .utils import center_of_mass, point_nms, mask_nms, matrix_nms
+from .utils import imrescale, center_of_mass, point_nms, mask_nms, matrix_nms
 from .loss import dice_loss, FocalLoss
 
 __all__ = ["SOLOv2"]
@@ -205,17 +205,19 @@ class SOLOv2(nn.Module):
             gt_labels = gt_labels_raw[hit_indices]
             gt_masks = gt_masks_raw[hit_indices, ...]
 
-            # mass center
-            center_ws, center_hs = center_of_mass(gt_masks)
-
             half_ws = 0.5 * (gt_bboxes[:, 2] - gt_bboxes[:, 0]) * self.sigma
             half_hs = 0.5 * (gt_bboxes[:, 3] - gt_bboxes[:, 1]) * self.sigma
 
+            # mass center
+            center_ws, center_hs = center_of_mass(gt_masks)
+            valid_mask_flags = gt_masks.sum(dim=-1).sum(dim=-1) > 0
+
             output_stride = 4
-            #gt_masks = F.interpolate(gt_masks.float().unsqueeze(1), scale_factor=1./output_stride, mode='bilinear').squeeze(1).to(dtype=torch.uint8)
-            start = int(output_stride // 2)
-            gt_masks = gt_masks[:, start::output_stride, start::output_stride]
-            valid_mask_flags = gt_masks.sum(dim=-1).sum(dim=-1) > 5
+            gt_masks = gt_masks.permute(1, 2, 0).to(dtype=torch.uint8).cpu().numpy()
+            gt_masks = imrescale(gt_masks, scale=1./output_stride)
+            if len(gt_masks.shape) == 2:
+                gt_masks = gt_masks[..., None]
+            gt_masks = torch.from_numpy(gt_masks).to(dtype=torch.uint8, device=device).permute(2, 0, 1)
             for seg_mask, gt_label, half_h, half_w, center_h, center_w, valid_mask_flag in zip(gt_masks, gt_labels, half_hs, half_ws, center_hs, center_ws, valid_mask_flags):
                 if not valid_mask_flag:
                     continue
