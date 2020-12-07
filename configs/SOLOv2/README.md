@@ -43,17 +43,18 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 ## Models
 ### COCO Instance Segmentation Baselines with SOLOv2
 
-Name | inf. time | train. time | box AP | mask AP | download
---- |:---:|:---:|:---:|:---:|:---:
-[SOLOv2_R50_3x](R50_3x.yaml) |  |  | -  | 37.6  | [model](https://cloudstor.aarnet.edu.au/plus/s/chF3VKQT4RDoEqC/download)
-[SOLOv2_R101_3x](R101_3x.yaml) |  |  | -   |   | [model]()
+Name | inf. time | train. time | Mem | box AP | mask AP | download
+--- |:---:|:---:|:---:|:---:|:---:|:---:
+[SOLOv2_R50_3x](R50_3x.yaml) | 47ms | ~25h(36 epochs) | 3.7GB  | -  | 37.6  | [model](https://cloudstor.aarnet.edu.au/plus/s/chF3VKQT4RDoEqC/download)
+[SOLOv2_R101_3x](R101_3x.yaml) | 61ms | ~30h(36 epochs) | 4.7GB | -   | 39.0  | [model](https://cloudstor.aarnet.edu.au/plus/s/9w7b3sjaXvqYQEQ)
 
 
 *Disclaimer:*
 
 - All models are trained with multi-scale data augmentation. 
-- Training time is measured on 8 V100 GPUs.
+- Inference time is measured on a single V100 GPU. Training time is measured on 8 V100 GPUs.
 - This is a reimplementation. Thus, the numbers are slightly different from our original paper (within 0.3% in mask AP).
+- The implementation on mmdetection is available at [https://github.com/WXinlong/SOLO](https://github.com/WXinlong/SOLO).
 
 
 # Citations
