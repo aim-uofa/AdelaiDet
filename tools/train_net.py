@@ -46,43 +46,18 @@ from adet.evaluation import TextEvaluator
 class Trainer(DefaultTrainer):
     """
     This is the same Trainer except that we rewrite the
-    `build_train_loader` method.
+    `build_train_loader`/`resume_or_load` method.
     """
-
-    def __init__(self, cfg):
-        """
-        Args:
-            cfg (CfgNode):
-        Use the custom checkpointer, which loads other backbone models
-        with matching heuristics.
-        """
-        # Assume these objects must be constructed in this order.
-        model = self.build_model(cfg)
-        optimizer = self.build_optimizer(cfg, model)
-        data_loader = self.build_train_loader(cfg)
-
-        # For training, wrap with DDP. But don't need this for inference.
-        if comm.get_world_size() > 1:
-            model = DistributedDataParallel(
-                model, device_ids=[comm.get_local_rank()], broadcast_buffers=False
+    def resume_or_load(self, resume=True):
+        if not isinstance(self.checkpointer, AdetCheckpointer):
+            # support loading a few other backbones
+            self.checkpointer = AdetCheckpointer(
+                self.model,
+                self.cfg.OUTPUT_DIR,
+                optimizer=self.optimizer,
+                scheduler=self.scheduler,
             )
-        super(DefaultTrainer, self).__init__(model, data_loader, optimizer)
-
-        self.scheduler = self.build_lr_scheduler(cfg, optimizer)
-        # Assume no other objects need to be checkpointed.
-        # We can later make it checkpoint the stateful hooks
-        self.checkpointer = AdetCheckpointer(
-            # Assume you want to save checkpoints together with logs/statistics
-            model,
-            cfg.OUTPUT_DIR,
-            optimizer=optimizer,
-            scheduler=self.scheduler,
-        )
-        self.start_iter = 0
-        self.max_iter = cfg.SOLVER.MAX_ITER
-        self.cfg = cfg
-
-        self.register_hooks(self.build_hooks())
+        super().resume_or_load(resume=resume)
 
     def train_loop(self, start_iter: int, max_iter: int):
         """
