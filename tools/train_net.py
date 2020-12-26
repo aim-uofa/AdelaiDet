@@ -100,7 +100,7 @@ class Trainer(DefaultTrainer):
         DatasetMapper, which adds categorical labels as a semantic mask.
         """
         mapper = DatasetMapperWithBasis(cfg, True)
-        return build_detection_train_loader(cfg, mapper)
+        return build_detection_train_loader(cfg, mapper=mapper)
 
     @classmethod
     def build_evaluator(cls, cfg, dataset_name, output_folder=None):
