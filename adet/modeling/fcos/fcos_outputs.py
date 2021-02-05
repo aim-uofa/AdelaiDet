@@ -445,7 +445,7 @@ class FCOSOutputs(nn.Module):
         if self.thresh_with_ctr:
             logits_pred = logits_pred * ctrness_pred[:, :, None]
         candidate_inds = logits_pred > self.pre_nms_thresh
-        pre_nms_top_n = candidate_inds.view(N, -1).sum(1)
+        pre_nms_top_n = candidate_inds.reshape(N, -1).sum(1)
         pre_nms_top_n = pre_nms_top_n.clamp(max=self.pre_nms_topk)
 
         if not self.thresh_with_ctr:
