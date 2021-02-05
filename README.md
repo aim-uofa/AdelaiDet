@@ -192,10 +192,10 @@ If you use this toolbox in your research or wish to refer to the baseline result
 }
 
 @inproceedings{wang2020solov2,
-  title   =  {{SOLOv2}: Dynamic and Fast Instance Segmentation},
-  author  =  {Wang, Xinlong and Zhang, Rufeng and Kong, Tao and Li, Lei and Shen, Chunhua},
+  title     =  {{SOLOv2}: Dynamic and Fast Instance Segmentation},
+  author    =  {Wang, Xinlong and Zhang, Rufeng and Kong, Tao and Li, Lei and Shen, Chunhua},
   booktitle =  {Proc. Advances in Neural Information Processing Systems (NeurIPS)},
-  year    =  {2020}
+  year      =  {2020}
 }
 
 @article{tian2019directpose,
