@@ -102,6 +102,9 @@ python tools/train_net.py \
 
 You can also evalute the json result file offline following the [evaluation_example_scripts](https://universityofadelaide.box.com/shared/static/e3yha5080jzvjuyfeayprnkbu265t3hr.zip), including an example of how to evaluate on a custom dataset. If you want to measure the ***inference time***, please change --num-gpus to 1.
 
+### Standalone BezierAlign Warping 
+If you are insteresting in warping a curved instance into a rectangular format independantly, please refer to the example script [here](https://github.com/Yuliang-Liu/bezier_curve_text_spotting#bezieralign-example).
+
 # Cite
 
 ```BibTeX
