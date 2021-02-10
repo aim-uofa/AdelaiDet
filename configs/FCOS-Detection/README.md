@@ -3,12 +3,18 @@
     FCOS: Fully Convolutional One-Stage Object Detection;
     Zhi Tian, Chunhua Shen, Hao Chen, and Tong He;
     In: Proc. Int. Conf. Computer Vision (ICCV), 2019.
-    [arXiv preprint arXiv:1904.01355](https://arxiv.org/abs/1904.01355)
+[arXiv preprint arXiv:1904.01355](https://arxiv.org/abs/1904.01355)
+    
+    FCOS: A Simple and Strong Anchor-free Object Detector;
+    Zhi Tian, Chunhua Shen, Hao Chen, and Tong He;
+    IEEE T. Pattern Analysis and Machine Intelligence (TPAMI), 2021.
+[arXiv preprint arXiv:2006.09214](https://arxiv.org/abs/2006.09214)
+    
 
 [`BibTeX`](#citing-fcos)
 
 # Installation & Quick Start
-No special setup needed. The [default instruction](../../README.md#Installation) is fine.
+No special setup needed. The [default instruction](../../README.md#Installation) would work.
 
 ## Models
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
