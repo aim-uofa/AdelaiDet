@@ -52,3 +52,11 @@ If you use FCOS in your research or wish to refer to the baseline results, pleas
   year      =  {2019}
 }
 ```
+```BibTeX
+@article{tian2021fcos,
+  title   =  {{FCOS}: A Simple and Strong Anchor-free Object Detector},
+  author  =  {Tian, Zhi and Shen, Chunhua and Chen, Hao and He, Tong},
+  journal =  {IEEE T. Pattern Analysis and Machine Intelligence (TPAMI)},
+  year    =  {2021}
+}
+```
