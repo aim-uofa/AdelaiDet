@@ -1,5 +1,5 @@
-# ABCNet (CVPR'20 oral)
-[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework over 10x faster than previous SoTA. 
+# ABCNet (published in IEEE Conf. Comp Vis Pattern Recogn.'2020 as an oral paper)
+[ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework over 10x faster than previous state of the art. 
 
 ## Models
 ### CTW1500 results with ABCNet. 
@@ -105,7 +105,7 @@ You can also evalute the json result file offline following the [evaluation_exam
 ### Standalone BezierAlign Warping 
 If you are insteresting in warping a curved instance into a rectangular format independantly, please refer to the example script [here](https://github.com/Yuliang-Liu/bezier_curve_text_spotting#bezieralign-example).
 
-# Cite
+# BibTeX
 
 ```BibTeX
 @inproceedings{liu2020abcnet,
