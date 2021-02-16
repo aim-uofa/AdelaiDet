@@ -1,4 +1,4 @@
-# AdelaiDet
+# AdelaiDet <img src="docs/adel-logo.svg" width="300" >
 
 AdelaiDet is an open source toolbox for multiple instance-level recognition tasks on top of [Detectron2](https://github.com/facebookresearch/detectron2).
 All instance-level recognition works from our group are open-sourced here.
