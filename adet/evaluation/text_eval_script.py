@@ -8,7 +8,7 @@ import sys
 
 import math 
 
-import Levenshtein as lstn
+from rapidfuzz import string_metric
 
 WORD_SPOTTING =True
 def evaluation_imports():
@@ -378,7 +378,7 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                                 # det_only_correct = True
                                 # detOnlyCorrect += 1
                                 if evaluationParams['WORD_SPOTTING']:
-                                    edd = lstn.distance(gtTrans[gtNum].upper(), detTrans[detNum].upper())
+                                    edd = string_metric.levenshtein(gtTrans[gtNum].upper(), detTrans[detNum].upper())
                                     if edd<=0: 
                                         correct = True
                                     else:
