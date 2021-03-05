@@ -76,10 +76,13 @@ class DatasetMapperWithBasis(DatasetMapper):
                 "Cropping used in training: " + str(self.augmentation[0])
             )
 
-        # fmt: off
-        self.basis_loss_on       = cfg.MODEL.BASIS_MODULE.LOSS_ON
-        self.ann_set             = cfg.MODEL.BASIS_MODULE.ANN_SET
-        # fmt: on
+        self.basis_loss_on = cfg.MODEL.BASIS_MODULE.LOSS_ON
+        self.ann_set = cfg.MODEL.BASIS_MODULE.ANN_SET
+        self.boxinst_enabled = cfg.MODEL.BOXINST.ENABLED
+
+        if self.boxinst_enabled:
+            self.use_instance_mask = False
+            self.recompute_boxes = False
 
     def __call__(self, dataset_dict):
         """
