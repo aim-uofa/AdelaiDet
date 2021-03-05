@@ -208,9 +208,10 @@ _C.MODEL.CONDINST = CN()
 _C.MODEL.CONDINST.MASK_OUT_STRIDE = 4
 _C.MODEL.CONDINST.BOTTOM_PIXELS_REMOVED = -1
 
-# if not -1, we randomly choose MAX_PROPOSALS proposals PER GPU and compute the mask loss for them
+# if not -1, we only compute the mask loss for MAX_PROPOSALS random proposals PER GPU
 _C.MODEL.CONDINST.MAX_PROPOSALS = -1
-# if not -1, we choose TOPK_PROPOSALS_PER_IM proposals with top scores and compute the mask loss for them
+# if not -1, we only compute the mask loss for top `TOPK_PROPOSALS_PER_IM` proposals
+# PER IMAGE in terms of their detection scores
 _C.MODEL.CONDINST.TOPK_PROPOSALS_PER_IM = -1
 
 _C.MODEL.CONDINST.MASK_HEAD = CN()
@@ -227,9 +228,10 @@ _C.MODEL.CONDINST.MASK_BRANCH.NORM = "BN"
 _C.MODEL.CONDINST.MASK_BRANCH.NUM_CONVS = 4
 _C.MODEL.CONDINST.MASK_BRANCH.SEMANTIC_LOSS_ON = False
 
-# Whether to use BoxInst, which can train the instance segmentation model with box annotations only
+# The options for BoxInst, which can train the instance segmentation model with box annotations only
 # Please refer to the paper https://arxiv.org/abs/2012.02310
 _C.MODEL.BOXINST = CN()
+# Whether to enable BoxInst
 _C.MODEL.BOXINST.ENABLED = False
 _C.MODEL.BOXINST.BOTTOM_PIXELS_REMOVED = 10
 

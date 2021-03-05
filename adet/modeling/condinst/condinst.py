@@ -114,32 +114,32 @@ class CondInst(nn.Module):
 
     def forward(self, batched_inputs):
         original_images = [x["image"].to(self.device) for x in batched_inputs]
-        original_image_masks = [torch.ones_like(x[0], dtype=torch.float32) for x in original_images]
-
-        # mask out the bottom area where the COCO dataset probably has wrong annotations
-        for i in range(len(original_image_masks)):
-            im_h = batched_inputs[i]["height"]
-            pixels_removed = int(
-                self.bottom_pixels_removed *
-                float(original_images[i].size(1)) / float(im_h)
-            )
-            if pixels_removed > 0:
-                original_image_masks[i][-pixels_removed:, :] = 0
 
         # normalize images
         images_norm = [self.normalizer(x) for x in original_images]
         images_norm = ImageList.from_tensors(images_norm, self.backbone.size_divisibility)
-
-        original_images = ImageList.from_tensors(original_images, self.backbone.size_divisibility)
-        original_image_masks = ImageList.from_tensors(
-            original_image_masks, self.backbone.size_divisibility, pad_value=0.0
-        )
 
         features = self.backbone(images_norm.tensor)
 
         if "instances" in batched_inputs[0]:
             gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
             if self.boxinst_enabled:
+                original_image_masks = [torch.ones_like(x[0], dtype=torch.float32) for x in original_images]
+
+                # mask out the bottom area where the COCO dataset probably has wrong annotations
+                for i in range(len(original_image_masks)):
+                    im_h = batched_inputs[i]["height"]
+                    pixels_removed = int(
+                        self.bottom_pixels_removed *
+                        float(original_images[i].size(1)) / float(im_h)
+                    )
+                    if pixels_removed > 0:
+                        original_image_masks[i][-pixels_removed:, :] = 0
+
+                original_images = ImageList.from_tensors(original_images, self.backbone.size_divisibility)
+                original_image_masks = ImageList.from_tensors(
+                    original_image_masks, self.backbone.size_divisibility, pad_value=0.0
+                )
                 self.add_bitmasks_from_boxes(
                     gt_instances, original_images.tensor, original_image_masks.tensor,
                     original_images.tensor.size(-2), original_images.tensor.size(-1)
