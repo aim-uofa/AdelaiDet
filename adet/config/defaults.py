@@ -206,7 +206,12 @@ _C.MODEL.CONDINST = CN()
 
 # the downsampling ratio of the final instance masks to the input image
 _C.MODEL.CONDINST.MASK_OUT_STRIDE = 4
+_C.MODEL.CONDINST.BOTTOM_PIXELS_REMOVED = -1
+
+# if not -1, we randomly choose MAX_PROPOSALS proposals PER GPU and compute the mask loss for them
 _C.MODEL.CONDINST.MAX_PROPOSALS = -1
+# if not -1, we choose TOPK_PROPOSALS_PER_IM proposals with top scores and compute the mask loss for them
+_C.MODEL.CONDINST.TOPK_PROPOSALS_PER_IM = -1
 
 _C.MODEL.CONDINST.MASK_HEAD = CN()
 _C.MODEL.CONDINST.MASK_HEAD.CHANNELS = 8
@@ -221,6 +226,18 @@ _C.MODEL.CONDINST.MASK_BRANCH.CHANNELS = 128
 _C.MODEL.CONDINST.MASK_BRANCH.NORM = "BN"
 _C.MODEL.CONDINST.MASK_BRANCH.NUM_CONVS = 4
 _C.MODEL.CONDINST.MASK_BRANCH.SEMANTIC_LOSS_ON = False
+
+# Whether to use BoxInst, which can train the instance segmentation model with box annotations only
+# Please refer to the paper https://arxiv.org/abs/2012.02310
+_C.MODEL.BOXINST = CN()
+_C.MODEL.BOXINST.ENABLED = False
+_C.MODEL.BOXINST.BOTTOM_PIXELS_REMOVED = 10
+
+_C.MODEL.BOXINST.PAIRWISE = CN()
+_C.MODEL.BOXINST.PAIRWISE.SIZE = 3
+_C.MODEL.BOXINST.PAIRWISE.DILATION = 2
+_C.MODEL.BOXINST.PAIRWISE.WARMUP_ITERS = 10000
+_C.MODEL.BOXINST.PAIRWISE.COLOR_THRESH = 0.3
 
 # ---------------------------------------------------------------------------- #
 # TOP Module Options
