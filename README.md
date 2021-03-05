@@ -16,7 +16,7 @@ To date, AdelaiDet implements the following algorithms:
 * [CondInst](configs/CondInst/README.md)
 * [SOLO](https://arxiv.org/abs/1912.04488) ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](configs/SOLOv2/README.md)
-* [BoxInst](https://arxiv.org/abs/2012.02310) _to be released_ ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
+* [BoxInst](configs/BoxInst/README.md) ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 
@@ -224,6 +224,13 @@ and relevant publications:
   author    =  {Tian, Zhi and Shen, Chunhua and Chen, Hao},
   booktitle =  {Proc. Eur. Conf. Computer Vision (ECCV)},
   year      =  {2020}
+}
+
+@inproceedings{tian2020boxinst,
+  title     =  {{BoxInst}: High-Performance Instance Segmentation with Box Annotations},
+  author    =  {Tian, Zhi and Shen, Chunhua and Wang, Xinlong and Chen, Hao},
+  booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =  {2021}
 }
 ```
 
