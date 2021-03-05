@@ -5,7 +5,7 @@
     In: Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR), 2021.
     arXiv preprint arXiv:2012.02310
 
-[[`Paper`](https://arxiv.org/abs/2012.02310)] [[`BibTeX`](#citing-boxinst)]
+[[`Paper`](https://arxiv.org/abs/2012.02310)] [[`BibTeX`](#citing-boxinst)] [[`Video Demo`](https://www.youtube.com/watch?v=NuF8NAYf5L8)]
 
 
 # Installation & Quick Start
