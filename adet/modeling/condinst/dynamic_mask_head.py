@@ -33,7 +33,7 @@ def compute_pairwise_term(mask_logits, pairwise_size, pairwise_dilation):
         dilation=pairwise_dilation
     )
 
-    # the probability of making same prediction = p_i * p_j + (1 - p_i) * (1 - p_j)
+    # the probability of making the same prediction = p_i * p_j + (1 - p_i) * (1 - p_j)
     # we compute the the probability in log space to avoid numerical instability
     log_same_fg_prob = log_fg_prob[:, :, None] + log_fg_prob_unfold
     log_same_bg_prob = log_bg_prob[:, :, None] + log_bg_prob_unfold
