@@ -1,0 +1,12 @@
+_BASE_: "Base-BoxInst.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  BACKBONE:
+    NAME: "build_fcos_resnet_bifpn_backbone"
+  RESNETS:
+    DEPTH: 50
+  BiFPN:
+    IN_FEATURES: ["res3", "res4", "res5"]
+    OUT_CHANNELS: 160
+    NORM: "SyncBN"
+OUTPUT_DIR: "output/boxinst_MS_R_50_1x_bifpn"

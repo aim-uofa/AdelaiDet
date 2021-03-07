@@ -5,6 +5,49 @@ from torch import nn
 from adet.utils.comm import compute_locations, aligned_bilinear
 
 
+def compute_project_term(mask_scores, gt_bitmasks):
+    mask_losses_y = dice_coefficient(
+        mask_scores.max(dim=2, keepdim=True)[0],
+        gt_bitmasks.max(dim=2, keepdim=True)[0]
+    )
+    mask_losses_x = dice_coefficient(
+        mask_scores.max(dim=3, keepdim=True)[0],
+        gt_bitmasks.max(dim=3, keepdim=True)[0]
+    )
+    return (mask_losses_x + mask_losses_y).mean()
+
+
+def compute_pairwise_term(mask_logits, pairwise_size, pairwise_dilation):
+    assert mask_logits.dim() == 4
+
+    log_fg_prob = F.logsigmoid(mask_logits)
+    log_bg_prob = F.logsigmoid(-mask_logits)
+
+    from adet.modeling.condinst.condinst import unfold_wo_center
+    log_fg_prob_unfold = unfold_wo_center(
+        log_fg_prob, kernel_size=pairwise_size,
+        dilation=pairwise_dilation
+    )
+    log_bg_prob_unfold = unfold_wo_center(
+        log_bg_prob, kernel_size=pairwise_size,
+        dilation=pairwise_dilation
+    )
+
+    # the probability of making the same prediction = p_i * p_j + (1 - p_i) * (1 - p_j)
+    # we compute the the probability in log space to avoid numerical instability
+    log_same_fg_prob = log_fg_prob[:, :, None] + log_fg_prob_unfold
+    log_same_bg_prob = log_bg_prob[:, :, None] + log_bg_prob_unfold
+
+    max_ = torch.max(log_same_fg_prob, log_same_bg_prob)
+    log_same_prob = torch.log(
+        torch.exp(log_same_fg_prob - max_) +
+        torch.exp(log_same_bg_prob - max_)
+    ) + max_
+
+    # loss = -log(prob)
+    return -log_same_prob[:, 0]
+
+
 def dice_coefficient(x, target):
     eps = 1e-5
     n_inst = x.size(0)
@@ -60,6 +103,14 @@ class DynamicMaskHead(nn.Module):
         soi = cfg.MODEL.FCOS.SIZES_OF_INTEREST
         self.register_buffer("sizes_of_interest", torch.tensor(soi + [soi[-1] * 2]))
 
+        # boxinst configs
+        self.boxinst_enabled = cfg.MODEL.BOXINST.ENABLED
+        self.bottom_pixels_removed = cfg.MODEL.BOXINST.BOTTOM_PIXELS_REMOVED
+        self.pairwise_size = cfg.MODEL.BOXINST.PAIRWISE.SIZE
+        self.pairwise_dilation = cfg.MODEL.BOXINST.PAIRWISE.DILATION
+        self.pairwise_color_thresh = cfg.MODEL.BOXINST.PAIRWISE.COLOR_THRESH
+        self._warmup_iters = cfg.MODEL.BOXINST.PAIRWISE.WARMUP_ITERS
+
         weight_nums, bias_nums = [], []
         for l in range(self.num_layers):
             if l == 0:
@@ -78,6 +129,8 @@ class DynamicMaskHead(nn.Module):
         self.weight_nums = weight_nums
         self.bias_nums = bias_nums
         self.num_gen_params = sum(weight_nums) + sum(bias_nums)
+
+        self.register_buffer("_iter", torch.zeros([1]))
 
     def mask_heads_forward(self, features, weights, biases, num_insts):
         '''
@@ -142,29 +195,63 @@ class DynamicMaskHead(nn.Module):
         assert mask_feat_stride % self.mask_out_stride == 0
         mask_logits = aligned_bilinear(mask_logits, int(mask_feat_stride / self.mask_out_stride))
 
-        return mask_logits.sigmoid()
+        return mask_logits
 
     def __call__(self, mask_feats, mask_feat_stride, pred_instances, gt_instances=None):
         if self.training:
+            self._iter += 1
+
             gt_inds = pred_instances.gt_inds
             gt_bitmasks = torch.cat([per_im.gt_bitmasks for per_im in gt_instances])
             gt_bitmasks = gt_bitmasks[gt_inds].unsqueeze(dim=1).to(dtype=mask_feats.dtype)
 
+            losses = {}
+
             if len(pred_instances) == 0:
                 loss_mask = mask_feats.sum() * 0 + pred_instances.mask_head_params.sum() * 0
+                loss_mask["loss_mask"] = loss_mask
+                if self.boxinst_enabled:
+                    loss_mask["loss_pairwise"] = loss_mask * 0.0
             else:
-                mask_scores = self.mask_heads_forward_with_coords(
+                mask_logits = self.mask_heads_forward_with_coords(
                     mask_feats, mask_feat_stride, pred_instances
                 )
-                mask_losses = dice_coefficient(mask_scores, gt_bitmasks)
-                loss_mask = mask_losses.mean()
+                mask_scores = mask_logits.sigmoid()
 
-            return loss_mask.float()
+                if self.boxinst_enabled:
+                    # box-supervised BoxInst losses
+                    image_color_similarity = torch.cat([x.image_color_similarity for x in gt_instances])
+                    image_color_similarity = image_color_similarity[gt_inds].to(dtype=mask_feats.dtype)
+
+                    loss_prj_term = compute_project_term(mask_scores, gt_bitmasks)
+
+                    pairwise_losses = compute_pairwise_term(
+                        mask_logits, self.pairwise_size,
+                        self.pairwise_dilation
+                    )
+
+                    weights = (image_color_similarity >= self.pairwise_color_thresh).float() * gt_bitmasks.float()
+                    loss_pairwise = (pairwise_losses * weights).sum() / weights.sum().clamp(min=1.0)
+
+                    warmup_factor = min(self._iter.item() / float(self._warmup_iters), 1.0)
+                    loss_pairwise = loss_pairwise * warmup_factor
+
+                    losses.update({
+                        "loss_prj": loss_prj_term,
+                        "loss_pairwise": loss_pairwise,
+                    })
+                else:
+                    # fully-supervised CondInst losses
+                    mask_losses = dice_coefficient(mask_scores, gt_bitmasks)
+                    loss_mask = mask_losses.mean()
+                    losses["loss_mask"] = loss_mask
+
+            return losses
         else:
             if len(pred_instances) > 0:
-                mask_scores = self.mask_heads_forward_with_coords(
+                mask_logits = self.mask_heads_forward_with_coords(
                     mask_feats, mask_feat_stride, pred_instances
                 )
-                pred_instances.pred_global_masks = mask_scores.float()
+                pred_instances.pred_global_masks = mask_logits.sigmoid()
 
             return pred_instances
