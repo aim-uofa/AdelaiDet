@@ -45,10 +45,14 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 
 Only **box annotations** are used during training.
 
-Name | inf. time | box AP | mask AP | download
---- |:---:|:---:|:---:|:---:
-[BoxInst_MS_R_50_1x](MS_R_50_1x.yaml) | 14 FPS | 39.4 | 30.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/odj8VwqgRT8TMsR/download)
-[BoxInst_MS_R_50_3x](MS_R_50_3x.yaml) | 14 FPS | 41.5 | 31.8 | [model](https://cloudstor.aarnet.edu.au/plus/s/Aabn3BEuq4HKiNK/download)
+Name | inf. time | box AP | mask AP | mask AP (test-dev)| download
+--- |:---:|:---:|:---:|:---:|:---:
+[BoxInst_MS_R_50_1x](MS_R_50_1x.yaml) | 14 FPS | 39.4 | 30.7 | - | [model](https://cloudstor.aarnet.edu.au/plus/s/odj8VwqgRT8TMsR/download)
+[BoxInst_MS_R_50_3x](MS_R_50_3x.yaml) | 14 FPS | 41.5 | 31.8 | 32.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/Aabn3BEuq4HKiNK/download)
+[BoxInst_MS_R_101_1x](MS_R_101_1x.yaml) | 11 FPS | 41.4 | 32.2 | 32.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/FiPXJJ1GdJtdO0w/download)
+[BoxInst_MS_R_101_3x](MS_R_101_3x.yaml) | 11 FPS | 43.3 | 33.0 | 33.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/8CcXfqKpPFc4bJ4/download)
+[BoxInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.4 | 34.1 | 33.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/qGGrOlYgTqIur7B/download)
+[BoxInst_MS_R_101_BiFPN_dcni3_3x](MS_R_101_BiFPN_dcni3_3x.yaml) | - | 46.4 | 34.8 | 35.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/e8hivzBFhadkEfc/download)
 
 Disclaimer:
 - All models are trained with multi-scale data augmentation. Inference time is measured on a single NVIDIA 1080Ti with batch size 1.
