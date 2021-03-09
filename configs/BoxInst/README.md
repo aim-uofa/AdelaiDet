@@ -52,7 +52,7 @@ Name | inf. time | box AP | mask AP | mask AP (test-dev)| download
 [BoxInst_MS_R_101_1x](MS_R_101_1x.yaml) | 11 FPS | 41.4 | 32.2 | 32.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/FiPXJJ1GdJtdO0w/download)
 [BoxInst_MS_R_101_3x](MS_R_101_3x.yaml) | 11 FPS | 43.3 | 33.0 | 33.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/8CcXfqKpPFc4bJ4/download)
 [BoxInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.4 | 34.1 | 33.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/qGGrOlYgTqIur7B/download)
-[BoxInst_MS_R_101_BiFPN_dcni3_3x](MS_R_101_BiFPN_dcni3_3x.yaml) | - | 46.4 | 34.8 | 35.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/e8hivzBFhadkEfc/download)
+[BoxInst_MS_R_101_BiFPN_dcni3_3x](MS_R_101_BiFPN_dcni3_3x.yaml) | 8 FPS | 46.4 | 34.8 | 35.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/e8hivzBFhadkEfc/download)
 
 Disclaimer:
 - All models are trained with multi-scale data augmentation. Inference time is measured on a single NVIDIA 1080Ti with batch size 1.
