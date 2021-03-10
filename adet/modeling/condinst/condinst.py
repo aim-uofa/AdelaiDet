@@ -16,7 +16,7 @@ from detectron2.structures.masks import PolygonMasks, polygons_to_bitmask
 from .dynamic_mask_head import build_dynamic_mask_head
 from .mask_branch import build_mask_branch
 
-from adet.utils.comm import aligned_bilinear
+from adet.utils.comm import aligned_bilinear, rgb_to_lab
 
 __all__ = ["CondInst"]
 
@@ -292,11 +292,11 @@ class CondInst(nn.Module):
         image_masks = image_masks[:, start::stride, start::stride]
 
         for im_i, per_im_gt_inst in enumerate(instances):
-            images_lab = color.rgb2lab(downsampled_images[im_i].byte().permute(1, 2, 0).cpu().numpy())
-            images_lab = torch.as_tensor(images_lab, device=downsampled_images.device, dtype=torch.float32)
-            images_lab = images_lab.permute(2, 0, 1)[None]
+            images_lab = rgb_to_lab(downsampled_images[im_i].byte().permute(1, 2, 0))
+            images_lab = images_lab.permute(2, 0, 1)
+
             images_color_similarity = get_images_color_similarity(
-                images_lab, image_masks[im_i],
+                images_lab[None], image_masks[im_i],
                 self.pairwise_size, self.pairwise_dilation
             )
 
