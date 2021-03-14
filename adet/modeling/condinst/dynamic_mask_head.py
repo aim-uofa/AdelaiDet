@@ -209,9 +209,9 @@ class DynamicMaskHead(nn.Module):
 
             if len(pred_instances) == 0:
                 loss_mask = mask_feats.sum() * 0 + pred_instances.mask_head_params.sum() * 0
-                loss_mask["loss_mask"] = loss_mask
+                losses["loss_mask"] = loss_mask
                 if self.boxinst_enabled:
-                    loss_mask["loss_pairwise"] = loss_mask * 0.0
+                    losses["loss_pairwise"] = loss_mask * 0.0
             else:
                 mask_logits = self.mask_heads_forward_with_coords(
                     mask_feats, mask_feat_stride, pred_instances
