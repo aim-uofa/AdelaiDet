@@ -81,8 +81,8 @@ class FCOSOutputs(nn.Module):
         self.sizes_of_interest = soi
 
         self.loss_normalizer_cls = cfg.MODEL.FCOS.LOSS_NORMALIER_CLS
-        assert self.loss_normalizer_cls in ("fg", "moving_fg", "all"), \
-            'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be "fg", "moving_fg" or "all"'
+        assert self.loss_normalizer_cls in ("moving_fg", "fg", "all"), \
+            'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be "moving_fg", "fg", or "all"'
 
         # For an explanation, please refer to
         # https://github.com/facebookresearch/detectron2/blob/ea8b17914fc9a5b7d82a46ccc72e7cf6272b40e4/detectron2/modeling/meta_arch/retinanet.py#L148
