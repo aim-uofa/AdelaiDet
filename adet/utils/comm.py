@@ -14,6 +14,12 @@ def reduce_sum(tensor):
     return tensor
 
 
+def reduce_mean(tensor):
+    num_gpus = get_world_size()
+    total = reduce_sum(tensor)
+    return total / num_gpus
+
+
 def aligned_bilinear(tensor, factor):
     assert tensor.dim() == 4
     assert factor >= 1

@@ -8,7 +8,7 @@ from detectron2.structures import Instances, Boxes
 from detectron2.utils.comm import get_world_size
 from fvcore.nn import sigmoid_focal_loss_jit
 
-from adet.utils.comm import reduce_sum
+from adet.utils.comm import reduce_sum, reduce_mean
 from adet.layers import ml_nms, IOULoss
 
 
@@ -79,6 +79,11 @@ class FCOSOutputs(nn.Module):
             prev_size = s
         soi.append([prev_size, INF])
         self.sizes_of_interest = soi
+
+        self.loss_normalizer_cls = cfg.MODEL.FCOS.LOSS_NORMALIER_CLS
+        assert self.loss_normalizer_cls in ("foreground", "all"), \
+            'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be either "foreground" or "all"'
+        self.loss_weight_cls = cfg.MODEL.FCOS.LOSS_WEIGHT_CLS
 
     def _transpose(self, training_targets, num_loc_list):
         '''
@@ -319,10 +324,12 @@ class FCOSOutputs(nn.Module):
         labels = instances.labels.flatten()
 
         pos_inds = torch.nonzero(labels != num_classes).squeeze(1)
-        num_pos_local = pos_inds.numel()
-        num_gpus = get_world_size()
-        total_num_pos = reduce_sum(pos_inds.new_tensor([num_pos_local])).item()
-        num_pos_avg = max(total_num_pos / num_gpus, 1.0)
+
+        num_pos_local = torch.ones_like(pos_inds).sum()
+        num_pos_avg = max(reduce_mean(num_pos_local).item(), 1.0)
+
+        num_samples_local = torch.ones_like(labels).sum()
+        num_samples_avg = max(reduce_mean(num_samples_local).item(), 1.0)
 
         # prepare one_hot
         class_target = torch.zeros_like(instances.logits_pred)
@@ -334,14 +341,16 @@ class FCOSOutputs(nn.Module):
             alpha=self.focal_loss_alpha,
             gamma=self.focal_loss_gamma,
             reduction="sum",
-        ) / num_pos_avg
+        ) / (num_pos_avg if self.loss_normalizer_cls == "foreground" else num_samples_avg)
+
+        class_loss = class_loss * self.loss_weight_cls
 
         instances = instances[pos_inds]
         instances.pos_inds = pos_inds
 
         ctrness_targets = compute_ctrness_targets(instances.reg_targets)
         ctrness_targets_sum = ctrness_targets.sum()
-        loss_denorm = max(reduce_sum(ctrness_targets_sum).item() / num_gpus, 1e-6)
+        loss_denorm = max(reduce_mean(ctrness_targets_sum).item(), 1e-6)
         instances.gt_ctrs = ctrness_targets
 
         if pos_inds.numel() > 0:
