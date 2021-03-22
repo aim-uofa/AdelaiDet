@@ -81,8 +81,14 @@ class FCOSOutputs(nn.Module):
         self.sizes_of_interest = soi
 
         self.loss_normalizer_cls = cfg.MODEL.FCOS.LOSS_NORMALIER_CLS
-        assert self.loss_normalizer_cls in ("foreground", "all"), \
-            'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be either "foreground" or "all"'
+        assert self.loss_normalizer_cls in ("fg", "moving_fg", "all"), \
+            'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be "fg", "moving_fg" or "all"'
+
+        # For an explanation, please refer to
+        # https://github.com/facebookresearch/detectron2/blob/ea8b17914fc9a5b7d82a46ccc72e7cf6272b40e4/detectron2/modeling/meta_arch/retinanet.py#L148
+        self.moving_num_fg = 100  # initialize with any reasonable #fg that's not too small
+        self.moving_num_fg_momentum = 0.9
+
         self.loss_weight_cls = cfg.MODEL.FCOS.LOSS_WEIGHT_CLS
 
     def _transpose(self, training_targets, num_loc_list):
@@ -341,7 +347,17 @@ class FCOSOutputs(nn.Module):
             alpha=self.focal_loss_alpha,
             gamma=self.focal_loss_gamma,
             reduction="sum",
-        ) / (num_pos_avg if self.loss_normalizer_cls == "foreground" else num_samples_avg)
+        )
+
+        if self.loss_normalizer_cls == "moving_fg":
+            self.moving_num_fg = self.moving_num_fg_momentum * self.moving_num_fg + (
+                    1 - self.moving_num_fg_momentum
+            ) * num_pos_avg
+            class_loss = class_loss / self.moving_num_fg
+        elif self.loss_normalizer_cls == "fg":
+            class_loss = class_loss / num_pos_avg
+        else:
+            class_loss = class_loss / num_samples_avg
 
         class_loss = class_loss * self.loss_weight_cls
 

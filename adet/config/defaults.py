@@ -41,9 +41,10 @@ _C.MODEL.FCOS.LOSS_ALPHA = 0.25
 _C.MODEL.FCOS.LOSS_GAMMA = 2.0
 
 # The normalizer of the classification loss
-# The normalizer can be either "foreground" (normalized by the number of the foreground samples)
+# The normalizer can be "fg" (normalized by the number of the foreground samples),
+# "moving_fg" (normalized by the MOVING number of the foreground samples),
 # or "all" (normalized by the number of all samples)
-_C.MODEL.FCOS.LOSS_NORMALIER_CLS = "foreground"
+_C.MODEL.FCOS.LOSS_NORMALIER_CLS = "moving_fg"
 _C.MODEL.FCOS.LOSS_WEIGHT_CLS = 1.0
 
 _C.MODEL.FCOS.SIZES_OF_INTEREST = [64, 128, 256, 512]
