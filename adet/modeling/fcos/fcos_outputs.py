@@ -80,7 +80,7 @@ class FCOSOutputs(nn.Module):
         soi.append([prev_size, INF])
         self.sizes_of_interest = soi
 
-        self.loss_normalizer_cls = cfg.MODEL.FCOS.LOSS_NORMALIER_CLS
+        self.loss_normalizer_cls = cfg.MODEL.FCOS.LOSS_NORMALIZER_CLS
         assert self.loss_normalizer_cls in ("moving_fg", "fg", "all"), \
             'MODEL.FCOS.CLS_LOSS_NORMALIZER can only be "moving_fg", "fg", or "all"'
 
