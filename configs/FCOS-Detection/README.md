@@ -55,6 +55,7 @@ we have changed the normalizer of the classification loss of FCOS from `the numb
 The latter has similar performance but it is stabler if the number of foreground samples is small.
 
 If you want the original normalizer, please set [`MODEL.FCOS.LOSS_NORMALIZER_CLS`](../../adet/config/defaults.py#L47) to `"fg"`.
+All the above models were trained with the original normalizer.
 
 # Citing FCOS
 If you use FCOS in your research or wish to refer to the baseline results, please use the following BibTeX entries.
