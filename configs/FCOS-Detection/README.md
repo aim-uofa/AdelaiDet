@@ -48,6 +48,14 @@ Name | inf. time | box AP | box AP (test-dev) | download
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1. Real-time models use shorter side 512 for inference.*
 
+*Disclaimer:*
+
+Following [Detectron2](https://github.com/facebookresearch/detectron2/blob/ea8b17914fc9a5b7d82a46ccc72e7cf6272b40e4/detectron2/modeling/meta_arch/retinanet.py#L148),
+we have changed the normalizer of the classification loss of FCOS from `the number of foreground samples` to `the MOVING number of foreground samples`.
+The latter has similar performance but it is stabler if the number of foreground samples is small.
+
+If you want the original normalizer, please set [`MODEL.FCOS.LOSS_NORMALIZER_CLS`](../../adet/config/defaults.py#L47) to `"fg"`.
+
 # Citing FCOS
 If you use FCOS in your research or wish to refer to the baseline results, please use the following BibTeX entries.
 ```BibTeX

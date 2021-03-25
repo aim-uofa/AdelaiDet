@@ -334,9 +334,6 @@ class FCOSOutputs(nn.Module):
         num_pos_local = torch.ones_like(pos_inds).sum()
         num_pos_avg = max(reduce_mean(num_pos_local).item(), 1.0)
 
-        num_samples_local = torch.ones_like(labels).sum()
-        num_samples_avg = max(reduce_mean(num_samples_local).item(), 1.0)
-
         # prepare one_hot
         class_target = torch.zeros_like(instances.logits_pred)
         class_target[pos_inds, labels[pos_inds]] = 1
@@ -346,7 +343,7 @@ class FCOSOutputs(nn.Module):
             class_target,
             alpha=self.focal_loss_alpha,
             gamma=self.focal_loss_gamma,
-            reduction="sum",
+            reduction="sum"
         )
 
         if self.loss_normalizer_cls == "moving_fg":
@@ -357,6 +354,8 @@ class FCOSOutputs(nn.Module):
         elif self.loss_normalizer_cls == "fg":
             class_loss = class_loss / num_pos_avg
         else:
+            num_samples_local = torch.ones_like(labels).sum()
+            num_samples_avg = max(reduce_mean(num_samples_local).item(), 1.0)
             class_loss = class_loss / num_samples_avg
 
         class_loss = class_loss * self.loss_weight_cls
