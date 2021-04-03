@@ -17,7 +17,7 @@ def reduce_sum(tensor):
 def reduce_mean(tensor):
     num_gpus = get_world_size()
     total = reduce_sum(tensor)
-    return float(total) / num_gpus
+    return total.float() / num_gpus
 
 
 def aligned_bilinear(tensor, factor):
