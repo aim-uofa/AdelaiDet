@@ -32,6 +32,12 @@ _C.MODEL.FCOS.TOP_LEVELS = 2
 _C.MODEL.FCOS.NORM = "GN"  # Support GN or none
 _C.MODEL.FCOS.USE_SCALE = True
 
+# The options for the quality of box prediction
+# It can be "ctrness" (as described in FCOS paper) or "iou"
+# Using "iou" here generally has ~0.4 better AP on COCO
+# Note that for compatibility, we still use the term "ctrness" in the code
+_C.MODEL.FCOS.BOX_QUALITY = "ctrness"
+
 # Multiply centerness before threshold
 # This will affect the final performance by about 0.05 AP but save some time
 _C.MODEL.FCOS.THRESH_WITH_CTR = False
