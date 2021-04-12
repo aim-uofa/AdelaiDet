@@ -325,7 +325,7 @@ class FCOSOutputs(nn.Module):
         return self.fcos_losses(instances)
 
     def fcos_losses(self, instances):
-        losses = {}
+        losses, extras = {}, {}
 
         # 1. compute the cls loss
         num_classes = instances.logits_pred.size(1)
@@ -376,6 +376,7 @@ class FCOSOutputs(nn.Module):
             
             ctrness_targets_sum = ctrness_targets.sum()
             loss_denorm = max(reduce_mean(ctrness_targets_sum).item(), 1e-6)
+            extras["loss_denorm"] = loss_denorm
 
             reg_loss = self.loc_loss_func(ious, gious, ctrness_targets) / loss_denorm
             losses["loss_fcos_loc"] = reg_loss
@@ -393,14 +394,12 @@ class FCOSOutputs(nn.Module):
                 instances.ctrness_pred, ious.detach(),
                 reduction="sum"
             ) / num_pos_avg
-            losses["loss_fcos_quality"] = quality_loss
+            losses["loss_fcos_iou"] = quality_loss
         else:
             raise NotImplementedError
 
-        extras = {
-            "instances": instances,
-            "loss_denorm": loss_denorm
-        }
+        extras["instances"] = instances
+
         return extras, losses
 
     def predict_proposals(
