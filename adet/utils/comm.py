@@ -59,3 +59,45 @@ def compute_locations(h, w, stride, device):
     shift_y = shift_y.reshape(-1)
     locations = torch.stack((shift_x, shift_y), dim=1) + stride // 2
     return locations
+
+
+def compute_ious(pred, target):
+    """
+    Args:
+        pred: Nx4 predicted bounding boxes
+        target: Nx4 target bounding boxes
+        Both are in the form of FCOS prediction (l, t, r, b)
+    """
+    pred_left = pred[:, 0]
+    pred_top = pred[:, 1]
+    pred_right = pred[:, 2]
+    pred_bottom = pred[:, 3]
+
+    target_left = target[:, 0]
+    target_top = target[:, 1]
+    target_right = target[:, 2]
+    target_bottom = target[:, 3]
+
+    target_aera = (target_left + target_right) * \
+                  (target_top + target_bottom)
+    pred_aera = (pred_left + pred_right) * \
+                (pred_top + pred_bottom)
+
+    w_intersect = torch.min(pred_left, target_left) + \
+                  torch.min(pred_right, target_right)
+    h_intersect = torch.min(pred_bottom, target_bottom) + \
+                  torch.min(pred_top, target_top)
+
+    g_w_intersect = torch.max(pred_left, target_left) + \
+                    torch.max(pred_right, target_right)
+    g_h_intersect = torch.max(pred_bottom, target_bottom) + \
+                    torch.max(pred_top, target_top)
+    ac_uion = g_w_intersect * g_h_intersect
+
+    area_intersect = w_intersect * h_intersect
+    area_union = target_aera + pred_aera - area_intersect
+
+    ious = (area_intersect + 1.0) / (area_union + 1.0)
+    gious = ious - (ac_uion - area_union) / ac_uion
+
+    return ious, gious
