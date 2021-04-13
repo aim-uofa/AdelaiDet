@@ -28,7 +28,14 @@ Name | inf. time | box AP | box AP (test-dev) | download
 [FCOS_MS_X_101_64x4d_2x](MS_X_101_64x4d_2x.yaml) | 6.1 FPS | 44.7 | [44.8](https://gist.github.com/tianzhi0549/b68f6500ec24e6b263c12c345a7b5c7b) | [model](https://cloudstor.aarnet.edu.au/plus/s/XOLUCzqKYckNII7/download)
 [FCOS_MS_X_101_32x8d_dcnv2_2x](MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [46.6](https://gist.github.com/tianzhi0549/316e8feaa17bf0341e2effa485fb41c0) | [model](https://cloudstor.aarnet.edu.au/plus/s/TDsnYK8OXDTrafF/download)
 
-*Except for FCOS_R_50_1x, all other models are trained with multi-scale data augmentation.*
+The following models use IoU (instead of "center-ness") to predict the box quality (setting `MODEL.FCOS.BOX_QUALITY = "iou"`).
+
+Name | inf. time | box AP | download
+--- |:---:|:---:|:---:
+[FCOS_R_50_1x_iou](R_50_1x_iou.yaml) | 16 FPS | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/LE6u0koeu0YlalU/download)
+[FCOS_MS_R_50_2x_iou](MS_R_50_2x_iou.yaml) | 16 FPS | 41.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/Qx7HeA0XCr2y6UW/download)
+
+*"MS": the models are trained with multi-scale data augmentation.*
 
 ### FCOS Real-time Models
 
@@ -50,7 +57,7 @@ Name | inf. time | box AP | box AP (test-dev) | download
 
 *Disclaimer:*
 
-If the number of foreground samples is small or unstable, please set [`MODEL.FCOS.LOSS_NORMALIZER_CLS`](../../adet/config/defaults.py#L47) to `"moving_fg"`, which is more stable than normalizing the loss with the number of foreground samples in this case.
+If the number of foreground samples is small or unstable, please set [`MODEL.FCOS.LOSS_NORMALIZER_CLS`](https://github.com/aim-uofa/AdelaiDet/blob/586bf2d6d4a4d662956203675a108f79d7d0f3ce/adet/config/defaults.py#L47) to `"moving_fg"`, which is more stable than normalizing the loss with the number of foreground samples in this case.
 
 
 # Citing FCOS
