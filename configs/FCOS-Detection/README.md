@@ -34,6 +34,7 @@ Name | inf. time | box AP | download
 --- |:---:|:---:|:---:
 [FCOS_R_50_1x_iou](R_50_1x_iou.yaml) | 16 FPS | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/LE6u0koeu0YlalU/download)
 [FCOS_MS_R_50_2x_iou](MS_R_50_2x_iou.yaml) | 16 FPS | 41.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/Qx7HeA0XCr2y6UW/download)
+[FCOS_MS_R_101_2x_iou](MS_R_101_2x_iou.yaml) | 12 FPS | 43.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/JJhntIKrvaS51et/download)
 
 *"MS": the models are trained with multi-scale data augmentation.*
 
