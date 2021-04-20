@@ -42,7 +42,21 @@ python demo/demo.py \
 ### Train Your Own Models
 
 To train a model with "train_net.py", first setup the corresponding datasets following
-[datasets/README.md](../../datasets/README.md). 
+[datasets/README.md](../../datasets/README.md) or using the following script:
+
+```
+cd datasets/
+wget https://universityofadelaide.box.com/shared/static/32p6xsdtu0keu2o6pb5aqhyjotnljxep.zip -O tot.zip
+unzip tot.zip
+rm tot.zip
+wget https://universityofadelaide.box.com/shared/static/6ui89vca7cbp15ysnxqg5r494ix7l6cu.zip -O ctw1500.zip
+mkdir CTW1500/ | unzip ctw1500.zip -d CTW1500/
+rm ctw1500.zip
+mkdir evaluation
+cd evaluation
+wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/xU3yeM3GnidiSTr/download
+wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/SFHvin8BLUM4cNd/download
+```
 
 You can also prepare your custom dataset following the [example scripts](https://universityofadelaide.box.com/s/phqfzpvhe0obmkvn17akn9qw47u1m44i).
 
