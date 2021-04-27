@@ -95,7 +95,7 @@ def fcos_losses(
         reg_loss = iou_loss(
             reg_pred,
             reg_targets,
-            ctrness_targets
+            ctrness_targets.view((-1,1)).contiguous()
         ) / loss_denorm
         
         ctrness_loss = F.binary_cross_entropy_with_logits(
