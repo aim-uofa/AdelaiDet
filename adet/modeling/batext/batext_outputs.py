@@ -7,7 +7,7 @@ from detectron2.structures import Instances, Boxes
 from adet.utils.comm import get_world_size
 from fvcore.nn import sigmoid_focal_loss_jit
 
-from adet.utils.comm import reduce_sum
+from adet.utils.comm import reduce_sum, compute_ious
 from adet.layers import ml_nms
 
 
@@ -86,15 +86,16 @@ def fcos_losses(
     reg_targets = reg_targets[pos_inds]
     bezier_targets = bezier_targets[pos_inds]
     ctrness_pred = ctrness_pred[pos_inds]
-
+    
+    ious, gious = compute_ious(reg_pred, reg_targets)
     ctrness_targets = compute_ctrness_targets(reg_targets)
     ctrness_targets_sum = ctrness_targets.sum()
     loss_denorm = max(reduce_sum(ctrness_targets_sum).item() / num_gpus, 1e-6)
 
     if pos_inds.numel() > 0:
         reg_loss = iou_loss(
-            reg_pred,
-            reg_targets,
+            ious,
+            gious,
             ctrness_targets
         ) / loss_denorm
         
