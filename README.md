@@ -18,7 +18,7 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLOv2](configs/SOLOv2/README.md)
 * [BoxInst](configs/BoxInst/README.md) ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
-
+* [DenseCL](configs/DenseCL/README.md)
 
 
 
@@ -231,6 +231,13 @@ and relevant publications:
   author    =  {Tian, Zhi and Shen, Chunhua and Wang, Xinlong and Chen, Hao},
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =  {2021}
+}
+
+@inproceedings{wang2020densecl,
+  title     =   {Dense Contrastive Learning for Self-Supervised Visual Pre-Training},
+  author    =   {Wang, Xinlong and Zhang, Rufeng and Shen, Chunhua and Kong, Tao and Li, Lei},
+  booktitle =   {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =   {2021}
 }
 ```
 
