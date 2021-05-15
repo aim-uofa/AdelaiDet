@@ -17,8 +17,8 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLO](https://arxiv.org/abs/1912.04488) ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](configs/SOLOv2/README.md)
 * [BoxInst](configs/BoxInst/README.md) ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
-* [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 * [DenseCL](configs/DenseCL/README.md)
+* [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 
 
