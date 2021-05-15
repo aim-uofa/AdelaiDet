@@ -1,0 +1,13 @@
+_BASE_: "../FCOS-Detection/Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  BACKBONE:
+    FREEZE_AT: 0
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+  FPN:
+    NORM: "SyncBN"
+TEST:
+  PRECISE_BN:
+    ENABLED: True
