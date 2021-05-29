@@ -80,12 +80,6 @@ class FCOS(nn.Module):
             features, top_module, self.yield_proposal
         )
 
-        results = {}
-        if self.yield_proposal:
-            results["features"] = {
-                f: b for f, b in zip(self.in_features, bbox_towers)
-            }
-
         if self.training:
             results, losses = self.fcos_outputs.losses(
                 logits_pred, reg_pred, ctrness_pred,
