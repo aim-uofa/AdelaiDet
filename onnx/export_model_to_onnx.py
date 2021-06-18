@@ -40,7 +40,27 @@ from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.modeling import ProposalNetwork
 
 from adet.config import get_cfg
-from adet.modeling import FCOS, BlendMask
+from adet.modeling import FCOS, BlendMask, BAText, MEInst, condinst, SOLOv2
+from adet.modeling.condinst.mask_branch import MaskBranch
+
+def patch_condinst(cfg, model, output_names):
+    def forward(self, tensor):
+        images = None
+        gt_instances = None
+        mask_feats = None
+        proposals = None
+
+        features = self.backbone(tensor)
+        #return features
+        proposals, proposal_losses = self.proposal_generator(images, features, gt_instances, self.controller)
+        #return proposals
+        mask_feats, sem_losses = self.mask_branch(features, gt_instances)
+        #return mask_feats
+        return mask_feats, proposals
+
+    model.forward = types.MethodType(forward, model)
+
+    #output tensor naming [optional]
 
 def patch_blendmask(cfg, model, output_names):
     def forward(self, tensor):
@@ -54,7 +74,8 @@ def patch_blendmask(cfg, model, output_names):
         return basis_out["bases"], proposals
 
     model.forward = types.MethodType(forward, model)
-    # output
+
+    #output tensor naming [optional]
     output_names.extend(["bases"])
     for item in ["logits", "bbox_reg", "centerness", "top_feats"]:
         for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
@@ -71,7 +92,8 @@ def patch_ProposalNetwork(cfg, model, output_names):
         return proposals
 
     model.forward = types.MethodType(forward, model)
-    # output
+
+    #output tensor naming [optional]
     for item in ["logits", "bbox_reg", "centerness"]:
         for l in range(len(cfg.MODEL.FCOS.FPN_STRIDES)):
             fpn_name = "P{}".format(3 + l)
@@ -95,7 +117,7 @@ def patch_fcos_head(cfg, fcos_head):
                     "share": (cfg.MODEL.FCOS.NUM_SHARE_CONVS,
                               False)}
 
-    # step 2. seperate module
+    # step 2. separate module
     for l in range(fcos_head.num_levels):
         for head in head_configs:
             tower = []
@@ -136,6 +158,50 @@ def patch_fcos_head(cfg, fcos_head):
         return logits, bbox_reg, ctrness, top_feats, bbox_towers
 
     fcos_head.forward = types.MethodType(fcos_head_forward, fcos_head)
+
+def upsample(tensor, factor): # aligned_bilinear in adet/utils/comm.py is not onnx-friendly
+    assert tensor.dim() == 4
+    assert factor >= 1
+    assert int(factor) == factor
+
+    if factor == 1:
+        return tensor
+
+    h, w = tensor.size()[2:]
+    oh = factor * h
+    ow = factor * w
+    tensor = F.interpolate(
+        tensor, size=(oh, ow),
+        mode='nearest',
+    )
+    return tensor
+
+def patch_mask_branch(cfg, mask_branch):
+    def mask_branch_forward(self, features, gt_instances=None):
+        for i, f in enumerate(self.in_features):
+            if i == 0:
+                x = self.refine[i](features[f])
+            else:
+                x_p = self.refine[i](features[f])
+
+                target_h, target_w = x.size()[2:]
+                h, w = x_p.size()[2:]
+                assert target_h % h == 0
+                assert target_w % w == 0
+                factor_h, factor_w = target_h // h, target_w // w
+                assert factor_h == factor_w
+                x_p = upsample(x_p, factor_h)
+                x = x + x_p
+
+        mask_feats = self.tower(x)
+
+        if self.num_outputs == 0:
+            mask_feats = mask_feats[:, :self.num_outputs]
+
+        losses = {}
+        return mask_feats, losses
+
+    mask_branch.forward = types.MethodType(mask_branch_forward, mask_branch)
 
 def main():
     parser = argparse.ArgumentParser(description="Export model to the onnx format")
@@ -198,6 +264,9 @@ def main():
     input_names = ["input_image"]
     dummy_input = torch.zeros((1, 3, height, width)).to(cfg.MODEL.DEVICE)
     output_names = []
+    if isinstance(model, condinst.CondInst):
+        patch_condinst(cfg, model, output_names)
+
     if isinstance(model, BlendMask):
         patch_blendmask(cfg, model, output_names)
 
@@ -209,6 +278,10 @@ def main():
             patch_fcos(cfg, model.proposal_generator)
             patch_fcos_head(cfg, model.proposal_generator.fcos_head)
 
+    if hasattr(model, 'mask_branch'):
+        if isinstance(model.mask_branch, MaskBranch):
+            patch_mask_branch(cfg, model.mask_branch) # replace aligned_bilinear with nearest upsample
+
     torch.onnx.export(
         model,
         dummy_input,
@@ -216,7 +289,7 @@ def main():
         verbose=True,
         input_names=input_names,
         output_names=output_names,
-        keep_initializers_as_inputs=True
+        keep_initializers_as_inputs=True,
     )
 
     logger.info("Done. The onnx model is saved into {}.".format(args.output))
