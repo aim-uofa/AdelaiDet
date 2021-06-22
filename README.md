@@ -18,6 +18,7 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLOv2](configs/SOLOv2/README.md)
 * [BoxInst](configs/BoxInst/README.md) ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
 * [DenseCL](configs/DenseCL/README.md)
+* [FCPose](https://arxiv.org/abs/2105.14185) _to be released_
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 
@@ -226,16 +227,23 @@ and relevant publications:
   year      =  {2020}
 }
 
-@inproceedings{tian2020boxinst,
+@inproceedings{tian2021boxinst,
   title     =  {{BoxInst}: High-Performance Instance Segmentation with Box Annotations},
   author    =  {Tian, Zhi and Shen, Chunhua and Wang, Xinlong and Chen, Hao},
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =  {2021}
 }
 
-@inproceedings{wang2020densecl,
+@inproceedings{wang2021densecl,
   title     =   {Dense Contrastive Learning for Self-Supervised Visual Pre-Training},
   author    =   {Wang, Xinlong and Zhang, Rufeng and Shen, Chunhua and Kong, Tao and Li, Lei},
+  booktitle =   {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
+  year      =   {2021}
+}
+
+@inproceedings{Mao2021pose,
+  title     =   {{FCPose}: Fully Convolutional Multi-Person Pose Estimation With Dynamic Instance-Aware Convolutions},
+  author    =   {Mao, Weian and  Tian, Zhi  and Wang, Xinlong  and Shen, Chunhua},
   booktitle =   {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =   {2021}
 }
