@@ -49,6 +49,7 @@ class FCOS(nn.Module):
         self.in_features = cfg.MODEL.FCOS.IN_FEATURES
         self.fpn_strides = cfg.MODEL.FCOS.FPN_STRIDES
         self.yield_proposal = cfg.MODEL.FCOS.YIELD_PROPOSAL
+        self.yield_box_feats = cfg.MODEL.FCOS.YIELD_BOX_FEATURES
 
         self.fcos_head = FCOSHead(cfg, [input_shape[f] for f in self.in_features])
         self.in_channels_to_top_module = self.fcos_head.in_channels_to_top_module
@@ -77,7 +78,7 @@ class FCOS(nn.Module):
         features = [features[f] for f in self.in_features]
         locations = self.compute_locations(features)
         logits_pred, reg_pred, ctrness_pred, top_feats, bbox_towers = self.fcos_head(
-            features, top_module, self.yield_proposal
+            features, top_module, self.yield_proposal or self.yield_box_feats
         )
 
         if self.training:
@@ -85,21 +86,26 @@ class FCOS(nn.Module):
                 logits_pred, reg_pred, ctrness_pred,
                 locations, gt_instances, top_feats
             )
-            
+
             if self.yield_proposal:
                 with torch.no_grad():
                     results["proposals"] = self.fcos_outputs.predict_proposals(
                         logits_pred, reg_pred, ctrness_pred,
                         locations, images.image_sizes, top_feats
                     )
-            return results, losses
         else:
             results = self.fcos_outputs.predict_proposals(
                 logits_pred, reg_pred, ctrness_pred,
                 locations, images.image_sizes, top_feats
             )
+            losses = {}
 
-            return results, {}
+        if self.yield_box_feats:
+            results["box_feats"] = {
+                f: b for f, b in zip(self.in_features, bbox_towers)
+            }
+
+        return results, losses
 
     def compute_locations(self, features):
         locations = []

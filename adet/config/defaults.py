@@ -65,6 +65,7 @@ _C.MODEL.FCOS.CENTER_SAMPLE = True
 _C.MODEL.FCOS.POS_RADIUS = 1.5
 _C.MODEL.FCOS.LOC_LOSS_TYPE = 'giou'
 _C.MODEL.FCOS.YIELD_PROPOSAL = False
+_C.MODEL.FCOS.YIELD_BOX_FEATURES = False
 
 # ---------------------------------------------------------------------------- #
 # VoVNet backbone
