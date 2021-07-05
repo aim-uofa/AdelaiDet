@@ -93,19 +93,22 @@ class FCOS(nn.Module):
                         logits_pred, reg_pred, ctrness_pred,
                         locations, images.image_sizes, top_feats
                     )
+            if self.yield_box_feats:
+                results["box_feats"] = {
+                    f: b for f, b in zip(self.in_features, bbox_towers)
+                }
+            return results, losses
         else:
             results = self.fcos_outputs.predict_proposals(
                 logits_pred, reg_pred, ctrness_pred,
                 locations, images.image_sizes, top_feats
             )
-            losses = {}
-
-        if self.yield_box_feats:
-            results["box_feats"] = {
-                f: b for f, b in zip(self.in_features, bbox_towers)
-            }
-
-        return results, losses
+            extras = {}
+            if self.yield_box_feats:
+                extras["box_feats"] = {
+                    f: b for f, b in zip(self.in_features, bbox_towers)
+                }
+            return results, extras
 
     def compute_locations(self, features):
         locations = []
