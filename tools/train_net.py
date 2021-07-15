@@ -48,16 +48,29 @@ class Trainer(DefaultTrainer):
     This is the same Trainer except that we rewrite the
     `build_train_loader`/`resume_or_load` method.
     """
+    def build_hooks(self):
+        """
+        Replace `DetectionCheckpointer` with `AdetCheckpointer`.
+
+        Build a list of default hooks, including timing, evaluation,
+        checkpointing, lr scheduling, precise BN, writing events.
+        """
+        ret = super().build_hooks()
+        for i in range(len(ret)):
+            if isinstance(ret[i], hooks.PeriodicCheckpointer):
+                self.checkpointer = AdetCheckpointer(
+                    self.model,
+                    self.cfg.OUTPUT_DIR,
+                    optimizer=self.optimizer,
+                    scheduler=self.scheduler,
+                )
+                ret[i] = hooks.PeriodicCheckpointer(self.checkpointer, self.cfg.SOLVER.CHECKPOINT_PERIOD)
+        return ret
+    
     def resume_or_load(self, resume=True):
-        if not isinstance(self.checkpointer, AdetCheckpointer):
-            # support loading a few other backbones
-            self.checkpointer = AdetCheckpointer(
-                self.model,
-                self.cfg.OUTPUT_DIR,
-                optimizer=self.optimizer,
-                scheduler=self.scheduler,
-            )
-        super().resume_or_load(resume=resume)
+        checkpoint = self.checkpointer.resume_or_load(self.cfg.MODEL.WEIGHTS, resume=resume)
+        if resume and self.checkpointer.has_checkpoint():
+            self.start_iter = checkpoint.get("iteration", -1) + 1
 
     def train_loop(self, start_iter: int, max_iter: int):
         """
