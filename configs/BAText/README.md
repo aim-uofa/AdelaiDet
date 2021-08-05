@@ -1,7 +1,7 @@
 # ABCNet 
 [ABCNet](https://arxiv.org/abs/2002.10200) is an efficient end-to-end scene text spotting framework over 10x faster than previous state of the art. It's published in IEEE Conf. Comp Vis Pattern Recogn.'2020 as an oral paper.
 
-ABCNet v2 will be released. 
+ABCNet Chinese demo and the pretrained model can be found [here](https://github.com/Yuliang-Liu/ABCNet_Chinese). ABCNet v2 will be released soon. 
 
 ## Models
 ### CTW1500 results with ABCNet. 
