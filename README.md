@@ -213,6 +213,13 @@ and relevant publications:
   year      =  {2020}
 }
 
+@article{wang2021solo,
+  title   =  {{SOLO}: A Simple Framework for Instance Segmentation},
+  author  =  {Wang, Xinlong and Zhang, Rufeng and Shen, Chunhua and Kong, Tao and Li, Lei},
+  journal =  {IEEE T. Pattern Analysis and Machine Intelligence (TPAMI)},
+  year    =  {2021}
+}
+
 @article{tian2019directpose,
   title   =  {{DirectPose}: Direct End-to-End Multi-Person Pose Estimation},
   author  =  {Tian, Zhi and Chen, Hao and Shen, Chunhua},
