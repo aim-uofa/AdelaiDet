@@ -77,3 +77,12 @@ Please consider citing our papers in your publications if the project helps your
   year    =  {2020}
 }
 ```
+
+```BibTeX
+@article{wang2021solo,
+  title   =  {{SOLO}: A Simple Framework for Instance Segmentation},
+  author  =  {Wang, Xinlong and Zhang, Rufeng and Shen, Chunhua and Kong, Tao and Li, Lei},
+  journal =  {IEEE T. Pattern Analysis and Machine Intelligence (TPAMI)},
+  year    =  {2021}
+}
+```
