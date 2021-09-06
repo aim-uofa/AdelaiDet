@@ -21,6 +21,7 @@ Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVI
 - Syntext-150k: 
   - Part1: 94,723 [[dataset]](https://universityofadelaide.box.com/s/xyqgqx058jlxiymiorw8fsfmxzf1n03p) 
   - Part2: 54,327 [[dataset]](https://universityofadelaide.box.com/s/e0owoic8xacralf4j5slpgu50xfjoirs)
+  - If you have trouble downloading Syntext-150k, you can try BaiduNetDisk [[here]](https://github.com/aim-uofa/AdelaiDet/issues/312)
 
 ```
 text/
