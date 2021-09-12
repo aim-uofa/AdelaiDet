@@ -66,6 +66,32 @@ class RNNPredictor(nn.Module):
             _, preds = preds.permute(1, 0, 2).max(dim=-1)
             return preds, None
 
+### CoordConv
+class MaskHead(nn.Module):
+    def __init__(self, cfg):
+        super(MaskHead, self).__init__()
+
+        conv_dim = cfg.MODEL.BATEXT.CONV_DIM
+
+        conv_block = conv_with_kaiming_uniform(
+            norm="BN", activation=True)
+        convs = []
+        convs.append(conv_block(258, conv_dim, 3, 1))
+        for i in range(3):
+            convs.append(conv_block(
+                conv_dim, conv_dim, 3, 1))
+        self.mask_convs = nn.Sequential(*convs)
+
+    def forward(self, features):
+        x_range = torch.linspace(-1, 1, features.shape[-1], device=features.device)
+        y_range = torch.linspace(-1, 1, features.shape[-2], device=features.device)
+        y, x = torch.meshgrid(y_range, x_range)
+        y = y.expand([features.shape[0], 1, -1, -1])
+        x = x.expand([features.shape[0], 1, -1, -1])
+        coord_feat = torch.cat([x, y], 1)
+        ins_features = torch.cat([features, coord_feat], dim=1)
+        mask_features = self.mask_convs(ins_features)
+        return mask_features
 
 def build_recognizer(cfg, type):
     if type == 'rnn':
@@ -122,6 +148,8 @@ class TextHead(nn.Module):
         self.voc_size     = cfg.MODEL.BATEXT.VOC_SIZE
         recognizer        = cfg.MODEL.BATEXT.RECOGNIZER
         self.top_size     = cfg.MODEL.TOP_MODULE.DIM
+        self.coordconv    = cfg.MODEL.BATEXT.USE_COORDCONV
+        self.aet          = cfg.MODEL.BATEXT.USE_AET 
         # fmt: on
 
         self.pooler = TopPooler(
@@ -140,6 +168,9 @@ class TextHead(nn.Module):
             tower.append(
                 conv_block(conv_dim, conv_dim, 3, 1))
         self.tower = nn.Sequential(*tower)
+       
+        if self.coordconv: 
+            self.mask_head = MaskHead(cfg)
         
         self.recognizer = build_recognizer(cfg, recognizer)
 
@@ -148,11 +179,30 @@ class TextHead(nn.Module):
         see detectron2.modeling.ROIHeads
         """
         del images
-
         features = [features[f] for f in self.in_features]
+        
+        if self.coordconv:
+            mask_features = []
+            for i in range(len(features)):
+                mask_feat = self.mask_head(features[i])
+                all_feat = mask_feat + features[i]
+                mask_features.append(all_feat)
+            features = mask_features
+
         if self.training:
             beziers = [p.beziers for p in targets]
-            targets = torch.cat([x.text for x in targets], dim=0)
+            if not self.aet:
+                targets = torch.cat([x.text for x in targets], dim=0)
+            else:
+                beziers2 = [p.top_feat for p in proposals]
+                for k in range(len(targets)):
+                    rec_assign = [int(torch.argmin(torch.abs(beziers[k] - beziers2[k][i]).sum(dim=1))) for i in range(len(beziers2[k]))]
+                    targets[k] = torch.cat([targets[k].text, targets[k].text[rec_assign]], dim = 0)
+                targets = torch.cat([x for x in targets], dim = 0)
+                cat_beziers = []
+                for ix in range(len(beziers)):
+                    cat_beziers.append(cat((beziers[ix], beziers2[ix]), dim=0))
+                beziers = cat_beziers
         else:
             beziers = [p.top_feat for p in proposals]
         bezier_features = self.pooler(features, beziers)
@@ -177,5 +227,4 @@ class TextHead(nn.Module):
                 proposals_per_im.recs = preds[start_ind:end_ind]
                 proposals_per_im.beziers = proposals_per_im.top_feat
                 start_ind = end_ind
-
             return proposals, {}
