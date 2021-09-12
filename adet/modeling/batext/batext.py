@@ -124,12 +124,7 @@ class BAText(nn.Module):
 
         if self.training:
             losses = outputs.losses()
-            
-            if top_module is not None:
-                results["top_feats"] = top_feats
-            if self.yield_proposal:
-                with torch.no_grad():
-                    results["proposals"] = outputs.predict_proposals(top_feats)
+            results = outputs.predict_proposals(top_feats)
         else:
             losses = {}
             with torch.no_grad():
