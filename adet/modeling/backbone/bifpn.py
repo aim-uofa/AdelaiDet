@@ -135,7 +135,7 @@ class SingleBiFPN(Backbone):
                 {'feat_level': 3, 'inputs_offsets': [3, 5, 10]},
                 {'feat_level': 4, 'inputs_offsets': [4, 11]},
             ]
-        if len(in_channels_list) == 6:
+        elif len(in_channels_list) == 6:
             self.nodes = [
                 {'feat_level': 4, 'inputs_offsets': [4, 5]},
                 {'feat_level': 3, 'inputs_offsets': [3, 6]},
@@ -408,7 +408,3 @@ def build_fcos_resnet_bifpn_backbone(cfg, input_shape: ShapeSpec):
         norm=cfg.MODEL.BiFPN.NORM
     )
     return backbone
-<<<<<<< HEAD
-=======
-
->>>>>>> Init commit abcnetv2.
