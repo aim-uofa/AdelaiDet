@@ -13,7 +13,7 @@ To date, AdelaiDet implements the following algorithms:
 * [BlendMask](configs/BlendMask/README.md)
 * [MEInst](configs/MEInst-InstanceSegmentation/README.md)
 * [ABCNet](configs/BAText/README.md)
-* [ABCNetv2](https://ieeexplore.ieee.org/document/9525302) _to be released_
+* [ABCNetv2](configs/BAText#quick-start-abcnetv2) 
 * [CondInst](configs/CondInst/README.md)
 * [SOLO](https://arxiv.org/abs/1912.04488) ([mmdet version](https://github.com/WXinlong/SOLO))
 * [SOLOv2](configs/SOLOv2/README.md)
@@ -54,11 +54,12 @@ Name | inf. time | box AP | mask AP | download
 
 For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
 
-### Total_Text results with [ABCNet](https://arxiv.org/abs/2002.10200)
+### Total_Text results with [ABCNet](configs/BAText/README.md)
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[attn_R_50](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
+[v1-totaltext](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
+[v2-totaltext](configs/BAText/TotalText/v2_attn_R_50.yaml) | 7.7 FPS | 71.8 | 87.2 | [model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
@@ -199,6 +200,18 @@ and relevant publications:
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year      =  {2020}
 }
+
+@ARTICLE{9525302,
+  author={Liu, Yuliang and Shen, Chunhua and Jin, Lianwen and He, Tong and Chen, Peng and Liu, Chongyu and Chen, Hao},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={ABCNet v2: Adaptive Bezier-Curve Network for Real-time End-to-end Text Spotting}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/TPAMI.2021.3107437}
+}
+  
 
 @inproceedings{wang2020solo,
   title     =  {{SOLO}: Segmenting Objects by Locations},
