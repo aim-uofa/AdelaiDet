@@ -6,19 +6,18 @@
 
 Name | inf. time | e2e-hmean | det-hmean | download
 --- |:---:|:---:|:---:|:---:
-[v1-CTW1500-finetune](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/CTW1500/attn_R_50.yaml) | 2080ti 8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth)
-[v2-CTW1500-finetune](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/CTW1500/v2_attn_R_50.yaml) | V100 7.2 FPS | 57.7 | 85.0 | [model](https://drive.google.com/file/d/12HV1dHjw1POdhOiHXPPXcGnjyp-3IuQv/view?usp=sharing)
+[v1-CTW1500-finetune](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/CTW1500/attn_R_50.yaml) |  8.7 FPS | 53.2 | 84.4 | [model](https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth)
+[v2-CTW1500-finetune](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/CTW1500/v2_attn_R_50.yaml) |  7.2 FPS | 57.7 | 85.0 | [model](https://drive.google.com/file/d/12HV1dHjw1POdhOiHXPPXcGnjyp-3IuQv/view?usp=sharing)
 
-#cf: The value of INFERENCE_TH_TEST
 
 ### Experimental resutls on TotalText:
 
 Config | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[v1-pretrain](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/Pretrain/attn_R_50.yaml) | 2080ti 11.3 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/dEzxhTlEumICiq0/download)
-[v1-totaltext-finetune](https://github.com/Yuliang-Liu/AdelaiDet/tree/master/configs/BAText/TotalText/attn_R_50.yaml) | 2080ti 11.3 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download)
-[v2-pretrain](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/Pretrain/v2_attn_R_50.yaml) | V100 7.8 FPS | 63.5 | 83.7 | [model](https://drive.google.com/file/d/1v5C9klxBuNVBaLVxZRCy1MYnwEu0F25q/view?usp=sharing)
-[v2-totaltext-finetune](https://github.com/Yuliang-Liu/AdelaiDet/tree/master/configs/BAText/TotalText/v2_attn_R_50.yaml) | V100 7.7 FPS | 71.8 | 87.2 | [model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
+[v1-pretrain](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/Pretrain/attn_R_50.yaml) |  11.3 FPS | 58.1 | 80.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/dEzxhTlEumICiq0/download)
+[v1-totaltext-finetune](https://github.com/Yuliang-Liu/AdelaiDet/tree/master/configs/BAText/TotalText/attn_R_50.yaml) |  11.3 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download)
+[v2-pretrain](https://github.com/Yuliang-Liu/AdelaiDet/blob/master/configs/BAText/Pretrain/v2_attn_R_50.yaml) |  7.8 FPS | 63.5 | 83.7 | [model](https://drive.google.com/file/d/1v5C9klxBuNVBaLVxZRCy1MYnwEu0F25q/view?usp=sharing)
+[v2-totaltext-finetune](https://github.com/Yuliang-Liu/AdelaiDet/tree/master/configs/BAText/TotalText/v2_attn_R_50.yaml) |  7.7 FPS | 71.8 | 87.2 | [model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
 
 ## Quick Start (ABCNetv1)
 
