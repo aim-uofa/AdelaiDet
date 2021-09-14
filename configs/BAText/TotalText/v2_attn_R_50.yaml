@@ -14,6 +14,9 @@ MODEL:
     RECOGNIZER: "attn"
     USE_COORDCONV: True
     USE_AET: True
+  FCOS:
+    # Best e2e: 0.5; Best det: 0.4
+    INFERENCE_TH_TEST: 0.5
 SOLVER:
   IMS_PER_BATCH: 8
   BASE_LR: 0.001
