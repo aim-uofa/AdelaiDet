@@ -15,6 +15,8 @@ Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVI
 
 ## Text Recognition
 
+English pretrained data:
+
 - Totaltext training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/32p6xsdtu0keu2o6pb5aqhyjotnljxep.zip) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270088/) [[code]](https://github.com/cs-chan/Total-Text-Dataset). 
 - CTW1500 training, testing images, and annotations [[link]](https://universityofadelaide.box.com/shared/static/6ui89vca7cbp15ysnxqg5r494ix7l6cu.zip) [[paper]](https://www.sciencedirect.com/science/article/pii/S0031320319300664) [[code]](https://github.com/Yuliang-Liu/Curve-Text-Detector).
 - MLT [[dataset]](https://universityofadelaide.box.com/s/qu2wctdcsxh73bb94krdredpmx9nzf8m) [[paper]](https://ieeexplore.ieee.org/abstract/document/8270168).
@@ -23,6 +25,13 @@ Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVI
   - Part2: 54,327 [[dataset]](https://universityofadelaide.box.com/s/e0owoic8xacralf4j5slpgu50xfjoirs)
   - If you have trouble downloading Syntext-150k, you can try BaiduNetDisk [[here]](https://github.com/aim-uofa/AdelaiDet/issues/312)
 
+Chinese pretrained data:
+
+- ReCTs [[images&label]](https://drive.google.com/file/d/1ygDN1OHUusqzqJL2011wc2T_LX0t6Th4/view?usp=sharing)(1.7G) [[Origin_of_dataset]](https://rrc.cvc.uab.es/?ch=12)
+- ReCTs test set [[images&empty_label]](https://drive.google.com/file/d/1WEvkLgFIWdEDQn2UXHKCTIqlNnlk4kVt/view?usp=sharing)(0.5G) [[Origin_of_dataset]](https://rrc.cvc.uab.es/?ch=12)
+- LSVT [[images&label]](https://drive.google.com/file/d/1E9RMFiRaRW4WdzA9Py7OimfzA82-Bwik/view?usp=sharing)(8.2G) [[Origin_of_dataset]](https://rrc.cvc.uab.es/?ch=16)
+- ArT [[images&label]](https://drive.google.com/file/d/1ss_3oYVYexSmhx7AP4cahl8Emd49Wrh8/view?usp=sharing)(1.5G)  [[Origin_of_dataset]](https://rrc.cvc.uab.es/?ch=14)
+- SynChinese130k [[images&label]](https://drive.google.com/file/d/1w9BFDTfVgZvpLE003zM694E0we4OWmyP/view?usp=sharing)(25G) [[Origin_of_dataset]](https://arxiv.org/abs/2105.03620)
 ```
 text/
   totaltext/

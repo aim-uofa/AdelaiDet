@@ -28,6 +28,7 @@ class VisualizationDemo(object):
         self.metadata = MetadataCatalog.get(
             cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
         )
+        self.cfg = cfg
         self.cpu_device = torch.device("cpu")
         self.instance_mode = instance_mode
         self.vis_text = cfg.MODEL.ROI_HEADS.NAME == "TextHead"
@@ -54,7 +55,7 @@ class VisualizationDemo(object):
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
         if self.vis_text:
-            visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode)
+            visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode, cfg=self.cfg)
         else:
             visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
 

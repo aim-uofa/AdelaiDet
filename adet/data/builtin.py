@@ -24,6 +24,12 @@ _PREDEFINED_SPLITS_TEXT = {
     "syntext1_train": ("syntext1/images", "syntext1/annotations/train.json"),
     "syntext2_train": ("syntext2/images", "syntext2/annotations/train.json"),
     "mltbezier_word_train": ("mlt2017/images","mlt2017/annotations/train.json"),
+    "rects_train": ("ReCTS/ReCTS_train_images", "ReCTS/annotations/rects_train.json"),
+    "rects_val": ("ReCTS/ReCTS_val_images", "ReCTS/annotations/rects_val.json"),
+    "rects_test": ("ReCTS/ReCTS_test_images", "ReCTS/annotations/rects_test.json"),
+    "art_train": ("ArT/rename_artimg_train", "ArT/annotations/abcnet_art_train.json"), 
+    "lsvt_train": ("LSVT/rename_lsvtimg_train", "LSVT/annotations/abcnet_lsvt_train.json"), 
+    "chnsyn_train": ("ChnSyn/syn_130k_images", "ChnSyn/annotations/chn_syntext.json"),
 }
 
 metadata_text = {
