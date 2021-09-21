@@ -215,7 +215,6 @@ class TextEvaluator(DatasetEvaluator):
         self._results = OrderedDict()
         
         if not self._text_eval_gt_path:
-            
             return copy.deepcopy(self._results)
         # eval text
         temp_dir = "temp_det_results/"
