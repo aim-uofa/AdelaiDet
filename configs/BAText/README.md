@@ -152,6 +152,7 @@ python demo/demo.py \
 * For ReCTS (Chinese)
 ```
 # Download model_v2_rects.pth above
+wget https://drive.google.com/file/d/1dcR__ZgV_JOfpp8Vde4FR3bSR-QnrHVo/view?usp=sharing -O simsun.ttc
 wget https://drive.google.com/file/d/1wqkX2VAy48yte19q1Yn5IVjdMVpLzYVo/view?usp=sharing -O chn_cls_list
 python demo/demo.py \
     --config-file configs/BAText/ReCTS/v2_chn_attn_R_50.yaml \
@@ -170,6 +171,7 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 ```
 * Pretrainining with synthetic data (for ReCTS):
 ```
+wget https://drive.google.com/file/d/1wqkX2VAy48yte19q1Yn5IVjdMVpLzYVo/view?usp=sharing -O chn_cls_list
 OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/BAText/Pretrain/v2_chn_attn_R_50.yaml \
     --num-gpus 4 \
@@ -195,6 +197,7 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 ```
 # Download model_v2_chn_pretrain.pth or using your own pretrained model
 wget https://drive.google.com/file/d/1XOtlUz9lxh2HV5Gmu3alb5WKZafFn-0_/view?usp=sharing -O model_v2_chn_pretrain.pth
+wget https://drive.google.com/file/d/1wqkX2VAy48yte19q1Yn5IVjdMVpLzYVo/view?usp=sharing -O chn_cls_list
 OMP_NUM_THREADS=1 python tools/train_net.py \
     --config-file configs/BAText/ReCTS/v2_chn_attn_R_50.yaml \
     --num-gpus 4 \
