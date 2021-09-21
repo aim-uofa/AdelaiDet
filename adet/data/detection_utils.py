@@ -62,7 +62,6 @@ def annotations_to_instances(annos, image_size, mask_format="polygon"):
 
     if "rec" in annos[0]:
         text = [obj.get("rec", []) for obj in annos]
-        # print("debug ", text)
         instance.text = torch.as_tensor(text, dtype=torch.int32)
 
     return instance
