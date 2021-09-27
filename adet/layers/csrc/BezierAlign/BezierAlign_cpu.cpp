@@ -167,22 +167,22 @@ void BezierAlignForward(
 
     T offset = aligned ? (T)0.5 : (T)0.0;
     // Do not use rounding; this implementation detail is critical
-    T p0_x = offset_rois[1] * spatial_scale - offset;
-    T p0_y = offset_rois[2] * spatial_scale - offset;
-    T p1_x = offset_rois[3] * spatial_scale - offset;
-    T p1_y = offset_rois[4] * spatial_scale - offset;
-    T p2_x = offset_rois[5] * spatial_scale - offset;
-    T p2_y = offset_rois[6] * spatial_scale - offset;
-    T p3_x = offset_rois[7] * spatial_scale - offset;
-    T p3_y = offset_rois[8] * spatial_scale - offset;
-    T p4_x = offset_rois[15] * spatial_scale - offset;
-    T p4_y = offset_rois[16] * spatial_scale - offset;
-    T p5_x = offset_rois[13] * spatial_scale - offset;
-    T p5_y = offset_rois[14] * spatial_scale - offset;
-    T p6_x = offset_rois[11] * spatial_scale - offset;
-    T p6_y = offset_rois[12] * spatial_scale - offset;
-    T p7_x = offset_rois[9 ] * spatial_scale - offset;
-    T p7_y = offset_rois[10] * spatial_scale - offset;
+    T p0_x = offset_rois[1] * spatial_scale;
+    T p0_y = offset_rois[2] * spatial_scale;
+    T p1_x = offset_rois[3] * spatial_scale;
+    T p1_y = offset_rois[4] * spatial_scale;
+    T p2_x = offset_rois[5] * spatial_scale;
+    T p2_y = offset_rois[6] * spatial_scale;
+    T p3_x = offset_rois[7] * spatial_scale;
+    T p3_y = offset_rois[8] * spatial_scale;
+    T p4_x = offset_rois[15] * spatial_scale;
+    T p4_y = offset_rois[16] * spatial_scale;
+    T p5_x = offset_rois[13] * spatial_scale;
+    T p5_y = offset_rois[14] * spatial_scale;
+    T p6_x = offset_rois[11] * spatial_scale;
+    T p6_y = offset_rois[12] * spatial_scale;
+    T p7_x = offset_rois[9 ] * spatial_scale;
+    T p7_y = offset_rois[10] * spatial_scale;
 
     T roi_width = std::max(std::abs(p0_x - p3_x), std::abs(p4_x - p7_x));
     T roi_height = std::max(std::abs(p0_y - p3_y), std::abs(p4_y - p7_y));
@@ -350,7 +350,7 @@ void BezierAlignBackward(
     int c = (index / pooled_width / pooled_height) % channels;
     int n = index / pooled_width / pooled_height / channels;
 
-    const T* offset_rois = rois + n * 5;
+    const T* offset_rois = rois + n * 17;
     int roi_batch_ind = offset_rois[0];
 
     // Do not use rounding; this implementation detail is critical
