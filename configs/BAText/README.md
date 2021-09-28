@@ -130,7 +130,7 @@ You can also evalute the json result file offline following the [evaluation_exam
 If you are insteresting in warping a curved instance into a rectangular format independantly, please refer to the example script [here](https://github.com/Yuliang-Liu/bezier_curve_text_spotting#bezieralign-example).
 
 ## Quick Start (ABCNetv2)
-The datasets and the basic training details (learning rate, iterations, etc.) used for ABCNetv2 are exactly the same as ABCNet v1. Please following above to prepare the training and evaluation data. 
+The datasets and the basic training details (learning rate, iterations, etc.) used for ABCNetv2 are exactly the same as ABCNet v1. Please following above to prepare the training and evaluation data. If you are interesting in text spotting quantization, please refer to the [patch](https://github.com/aim-uofa/model-quantization/blob/master/doc/detectron2.md#text-spotting).
 
 ### Demo
 * For CTW1500
