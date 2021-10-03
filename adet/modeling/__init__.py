@@ -8,6 +8,7 @@ from .batext import BAText
 from .MEInst import MEInst
 from .condinst import condinst
 from .solov2 import SOLOv2
+from .fcpose import FCPose
 
 _EXCLUDE = {"torch", "ShapeSpec"}
 __all__ = [k for k in globals().keys() if k not in _EXCLUDE and not k.startswith("_")]

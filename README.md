@@ -19,7 +19,7 @@ To date, AdelaiDet implements the following algorithms:
 * [SOLOv2](configs/SOLOv2/README.md)
 * [BoxInst](configs/BoxInst/README.md) ([video demo](https://www.youtube.com/watch?v=NuF8NAYf5L8))
 * [DenseCL](configs/DenseCL/README.md)
-* [FCPose](https://arxiv.org/abs/2105.14185) _to be released_
+* [FCPose](https://arxiv.org/abs/2105.14185) 
 * [DirectPose](https://arxiv.org/abs/1911.07451) _to be released_
 
 

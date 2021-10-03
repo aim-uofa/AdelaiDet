@@ -1,0 +1,36 @@
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  KEYPOINT_ON: True
+  FCPOSE_ON: True
+  META_ARCHITECTURE: "OneStageDetector"
+  BACKBONE:
+    NAME: "build_fcos_resnet_fpn_backbone"
+  RESNETS:
+    OUT_FEATURES: ["res3", "res4", "res5"]
+  FPN:
+    IN_FEATURES: ["res3", "res4", "res5"]
+  PROPOSAL_GENERATOR:
+    NAME: "FCPose"
+DATASETS:
+  TRAIN: ("keypoints_coco_2017_train",)
+  TEST: ("keypoints_coco_2017_val",)
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.01
+  STEPS: (60000, 80000)
+  MAX_ITER: 90000
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_VALUE: 1.0
+INPUT:
+  MIN_SIZE_TRAIN_SAMPLING: "range"
+  MIN_SIZE_TRAIN: [320,800]
+  MAX_SIZE_TRAIN: 1333
+  CROP:
+    ENABLED: True
+    TYPE: "relative_range"
+    SIZE: [0.4, 0.4]
+TEST:
+  EVAL_PERIOD: 5000
