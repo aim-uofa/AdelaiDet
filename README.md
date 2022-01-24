@@ -211,7 +211,6 @@ and relevant publications:
   pages={1-1},
   doi={10.1109/TPAMI.2021.3107437}
 }
-  
 
 @inproceedings{wang2020solo,
   title     =  {{SOLO}: Segmenting Objects by Locations},
