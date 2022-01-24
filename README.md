@@ -248,6 +248,13 @@ and relevant publications:
   year      =  {2020}
 }
 
+@article{CondInst2022Tian,
+  title   = {Instance and Panoptic Segmentation Using Conditional Convolutions},
+  author  = {Tian, Zhi and Zhang, Bowen and Chen, Hao and Shen, Chunhua},
+  journal = {IEEE T. Pattern Analysis and Machine Intelligence (TPAMI)},
+  year    = {2022},
+}
+
 @inproceedings{tian2021boxinst,
   title     =  {{BoxInst}: High-Performance Instance Segmentation with Box Annotations},
   author    =  {Tian, Zhi and Shen, Chunhua and Wang, Xinlong and Chen, Hao},
