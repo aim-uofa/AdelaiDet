@@ -2,7 +2,7 @@
 #include <ATen/ATen.h>
 #include <ATen/cuda/CUDAContext.h>
 #include <THC/THC.h>
-#include <THC/THCDeviceUtils.cuh>
+#include <ATen/cuda/DeviceUtils.cuh>
 
 #include <vector>
 #include <iostream>
@@ -65,7 +65,7 @@ __global__ void ml_nms_kernel(const int n_boxes, const float nms_overlap_thresh,
         t |= 1ULL << i;
       }
     }
-    const int col_blocks = THCCeilDiv(n_boxes, threadsPerBlock);
+    const int col_blocks = ceil_div(n_boxes, threadsPerBlock);
     dev_mask[cur_box_idx * col_blocks + col_start] = t;
   }
 }
@@ -82,7 +82,7 @@ at::Tensor ml_nms_cuda(const at::Tensor boxes, const float nms_overlap_thresh) {
 
   int boxes_num = boxes.size(0);
 
-  const int col_blocks = THCCeilDiv(boxes_num, threadsPerBlock);
+  const int col_blocks = ceil_div(boxes_num, threadsPerBlock);
 
   scalar_t* boxes_dev = boxes_sorted.data<scalar_t>();
 
@@ -94,8 +94,8 @@ at::Tensor ml_nms_cuda(const at::Tensor boxes, const float nms_overlap_thresh) {
 
   mask_dev = (unsigned long long*) THCudaMalloc(state, boxes_num * col_blocks * sizeof(unsigned long long));
 
-  dim3 blocks(THCCeilDiv(boxes_num, threadsPerBlock),
-              THCCeilDiv(boxes_num, threadsPerBlock));
+  dim3 blocks(ATenCeilDiv(boxes_num, threadsPerBlock),
+              ATenCeilDiv(boxes_num, threadsPerBlock));
   dim3 threads(threadsPerBlock);
   ml_nms_kernel<<<blocks, threads>>>(boxes_num,
                                   nms_overlap_thresh,
