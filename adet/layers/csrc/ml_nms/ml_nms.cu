@@ -3,10 +3,12 @@
 #include <ATen/cuda/CUDAContext.h>
 #include <THC/THC.h>
 #include <ATen/cuda/DeviceUtils.cuh>
+#include <ATen/ceil_div.h>
 
 #include <vector>
 #include <iostream>
 
+namespace cuda {
 int const threadsPerBlock = sizeof(unsigned long long) * 8;
 
 __device__ inline float devIoU(float const * const a, float const * const b) {
@@ -82,7 +84,7 @@ at::Tensor ml_nms_cuda(const at::Tensor boxes, const float nms_overlap_thresh) {
 
   int boxes_num = boxes.size(0);
 
-  const int col_blocks = ceil_div(boxes_num, threadsPerBlock);
+  const int col_blocks = cuda::ATenCeilDiv(boxes_num, threadsPerBlock);
 
   scalar_t* boxes_dev = boxes_sorted.data<scalar_t>();
 
@@ -135,5 +137,5 @@ at::Tensor ml_nms_cuda(const at::Tensor boxes, const float nms_overlap_thresh) {
                          order_t.device(), keep.scalar_type())
                      }).sort(0, false));
 }
-
+}
 } // namespace adet
