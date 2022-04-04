@@ -365,7 +365,7 @@ class TextEvaluator():
         # print("Producing results without lexicon ...")
         text_result = self.evaluate_with_official_code(result_path, self._text_eval_gt_path) # None 
         text_result["e2e_method"] = "None-" + text_result["e2e_method"]
-        dict_lexicon = {"1": "Generic", "1": "Weak", "3": "Strong"}
+        dict_lexicon = {"1": "Generic", "2": "Weak", "3": "Strong"}
         # print("Producing results with <{}> lexicon ...".format(dict_lexicon[str(self.lexicon_type)]))
         text_result_full = self.evaluate_with_official_code(result_path_full, self._text_eval_gt_path) # with lexicon
         text_result_full["e2e_method"] = dict_lexicon[str(self.lexicon_type)] + "-" + text_result_full["e2e_method"]
