@@ -10,6 +10,7 @@ _C.MODEL.BACKBONE.ANTI_ALIAS = False
 _C.MODEL.RESNETS.DEFORM_INTERVAL = 1
 _C.INPUT.HFLIP_TRAIN = True
 _C.INPUT.CROP.CROP_INSTANCE = True
+_C.INPUT.IS_ROTATE = False
 
 # ---------------------------------------------------------------------------- #
 # FCOS Head
@@ -107,6 +108,7 @@ _C.MODEL.BATEXT.RECOGNIZER = "attn"
 _C.MODEL.BATEXT.CANONICAL_SIZE = 96  # largest min_size for level 3 (stride=8)
 _C.MODEL.BATEXT.USE_COORDCONV = False
 _C.MODEL.BATEXT.USE_AET = False
+_C.MODEL.BATEXT.EVAL_TYPE = 3 # 1: G; 2: W; 3: S
 _C.MODEL.BATEXT.CUSTOM_DICT = "" # Path to the class file.
 
 # ---------------------------------------------------------------------------- #
