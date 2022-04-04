@@ -83,7 +83,7 @@ class TextEvaluator():
         for input, output in zip(inputs, outputs):
             prediction = {"image_id": input["image_id"]}
             instances = output["instances"].to(self._cpu_device)
-            prediction["instances"] = instances_to_coco_json(instances, input)
+            prediction["instances"] = self.instances_to_coco_json(instances, input)
             self._predictions.append(prediction)
 
     def to_eval_format(self, file_path, temp_dir="temp_det_results", cf_th=0.5):
@@ -395,80 +395,81 @@ class TextEvaluator():
         return copy.deepcopy(self._results)
 
 
-def instances_to_coco_json(instances, inputs):
-    img_id = inputs["image_id"]
-    width = inputs['width']
-    height = inputs['height']
-    num_instances = len(instances)
-    if num_instances == 0:
-        return []
+    def instances_to_coco_json(self, instances, inputs):
+        img_id = inputs["image_id"]
+        width = inputs['width']
+        height = inputs['height']
+        num_instances = len(instances)
+        if num_instances == 0:
+            return []
 
-    scores = instances.scores.tolist()
-    beziers = instances.beziers.numpy()
-    recs = instances.recs.numpy()
+        scores = instances.scores.tolist()
+        beziers = instances.beziers.numpy()
+        recs = instances.recs.numpy()
 
-    results = []
-    for bezier, rec, score in zip(beziers, recs, scores):
-        # convert beziers to polygons
-        poly = bezier_to_polygon(bezier)
-        if 'icdar2015'  in inputs['file_name']:
-            poly = polygon2rbox(poly, height, width)
-        s = decode(rec)
-        result = {
-            "image_id": img_id,
-            "category_id": 1,
-            "polys": poly,
-            "rec": s,
-            "score": score,
-        }
-        results.append(result)
-    return results
-
-
-def bezier_to_polygon(bezier):
-    u = np.linspace(0, 1, 20)
-    bezier = bezier.reshape(2, 4, 2).transpose(0, 2, 1).reshape(4, 4)
-    points = np.outer((1 - u) ** 3, bezier[:, 0]) \
-        + np.outer(3 * u * ((1 - u) ** 2), bezier[:, 1]) \
-        + np.outer(3 * (u ** 2) * (1 - u), bezier[:, 2]) \
-        + np.outer(u ** 3, bezier[:, 3])
-    
-    # convert points to polygon
-    points = np.concatenate((points[:, :2], points[:, 2:]), axis=0)
-    return points.tolist()
+        results = []
+        for bezier, rec, score in zip(beziers, recs, scores):
+            # convert beziers to polygons
+            poly = self.bezier_to_polygon(bezier)
+            if 'icdar2015'  in inputs['file_name']:
+                poly = polygon2rbox(poly, height, width)
+            s = self.decode(rec)
+            result = {
+                "image_id": img_id,
+                "category_id": 1,
+                "polys": poly,
+                "rec": s,
+                "score": score,
+            }
+            results.append(result)
+        return results
 
 
+    def bezier_to_polygon(self, bezier):
+        u = np.linspace(0, 1, 20)
+        bezier = bezier.reshape(2, 4, 2).transpose(0, 2, 1).reshape(4, 4)
+        points = np.outer((1 - u) ** 3, bezier[:, 0]) \
+            + np.outer(3 * u * ((1 - u) ** 2), bezier[:, 1]) \
+            + np.outer(3 * (u ** 2) * (1 - u), bezier[:, 2]) \
+            + np.outer(u ** 3, bezier[:, 3])
 
-CTLABELS = [' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~']
+        # convert points to polygon
+        points = np.concatenate((points[:, :2], points[:, 2:]), axis=0)
+        return points.tolist()
+
+    def ctc_decode(self, rec):
+        # ctc decoding
+        last_char = False
+        s = ''
+        for c in rec:
+            c = int(c)
+            if c < self.voc_size - 1:
+                if last_char != c:
+                    if self.voc_size == 96:
+                        s += self.CTLABELS[c]
+                        last_char = c
+                    else:
+                        s += str(chr(self.CTLABELS[c]))
+                        last_char = c
+            elif c == self.voc_size -1:
+                s += u'口'
+            else:
+                last_char = False
+        return s
 
 
-def ctc_decode(rec):
-    # ctc decoding
-    last_char = False
-    s = ''
-    for c in rec:
-        c = int(c)
-        if c < 95:
-            if last_char != c:
-                s += CTLABELS[c]
-                last_char = c
-        elif c == 95:
-            s += u'口'
-        else:
-            last_char = False
-    return s
-
-
-def decode(rec):
-    s = ''
-    for c in rec:
-        c = int(c)
-        if c < 95:
-            s += CTLABELS[c]
-        elif c == 95:
-            s += u'口'
-
-    return s
+    def decode(self, rec):
+        s = ''
+        for c in rec:
+            c = int(c)
+            if c < self.voc_size - 1:
+                if self.voc_size ==96:
+                    s += self.CTLABELS[c]
+                else:
+                    s += str(chr(self.CTLABELS[c]))
+            elif c == self.voc_size -1:
+                s += u'口'
+        return s
             
 def polygon2rbox(polygon, image_height, image_width):
     poly = np.array(polygon).reshape((-1, 2)).astype(np.float32)
