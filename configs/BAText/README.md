@@ -61,16 +61,20 @@ To train a model with "train_net.py", first setup the corresponding datasets fol
 
 ```
 cd datasets/
-wget https://universityofadelaide.box.com/shared/static/32p6xsdtu0keu2o6pb5aqhyjotnljxep.zip -O tot.zip
-unzip tot.zip
-rm tot.zip
-wget https://universityofadelaide.box.com/shared/static/6ui89vca7cbp15ysnxqg5r494ix7l6cu.zip -O ctw1500.zip
-mkdir CTW1500/ | unzip ctw1500.zip -d CTW1500/
-rm ctw1500.zip
+wget https://drive.google.com/file/d/1we4iwZNA80q-yRoEKqB66SuTa1tPbhZu/view?usp=sharing -O totaltext.zip
+unzip totaltext.zip
+rm totaltext.zip
+wget https://drive.google.com/file/d/1ntlnlnQHZisDoS_bgDvrcrYFomw9iTZ0/view?usp=sharing -O CTW1500.zip
+unzip CTW1500.zip 
+rm CTW1500.zip
+wget https://drive.google.com/file/d/1J94245rU-s7KTecNQRD3KXG04ICZhL9z/view?usp=sharing -O icdar2015.zip
+unzip icdar2015.zip 
+rm icdar2015.zip
 mkdir evaluation
 cd evaluation
 wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/xU3yeM3GnidiSTr/download
 wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/SFHvin8BLUM4cNd/download
+wget -O gt_icdar2015.zip https://drive.google.com/file/d/1wrq_-qIyb_8dhYVlDzLZTTajQzbic82Z/view?usp=sharing
 ```
 
 * Note (synthetic and mlt2017 datasets need to be downloaded through [datasets/README.md](../../datasets/README.md).)
