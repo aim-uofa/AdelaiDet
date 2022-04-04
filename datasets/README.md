@@ -18,10 +18,10 @@ Run `python prepare_thing_sem_from_lvis.py`, to extract semantic labels from LVI
 English pretrained data:
 
 - Totaltext [[paper]](https://ieeexplore.ieee.org/abstract/document/8270088/) [[source]](https://github.com/cs-chan/Total-Text-Dataset). 
-  - Download (0.4G) ([Origin](https://universityofadelaide.box.com/shared/static/32p6xsdtu0keu2o6pb5aqhyjotnljxep.zip), [Google](https://drive.google.com/file/d/17JvGhzcbM54txG-lVRRDe6Eym8_ZM2uJ/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1nFAcqQciia4CvVmR8FRUsw) password: kgy7) 
+  - Download (0.4G) ([Google](https://drive.google.com/file/d/1we4iwZNA80q-yRoEKqB66SuTa1tPbhZu/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/13waftL6gPYjpLfFZ0Pt3Vg) password: 867m) 
   
 - CTW1500 [[paper]](https://www.sciencedirect.com/science/article/pii/S0031320319300664) [[source]](https://github.com/Yuliang-Liu/Curve-Text-Detector).
-  - Download (0.8G) ([Origin](https://universityofadelaide.box.com/shared/static/6ui89vca7cbp15ysnxqg5r494ix7l6cu.zip), [Google](https://drive.google.com/file/d/1mBwRlMtFPFgR6QJW9F-rSBbc6N2cFvgZ/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1UrMl2qQNnChc2g2oyL4lcA) password: 7kvx)
+  - Download (0.8G) ([Google](https://drive.google.com/file/d/1ntlnlnQHZisDoS_bgDvrcrYFomw9iTZ0/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1ClLyTlvT4tzRSfRP7hea9w) password: fq8u)
    
 - MLT [[paper]](https://ieeexplore.ieee.org/abstract/document/8270168).
   - Download (6.8G) ([Origin](https://universityofadelaide.box.com/s/qu2wctdcsxh73bb94krdredpmx9nzf8m), [Google](https://drive.google.com/file/d/1nE2d_sIfcAejgVIv6-UjGNcBXgxc4QfD/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1rjqmb3uuki_Ppcxq-tl7oQ) password: zqrm)
@@ -30,6 +30,14 @@ English pretrained data:
   - Part1 (94,723) Download (15.8G) ([Origin](https://universityofadelaide.box.com/s/xyqgqx058jlxiymiorw8fsfmxzf1n03p), [Google](https://drive.google.com/file/d/1OSJ-zId2h3t_-I7g_wUkrK-VqQy153Kj/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1Y5pqVqfjcc4FKxW4y8R5jw) password: 4k3x) 
   - Part2 (54,327) Download (9.7G) ([Origin](https://universityofadelaide.box.com/s/e0owoic8xacralf4j5slpgu50xfjoirs), [Google](https://drive.google.com/file/d/1EzkcOlIgEp5wmEubvHb7-J5EImHExYgY/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1gRv-IjqAUu6qnXN5BXlOzQ) password: a5f5)
 
+
+- ICDAR2013 [[paper]](https://rrc.cvc.uab.es/?ch=2) [[source]](https://rrc.cvc.uab.es/?ch=2). 
+  - Download (0.1G) ([Google](https://drive.google.com/file/d/1qZ6yEZV81jnHbuS3KK-FCS0Iuks0nPgZ/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1-5sX-HJ_OFt-fGZeQ8nAiQ) password: isil) 
+ 
+ 
+- ICDAR2015 [[paper]](https://rrc.cvc.uab.es/?ch=4) [[source]](https://rrc.cvc.uab.es/?ch=4). 
+  - Download (0.1G) ([Google](https://drive.google.com/file/d/1J94245rU-s7KTecNQRD3KXG04ICZhL9z/view?usp=sharing), [BaiduNetDisk](https://pan.baidu.com/s/1Ih-6LSl26UG9Y2V8hsGC-g) password: vcuc) 
+  
 Chinese pretrained data:
 
 - ReCTs [[Source]](https://rrc.cvc.uab.es/?ch=12)
@@ -67,6 +75,7 @@ mkdir evaluation
 cd evaluation
 wget -O gt_ctw1500.zip https://cloudstor.aarnet.edu.au/plus/s/xU3yeM3GnidiSTr/download
 wget -O gt_totaltext.zip https://cloudstor.aarnet.edu.au/plus/s/SFHvin8BLUM4cNd/download
+wget -O gt_icdar2015.zip https://drive.google.com/file/d/1wrq_-qIyb_8dhYVlDzLZTTajQzbic82Z/view?usp=sharing
 ```
 
 ## Person In Context instance detection
