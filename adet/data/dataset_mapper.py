@@ -62,6 +62,7 @@ class DatasetMapperWithBasis(DatasetMapper):
             "Rebuilding the augmentations. The previous augmentations will be overridden."
         )
         self.augmentation = build_augmentation(cfg, is_train)
+        self.cfg = cfg
 
         if cfg.INPUT.CROP.ENABLED and is_train:
             self.augmentation.insert(
@@ -75,6 +76,14 @@ class DatasetMapperWithBasis(DatasetMapper):
             logging.getLogger(__name__).info(
                 "Cropping used in training: " + str(self.augmentation[0])
             )
+            if cfg.INPUT.IS_ROTATE:
+                self.augmentation.insert(
+                    1,
+                    T.RandomRotation(angle=[-30,30],sample_style="range")
+                )
+                logging.getLogger(__name__).info(
+                    "Rotation used in training: " + str(self.augmentation[1])
+                )
 
         self.basis_loss_on = cfg.MODEL.BASIS_MODULE.LOSS_ON
         self.ann_set = cfg.MODEL.BASIS_MODULE.ANN_SET
@@ -92,6 +101,15 @@ class DatasetMapperWithBasis(DatasetMapper):
         Returns:
             dict: a format that builtin models in detectron2 accept
         """
+        if self.cfg.INPUT.IS_ROTATE:
+            augmentation = self.augmentation[2:]
+            pp = np.random.rand()
+            if pp < 0.5:
+                augmentation = [self.augmentation[0]] + augmentation
+            pp1 = np.random.rand()
+            if pp1 < 0.5:
+                augmentation = [self.augmentation[1]] + augmentation
+
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         # USER: Write your own image loading if it's not from a file
         try:
@@ -112,7 +130,9 @@ class DatasetMapperWithBasis(DatasetMapper):
                 image = image.transpose(1, 0, 2)
             else:
                 raise e
-
+        if image.shape[1]==0 or image.shape[0]==0:
+            print(dataset_dict)
+            raise e
         # USER: Remove if you don't do semantic/panoptic segmentation.
         if "sem_seg_file_name" in dataset_dict:
             sem_seg_gt = utils.read_image(
@@ -134,6 +154,9 @@ class DatasetMapperWithBasis(DatasetMapper):
         image, sem_seg_gt = aug_input.image, aug_input.sem_seg
 
         image_shape = image.shape[:2]  # h, w
+        if image.shape[1]==0 or image.shape[0]==0:
+            print(dataset_dict)
+            raise e
         # Pytorch's dataloader is efficient on torch.Tensor due to shared-memory,
         # but not efficient on large generic data structures due to the use of pickle & mp.Queue.
         # Therefore it's important to use torch.Tensor.
