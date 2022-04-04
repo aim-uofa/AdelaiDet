@@ -382,10 +382,15 @@ class TextEvaluator():
             self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
         else:
             template = "(\S+): (\S+): (\S+), (\S+): (\S+), (\S+): (\S+)"
-            for task in ("e2e_method", "det_only_method"):
-                result = text_result[task]
-                groups = re.match(template, result).groups()
-                self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+            result = text_result["det_only_method"]
+            groups = re.match(template, result).groups()
+            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+            result = text_result["e2e_method"]
+            groups = re.match(template, result).groups()
+            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+            result = text_result_full["e2e_method"]
+            groups = re.match(template, result).groups()
+            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
 
         return copy.deepcopy(self._results)
 
