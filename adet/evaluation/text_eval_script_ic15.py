@@ -10,6 +10,7 @@ import math
 
 from rapidfuzz import string_metric
 
+WORD_SPOTTING =True
 def evaluation_imports():
     """
     evaluation_imports: Dictionary ( key = module name , value = alias  )  with python modules used in the evaluation. 
@@ -23,10 +24,11 @@ def default_evaluation_params():
     """
     default_evaluation_params: Default parameters to use for the validation and evaluation.
     """          
+    global WORD_SPOTTING
     return {
             'IOU_CONSTRAINT' :0.5,
             'AREA_PRECISION_CONSTRAINT' :0.5,
-            'WORD_SPOTTING' :False,
+            'WORD_SPOTTING' :WORD_SPOTTING,
             'MIN_LENGTH_CARE_WORD' :3,
             'GT_SAMPLE_NAME_2_ID':'gt_img_([0-9]+).txt',
             'DET_SAMPLE_NAME_2_ID':'res_img_([0-9]+).txt',            
@@ -247,6 +249,7 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
     perSampleMetrics = {}
     
     matchedSum = 0
+    det_only_matchedSum = 0
     
     Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
     
@@ -255,7 +258,9 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
    
     numGlobalCareGt = 0;
     numGlobalCareDet = 0;
-   
+    det_only_numGlobalCareGt = 0;
+    det_only_numGlobalCareDet = 0;
+
     arrGlobalConfidences = [];
     arrGlobalMatches = [];
 
@@ -269,6 +274,7 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
         precision = 0
         hmean = 0    
         detCorrect = 0
+        detOnlyCorrect = 0
         iouMat = np.empty([1,1])
         gtPols = []
         detPols = []
@@ -277,7 +283,9 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
         gtPolPoints = []
         detPolPoints = []  
         gtDontCarePolsNum = [] #Array of Ground Truth Polygons' keys marked as don't Care
+        det_only_gtDontCarePolsNum = []
         detDontCarePolsNum = [] #Array of Detected Polygons' matched with a don't Care GT
+        det_only_detDontCarePolsNum = []
         detMatchedNums = []
         pairs = []
         
@@ -291,7 +299,8 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
         for n in range(len(pointsList)):
             points = pointsList[n]
             transcription = transcriptionsList[n]
-            dontCare = transcription == "###"
+            # dontCare = transcription == "###"
+            det_only_dontCare = dontCare = transcription == "###" # ctw1500 and total_text gt have been modified to the same format.
             if evaluationParams['LTRB']:
                 gtRect = Rectangle(*points)
                 gtPol = rectangle_to_polygon(gtRect)
@@ -311,6 +320,8 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
             gtTrans.append(transcription)
             if dontCare:
                 gtDontCarePolsNum.append( len(gtPols)-1 ) 
+            if det_only_dontCare:
+                det_only_gtDontCarePolsNum.append( len(gtPols)-1 ) 
 
         evaluationLog += "GT polygons: " + str(len(gtPols)) + (" (" + str(len(gtDontCarePolsNum)) + " don't care)\n" if len(gtDontCarePolsNum)>0 else "\n")
         
@@ -343,6 +354,17 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                             detDontCarePolsNum.append( len(detPols)-1 )
                             break
                             
+                
+                if len(det_only_gtDontCarePolsNum)>0 :
+                    for dontCarePol in det_only_gtDontCarePolsNum:
+                        dontCarePol = gtPols[dontCarePol]
+                        intersected_area = get_intersection(dontCarePol,detPol)
+                        pdDimensions = detPol.area()
+                        precision = 0 if pdDimensions == 0 else intersected_area / pdDimensions
+                        if (precision > evaluationParams['AREA_PRECISION_CONSTRAINT'] ):
+                            det_only_detDontCarePolsNum.append( len(detPols)-1 )
+                            break
+
             evaluationLog += "DET polygons: " + str(len(detPols)) + (" (" + str(len(detDontCarePolsNum)) + " don't care)\n" if len(detDontCarePolsNum)>0 else "\n")
             
             if len(gtPols)>0 and len(detPols)>0:
@@ -351,6 +373,8 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                 iouMat = np.empty(outputShape)
                 gtRectMat = np.zeros(len(gtPols),np.int8)
                 detRectMat = np.zeros(len(detPols),np.int8)
+                det_only_gtRectMat = np.zeros(len(gtPols),np.int8)
+                det_only_detRectMat = np.zeros(len(detPols),np.int8)
                 for gtNum in range(len(gtPols)):
                     for detNum in range(len(detPols)):
                         pG = gtPols[gtNum]
@@ -373,7 +397,17 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                                     detMatchedNums.append(detNum)
                                 pairs.append({'gt':gtNum,'det':detNum,'correct':correct})
                                 evaluationLog += "Match GT #" + str(gtNum) + " with Det #" + str(detNum) + " trans. correct: " + str(correct) + "\n"
-                                
+
+                for gtNum in range(len(gtPols)):
+                    for detNum in range(len(detPols)):
+                        if det_only_gtRectMat[gtNum] == 0 and det_only_detRectMat[detNum] == 0 and gtNum not in det_only_gtDontCarePolsNum and detNum not in det_only_detDontCarePolsNum:
+                            if iouMat[gtNum,detNum]>evaluationParams['IOU_CONSTRAINT']:
+                                det_only_gtRectMat[gtNum] = 1
+                                det_only_detRectMat[detNum] = 1
+                                #detection matched only if transcription is equal
+                                det_only_correct = True
+                                detOnlyCorrect += 1
+
             if evaluationParams['CONFIDENCES']:
                 for detNum in range(len(detPols)):
                     if detNum not in detDontCarePolsNum :
@@ -388,6 +422,8 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                 
         numGtCare = (len(gtPols) - len(gtDontCarePolsNum))
         numDetCare = (len(detPols) - len(detDontCarePolsNum))
+        det_only_numGtCare = (len(gtPols) - len(det_only_gtDontCarePolsNum))
+        det_only_numDetCare = (len(detPols) - len(det_only_detDontCarePolsNum))
         if numGtCare == 0:
             recall = float(1)
             precision = float(0) if numDetCare >0 else float(1)
@@ -398,11 +434,22 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
             if evaluationParams['CONFIDENCES']:
                 sampleAP = compute_ap(arrSampleConfidences, arrSampleMatch, numGtCare )                    
 
+        if det_only_numGtCare == 0:
+            det_only_recall = float(1)
+            det_only_precision = float(0) if det_only_numDetCare >0 else float(1)
+        else:
+            det_only_recall = float(detOnlyCorrect) / det_only_numGtCare
+            det_only_precision = 0 if det_only_numDetCare==0 else float(detOnlyCorrect) / det_only_numDetCare
+
         hmean = 0 if (precision + recall)==0 else 2.0 * precision * recall / (precision + recall)
-            
+        det_only_hmean = 0 if (det_only_precision + det_only_recall)==0 else 2.0 * det_only_precision * det_only_recall / (det_only_precision + det_only_recall)
+
         matchedSum += detCorrect
+        det_only_matchedSum += detOnlyCorrect
         numGlobalCareGt += numGtCare
         numGlobalCareDet += numDetCare
+        det_only_numGlobalCareGt += det_only_numGtCare
+        det_only_numGlobalCareDet += det_only_numDetCare
 
         perSampleMetrics[resFile] = {
                                         'precision':precision,
@@ -429,18 +476,24 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
     methodRecall = 0 if numGlobalCareGt == 0 else float(matchedSum)/numGlobalCareGt
     methodPrecision = 0 if numGlobalCareDet == 0 else float(matchedSum)/numGlobalCareDet
     methodHmean = 0 if methodRecall + methodPrecision==0 else 2* methodRecall * methodPrecision / (methodRecall + methodPrecision)
-    
-    # methodMetrics = {'precision':methodPrecision, 'recall':methodRecall,'hmean': methodHmean, 'AP': AP  }
-    methodMetrics = r"E2E_RESULTS: precision: {}, recall: {}, hmean: {}".format(methodPrecision, methodRecall, methodHmean)
 
-    resDict = {'calculated':True,'Message':'','e2e_method': methodMetrics,'per_sample': perSampleMetrics}
+    det_only_methodRecall = 0 if det_only_numGlobalCareGt == 0 else float(det_only_matchedSum)/det_only_numGlobalCareGt
+    det_only_methodPrecision = 0 if det_only_numGlobalCareDet == 0 else float(det_only_matchedSum)/det_only_numGlobalCareDet
+    det_only_methodHmean = 0 if det_only_methodRecall + det_only_methodPrecision==0 else 2* det_only_methodRecall * det_only_methodPrecision / (det_only_methodRecall + det_only_methodPrecision)
+
+    methodMetrics = r"E2E_RESULTS: precision: {}, recall: {}, hmean: {}".format(methodPrecision, methodRecall, methodHmean)
+    det_only_methodMetrics = r"DETECTION_ONLY_RESULTS: precision: {}, recall: {}, hmean: {}".format(det_only_methodPrecision, det_only_methodRecall, det_only_methodHmean)
+
+    resDict = {'calculated':True,'Message':'','e2e_method': methodMetrics, 'det_only_method': det_only_methodMetrics, 'per_sample': perSampleMetrics}
     
     
     return resDict;
 
 
 
-def text_eval_main_ic15(det_file, gt_file):
+def text_eval_main_ic15(det_file, gt_file, is_word_spotting):
+    global WORD_SPOTTING
+    WORD_SPOTTING = is_word_spotting
     p = {
         'g': gt_file,  
         's': det_file
