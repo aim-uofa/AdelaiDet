@@ -325,11 +325,10 @@ class TextEvaluator():
             shutil.rmtree(output_file)
             shutil.rmtree(output_file_full)
             return "det.zip", "det_full.zip"
-        # return "det.zip"
     
     def evaluate_with_official_code(self, result_path, gt_path):
         if "icdar2015" in self.dataset_name:
-            return text_eval_script_ic15.text_eval_main_ic15(det_file=result_path, gt_file=gt_path)
+            return text_eval_script_ic15.text_eval_main_ic15(det_file=result_path, gt_file=gt_path, is_word_spotting=self._word_spotting)
         else:
             return text_eval_script.text_eval_main(det_file=result_path, gt_file=gt_path, is_word_spotting=self._word_spotting)
 
@@ -362,35 +361,24 @@ class TextEvaluator():
         temp_dir = "temp_det_results/"
         self.to_eval_format(file_path, temp_dir, self._text_eval_confidence)
         result_path, result_path_full = self.sort_detection(temp_dir)
-        # print("Producing results without lexicon ...")
         text_result = self.evaluate_with_official_code(result_path, self._text_eval_gt_path) # None 
         text_result["e2e_method"] = "None-" + text_result["e2e_method"]
         dict_lexicon = {"1": "Generic", "2": "Weak", "3": "Strong"}
-        # print("Producing results with <{}> lexicon ...".format(dict_lexicon[str(self.lexicon_type)]))
         text_result_full = self.evaluate_with_official_code(result_path_full, self._text_eval_gt_path) # with lexicon
         text_result_full["e2e_method"] = dict_lexicon[str(self.lexicon_type)] + "-" + text_result_full["e2e_method"]
         os.remove(result_path)
         os.remove(result_path_full)
         # parse
-        if "icdar2015" in self.dataset_name:
-            template = "(\S+): (\S+): (\S+), (\S+): (\S+), (\S+): (\S+)"
-            result = text_result["e2e_method"]
-            groups = re.match(template, result).groups()
-            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
-            result = text_result_full["e2e_method"]
-            groups = re.match(template, result).groups()
-            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
-        else:
-            template = "(\S+): (\S+): (\S+), (\S+): (\S+), (\S+): (\S+)"
-            result = text_result["det_only_method"]
-            groups = re.match(template, result).groups()
-            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
-            result = text_result["e2e_method"]
-            groups = re.match(template, result).groups()
-            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
-            result = text_result_full["e2e_method"]
-            groups = re.match(template, result).groups()
-            self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+        template = "(\S+): (\S+): (\S+), (\S+): (\S+), (\S+): (\S+)"
+        result = text_result["det_only_method"]
+        groups = re.match(template, result).groups()
+        self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+        result = text_result["e2e_method"]
+        groups = re.match(template, result).groups()
+        self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
+        result = text_result_full["e2e_method"]
+        groups = re.match(template, result).groups()
+        self._results[groups[0]] = {groups[i*2+1]: float(groups[(i+1)*2]) for i in range(3)}
 
         return copy.deepcopy(self._results)
 
