@@ -1,0 +1,19 @@
+_BASE_: "Base-Pretrain-ic15.yaml"
+MODEL:
+  WEIGHTS: "https://dl.fbaipublicfiles.com/detectron/ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  BATEXT:
+    RECOGNIZER: "attn" 
+    POOLER_RESOLUTION: (16, 64)
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.01
+  STEPS: (160000, 220000)
+  MAX_ITER: 260000
+  CHECKPOINT_PERIOD: 5000
+TEST:
+  EVAL_PERIOD: 20000
+INPUT:
+  IS_ROTATE: True
+OUTPUT_DIR: "output/batext/pretrain/v1_ic15_attn_R_50"

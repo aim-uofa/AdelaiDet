@@ -18,9 +18,9 @@ def gen_crop_transform_with_instance(crop_size, image_size, instances, crop_box=
         instance (dict): an annotation dict of one instance, in Detectron2's
             dataset format.
     """
-    instances[::2] = np.clip(instances[::2], 0, image_size[1])
-    instances[1::2] = np.clip(instances[1::2], 0, image_size[0])
     bbox = random.choice(instances)
+    bbox[::2] = np.clip(bbox[::2], 0, image_size[1])
+    bbox[1::2] = np.clip(bbox[1::2], 0, image_size[0])
     crop_size = np.asarray(crop_size, dtype=np.int32)
     center_yx = (bbox[1] + bbox[3]) * 0.5, (bbox[0] + bbox[2]) * 0.5
     assert (
