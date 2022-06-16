@@ -304,7 +304,7 @@ class CondInst(nn.Module):
             per_im_bitmasks = []
             per_im_bitmasks_full = []
             for per_box in per_im_boxes:
-                bitmask_full = torch.zeros((im_h, im_w)).to(self.device).float()
+                bitmask_full = torch.zeros((im_h, im_w), device=self.device).float()
                 bitmask_full[int(per_box[1]):int(per_box[3] + 1), int(per_box[0]):int(per_box[2] + 1)] = 1.0
 
                 bitmask = bitmask_full[start::stride, start::stride]
