@@ -19,15 +19,6 @@ Config | inf. time | e2e-None-hmean | e2e-Full-hmean | det-hmean | download
 [v2-pretrain](Pretrain/v2_attn_R_50.yaml) |  7.8 FPS | 63.5 | 78.4 | 83.7 | [pretrained-model](https://drive.google.com/file/d/1v5C9klxBuNVBaLVxZRCy1MYnwEu0F25q/view?usp=sharing)
 [v2-totaltext-finetune](TotalText/v2_attn_R_50.yaml) |  7.7 FPS | 71.8 | 83.4 | 87.2 | [finetuned-model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
 
-### Experimental resutls on [ReCTS](https://rrc.cvc.uab.es/?ch=12):
-
-Name | inf. time | det-recall | det-precision | det-hmean | 1 - NED | download
---- |:---:|:---:|:---:|:---:|:---:|:---:
-[v2-Chinese-pretrained](Pretrain/v2_chn_attn_R_50.yaml) |  -| - | - | - | - | [pretrained-model](https://drive.google.com/file/d/1AU8yAMNm2H8ryB7uIvp2HUHpCso7eyNH/view?usp=sharing)
-[v2-ReCTS-finetune](ReCTS/v2_chn_attn_R_50.yaml) |  8 FPS | 87.9 | 92.9 | 90.33 | 63.9 | [finetuned-model](https://drive.google.com/file/d/1YTlC5jkh6y3g1RRc_hDs4m_tcU2J20fe/view?usp=sharing)
-
-*
-
 ### Experimental resutls on [ICDAR2015](https://rrc.cvc.uab.es/?ch=4):
 
 Name | e2e-None | e2e-Generic | e2e-Weak | e2e-Strong | det-hmean | download
@@ -36,6 +27,22 @@ Name | e2e-None | e2e-Generic | e2e-Weak | e2e-Strong | det-hmean | download
 [v1-icdar2015-finetune](ICDAR2015/v1_attn_R_50.yaml) | 57.1 | 66.8 | 74.1 | 79.2 | 86.8 | [finetuned-model](https://drive.google.com/file/d/15eEctI4CqTxtcMAMcYiHIysYw3l53BGQ/view?usp=sharing)
 [v2-icdar2015-pretrain](Pretrain/v2_ic15_attn_R_50.yaml) | 59.5 | 69.0 | 75.8 | 80.8 | 86.2 | [pretrained-model](https://drive.google.com/file/d/17xIB064Jlq31z875POrw9a3aDmg04C3y/view?usp=sharing)
 [v2-icdar2015-finetune](ICDAR2015/v2_attn_R_50.yaml) | 66.3 | 73.2 | 78.8 | 83.7 | 88.2 | [finetuned-model](https://drive.google.com/file/d/1bxVxu7kX13S1_xYvCfUfomO8hSZGNZUl/view?usp=sharing)
+
+### Experimental resutls on [ReCTS](https://rrc.cvc.uab.es/?ch=12):
+
+Name | inf. time | det-recall | det-precision | det-hmean | 1 - NED | download
+--- |:---:|:---:|:---:|:---:|:---:|:---:
+[v2-Chinese-pretrained](Pretrain/v2_chn_attn_R_50.yaml) |  -| - | - | - | - | [pretrained-model](https://drive.google.com/file/d/1AU8yAMNm2H8ryB7uIvp2HUHpCso7eyNH/view?usp=sharing)
+[v2-ReCTS-finetune](ReCTS/v2_chn_attn_R_50.yaml) |  8 FPS | 87.9 | 92.9 | 90.33 | 63.9 | [finetuned-model](https://drive.google.com/file/d/1YTlC5jkh6y3g1RRc_hDs4m_tcU2J20fe/view?usp=sharing)
+
+
+### Experimental resutls on [MSRA-TD500](http://www.iapr-tc11.org/mediawiki/index.php/MSRA_Text_Detection_500_Database_%28MSRA-TD500%29):
+
+Name | det-recall | det-precision | det-hmean | download
+--- |:---:|:---:|:---:|:---:
+[v2-TD500-finetune](https://github.com/aim-uofa/AdelaiDet/issues/537) | 81.9 | 89.0 | 85.3 | [finetuned-model](https://github.com/aim-uofa/AdelaiDet/issues/537)
+
+* Note the pretrained model for TD500 is the Chinese pretrained used for ReCTS. As MSRA-TD is a det. only dataset, a small amount of [modification](https://github.com/aim-uofa/AdelaiDet/issues/537) is needed.
 
 ## Quick Start (ABCNetv1)
 
