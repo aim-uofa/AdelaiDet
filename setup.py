@@ -9,7 +9,7 @@ from torch.utils.cpp_extension import CUDA_HOME, CppExtension, CUDAExtension
 
 torch_ver = [int(x) for x in torch.__version__.split(".")[:2]]
 assert torch_ver >= [1, 3], "Requires PyTorch >= 1.3"
-
+print("test!!")
 
 def get_extensions():
     this_dir = os.path.dirname(os.path.abspath(__file__))
