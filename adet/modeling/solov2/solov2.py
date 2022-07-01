@@ -738,7 +738,7 @@ class SOLOv2MaskHead(nn.Module):
                 coord_feat = torch.cat([x, y], 1)
                 mask_feat = torch.cat([mask_feat, coord_feat], 1)
             # add for top features.
-            feature_add_all_level += self.convs_all_levels[i](mask_feat)
+            feature_add_all_level = feature_add_all_level + self.convs_all_levels[i](mask_feat)
 
         mask_pred = self.conv_pred(feature_add_all_level)
         return mask_pred
