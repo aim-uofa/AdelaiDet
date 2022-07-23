@@ -14,7 +14,6 @@ Therefore, we recommend you to use detectron2 as an library and take
 this file as an example of how to use the library.
 You may want to write your own script with your datasets and other customizations.
 """
-# import torchvision.datasets
 import logging
 import os
 from collections import OrderedDict
@@ -95,7 +94,6 @@ class Trainer(DefaultTrainer):
         ret = super().build_hooks()
         for i in range(len(ret)):
             if isinstance(ret[i], hooks.PeriodicCheckpointer):
-                # print("*-*")
                 self.checkpointer = AdetCheckpointer(
                     self.model,
                     self.cfg.OUTPUT_DIR,
@@ -132,7 +130,6 @@ class Trainer(DefaultTrainer):
             for self.iter in range(start_iter, max_iter):
                 self.before_step()
                 self.run_step()
-                # print(self.iter)
                 self.after_step()
             self.after_train()
 
