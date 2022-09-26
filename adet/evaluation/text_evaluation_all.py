@@ -93,9 +93,7 @@ class TextEvaluator():
 
         def de_ascii(s):
             a = [c for c in s if ord(c) < 128]
-            outa = ''
-            for i in a:
-                outa +=i
+            outa = ''.join([i for i in a])
             return outa
 
         with open(file_path, 'r') as f:
