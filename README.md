@@ -28,11 +28,11 @@ To date, AdelaiDet implements the following algorithms:
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---
-[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download)
-[FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M3UOT6JcyHy2QW1/download)
-[FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/R7H00WeWKZG45pP/download)
-[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/TDsnYK8OXDTrafF/download)
-[FCOS_RT_MS_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/4vc3XwQezyhNvnB/download)
+[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://pan.baidu.com/s/1K02oG6hHJaCHQIu8MYCZ4w?pwd=xvg3)
+[FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://pan.baidu.com/s/1X20lSsqvF1ozf5wXxi0vxg?pwd=nyxw)
+[FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://pan.baidu.com/s/15jGxvTtlO6g6xP4xaIUsiw?pwd=2fw9)
+[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://pan.baidu.com/s/1wWlt-Rb9RqOMBfb9R8keBg?pwd=5d1e)
+[FCOS_RT_MS_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://pan.baidu.com/s/1cLXLmrWwH79X9wDxdWl1UQ?pwd=pbgg)
 
 More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 
@@ -41,8 +41,8 @@ More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 Model | Name |inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:|:---:
 Mask R-CNN | [R_101_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_101_FPN_3x.yaml) | 10 FPS | 42.9 | 38.6 |
-BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11 FPS | 44.8 | 39.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/e4fXrliAcMtyEBy/download)
-BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10 FPS | 46.8 | 41.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/vbnKnQtaGlw8TKv/download)
+BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11 FPS | 44.8 | 39.5 | [model](https://pan.baidu.com/s/1q5SPEBoqjwiEpI8yS_Sq4A?pwd=u8yg)
+BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10 FPS | 46.8 | 41.1 | [model](https://pan.baidu.com/s/1kHQmAQSQmg6KwMKOBVsvNA?pwd=htan)
 
 For more models and information, please refer to BlendMask [README.md](configs/BlendMask/README.md).
 
@@ -50,7 +50,7 @@ For more models and information, please refer to BlendMask [README.md](configs/B
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/1ID0DeuI9JsFQoG/download)
+[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://pan.baidu.com/s/1Naru2ILhGd3ieY0OnfkmWw?pwd=gfh7)
 
 For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
 
@@ -58,8 +58,8 @@ For more models and information, please refer to MEInst [README.md](configs/MEIn
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[v1-totaltext](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://cloudstor.aarnet.edu.au/plus/s/t2EFYGxNpKPUqhc/download)
-[v2-totaltext](configs/BAText/TotalText/v2_attn_R_50.yaml) | 7.7 FPS | 71.8 | 87.2 | [model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
+[v1-totaltext](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://pan.baidu.com/s/1GFgig9Ks_beZlU1hIOPgTw?pwd=89ka)
+[v2-totaltext](configs/BAText/TotalText/v2_attn_R_50.yaml) | 7.7 FPS | 71.8 | 87.2 | [model](https://pan.baidu.com/s/1-uUyNRSd7fBxij_ggT0KEw?pwd=17em)
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
@@ -67,10 +67,10 @@ For more models and information, please refer to ABCNet [README.md](configs/BATe
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
-[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
-[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
-[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/2p1ashxl54Su8vv/download)
+[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://pan.baidu.com/s/1dmIS-85xFyu8EwQGQF5Z1w?pwd=tkam)
+[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://pan.baidu.com/s/1tVB6VUKQO0qwBI6iUiafaw?pwd=bhb9)
+[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://pan.baidu.com/s/1k76x9OG3UHiO-XrGkikvGA?pwd=jf3a)
+[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://pan.baidu.com/s/11PotoXiG3PdEnP06cGDjSw?pwd=e1uk)
 
 For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
 
