@@ -106,7 +106,7 @@ Some projects may require special setup, please follow their own `README.md` in 
 ### Inference with Pre-trained Models
 
 1. Pick a model and its config file, for example, `fcos_R_50_1x.yaml`.
-2. Download the model `wget https://cloudstor.aarnet.edu.au/plus/s/glqFc13cCoEyHYy/download -O fcos_R_50_1x.pth`
+2. Download the model `wget https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_R_50_1x.pth?download=true -O fcos_R_50_1x.pth`
 3. Run the demo with
 ```
 python demo/demo.py \
