@@ -44,17 +44,17 @@ Name | inf. time | box AP | download
 
 Name | inf. time | box AP | box AP (test-dev) | download
 --- |:---:|:---:|:---:|:---:
-[FCOS_RT_MS_DLA_34_4x_shtw](FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [39.2](https://gist.github.com/tianzhi0549/9f56ceaec77e2eb4170b6cd18da2856c) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_shtw.pth?download=true)
-[FCOS_RT_MS_DLA_34_4x](FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [40.3](https://gist.github.com/tianzhi0549/338d8614beafe21b7af4dc5defc37d95) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x.pth?download=true)
-[FCOS_RT_MS_R_50_4x](FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [40.2](https://gist.github.com/tianzhi0549/5c7892831d9c03d615214a66e3af19f4) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_R_50_4x.pth?download=true)
+[FCOS_RT_MS_DLA_34_4x_shtw](FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [39.2](https://gist.github.com/tianzhi0549/9f56ceaec77e2eb4170b6cd18da2856c) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_syncbn_shared_towers.pth?download=true)
+[FCOS_RT_MS_DLA_34_4x](FCOS_RT/MS_DLA_34_4x_syncbn.yaml) | 46 FPS | 40.3 | [40.3](https://gist.github.com/tianzhi0549/338d8614beafe21b7af4dc5defc37d95) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_syncbn.pth?download=true)
+[FCOS_RT_MS_R_50_4x](FCOS_RT/MS_R_50_4x_syncbn.yaml) | 38 FPS | 40.2 | [40.2](https://gist.github.com/tianzhi0549/5c7892831d9c03d615214a66e3af19f4) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_R_50_4x_syncbn.pth?download=true)
 
 If you prefer BN in FCOS heads, please try the following models.
 
 Name | inf. time | box AP | box AP (test-dev) | download
 --- |:---:|:---:|:---:|:---:
-[FCOS_RT_MS_DLA_34_4x_shtw_bn](FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers_bn_head.yaml) | 52 FPS | 38.9 | [39.1](https://gist.github.com/tianzhi0549/d87298bb7beb7c926a355708d05e9a0c) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_shtw_bn.pth?download=true)
-[FCOS_RT_MS_DLA_34_4x_bn](FCOS_RT/MS_DLA_34_4x_syncbn_bn_head.yaml) | 48 FPS | 39.4 | [39.9](https://gist.github.com/tianzhi0549/6a7053943c96111134a81f3141d1b9b5) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_bn.pth?download=true)
-[FCOS_RT_MS_R_50_4x_bn](FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml) | 40 FPS | 39.3 | [39.7](https://gist.github.com/tianzhi0549/35869c1d00688b4d60cc8f7e7d91c94d) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_R_50_4x_bn.pth?download=true)
+[FCOS_RT_MS_DLA_34_4x_shtw_bn](FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers_bn_head.yaml) | 52 FPS | 38.9 | [39.1](https://gist.github.com/tianzhi0549/d87298bb7beb7c926a355708d05e9a0c) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_syncbn_shared_towers_bn_head.pth?download=true)
+[FCOS_RT_MS_DLA_34_4x_bn](FCOS_RT/MS_DLA_34_4x_syncbn_bn_head.yaml) | 48 FPS | 39.4 | [39.9](https://gist.github.com/tianzhi0549/6a7053943c96111134a81f3141d1b9b5) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_syncbn_bn_head.pth?download=true)
+[FCOS_RT_MS_R_50_4x_bn](FCOS_RT/MS_R_50_4x_syncbn_bn_head.yaml) | 40 FPS | 39.3 | [39.7](https://gist.github.com/tianzhi0549/35869c1d00688b4d60cc8f7e7d91c94d) | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_R_50_4x_syncbn_bn_head.pth?download=true)
 
 *Inference time is measured on a NVIDIA 1080Ti with batch size 1. Real-time models use shorter side 512 for inference.*
 
