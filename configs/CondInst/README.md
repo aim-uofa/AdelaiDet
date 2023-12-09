@@ -64,7 +64,7 @@ Name | inf. time | box AP | mask AP | download
 [CondInst_MS_R_50_BiFPN_3x](MS_R_50_BiFPN_3x.yaml) | 13 FPS | 44.3 | 38.9 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_3x.pth?download=true)
 [CondInst_MS_R_50_BiFPN_3x_sem](MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_3x_sem.pth?download=true)
 [CondInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.3 | 39.6 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_BiFPN_3x.pth?download=true)
-[CondInst_MS_R_101_BiFPN_3x_sem](MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_BiFPN_3x_sem.pth?download=true)
+[CondInst_MS_R_101_BiFPN_3x_sem](MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_R_101_BiFPN_3x_sem.pth?download=true)
 
 
 *Disclaimer:*
