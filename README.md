@@ -28,11 +28,11 @@ To date, AdelaiDet implements the following algorithms:
 ### COCO Object Detecton Baselines with [FCOS](https://arxiv.org/abs/1904.01355)
 Name | inf. time | box AP | download
 --- |:---:|:---:|:---
-[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://pan.baidu.com/s/1K02oG6hHJaCHQIu8MYCZ4w?pwd=xvg3)
-[FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://pan.baidu.com/s/1X20lSsqvF1ozf5wXxi0vxg?pwd=nyxw)
-[FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://pan.baidu.com/s/15jGxvTtlO6g6xP4xaIUsiw?pwd=2fw9)
-[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://pan.baidu.com/s/1wWlt-Rb9RqOMBfb9R8keBg?pwd=5d1e)
-[FCOS_RT_MS_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://pan.baidu.com/s/1cLXLmrWwH79X9wDxdWl1UQ?pwd=pbgg)
+[FCOS_R_50_1x](configs/FCOS-Detection/R_50_1x.yaml) | 16 FPS | 38.7 | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_R_50_1x.pth?download=true)
+[FCOS_MS_R_101_2x](configs/FCOS-Detection/MS_R_101_2x.yaml) | 12 FPS | 43.1 | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_MS_R_101_2x.pth?download=true)
+[FCOS_MS_X_101_32x8d_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x.yaml) | 6.6 FPS | 43.9 | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_MS_X_101_32x8d_2x.pth?download=true)
+[FCOS_MS_X_101_32x8d_dcnv2_2x](configs/FCOS-Detection/MS_X_101_32x8d_2x_dcnv2.yaml) | 4.6 FPS | 46.6 | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_MS_X_101_32x8d_dcnv2_2x.pth?download=true)
+[FCOS_RT_MS_DLA_34_4x_shtw](configs/FCOS-Detection/FCOS_RT/MS_DLA_34_4x_syncbn_shared_towers.yaml) | 52 FPS | 39.1 | [model](https://huggingface.co/tianzhi/AdelaiDet-FCOS/resolve/main/FCOS_RT_MS_DLA_34_4x_syncbn_shared_towers.pth?download=true)
 
 More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 
@@ -67,10 +67,10 @@ For more models and information, please refer to ABCNet [README.md](configs/BATe
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://pan.baidu.com/s/1dmIS-85xFyu8EwQGQF5Z1w?pwd=tkam)
-[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://pan.baidu.com/s/1tVB6VUKQO0qwBI6iUiafaw?pwd=bhb9)
-[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://pan.baidu.com/s/1k76x9OG3UHiO-XrGkikvGA?pwd=jf3a)
-[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://pan.baidu.com/s/11PotoXiG3PdEnP06cGDjSw?pwd=e1uk)
+[CondInst_MS_R_50_1x](configs/CondInst/MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_1x.pth?download=true)
+[CondInst_MS_R_50_BiFPN_3x_sem](configs/CondInst/MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_3x_sem.pth?download=true)
+[CondInst_MS_R_101_3x](configs/CondInst/MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_3x.pth?download=true)
+[CondInst_MS_R_101_BiFPN_3x_sem](configs/CondInst/MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_R_101_BiFPN_3x_sem.pth?download=true)
 
 For more models and information, please refer to CondInst [README.md](configs/CondInst/README.md).
 
