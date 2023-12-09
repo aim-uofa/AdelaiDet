@@ -45,26 +45,26 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_1x](MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/Trx1r4tLJja7sLT/download)
-[CondInst_MS_R_50_3x](MS_R_50_3x.yaml) | 14 FPS | 41.9 | 37.5 | [model](https://cloudstor.aarnet.edu.au/plus/s/T3OGVBiaSVLvo5E/download)
-[CondInst_MS_R_101_3x](MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/vWLiYm8OnrTSUD2/download)
+[CondInst_MS_R_50_1x](MS_R_50_1x.yaml) | 14 FPS | 39.7 | 35.7 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_1x.pth?download=true)
+[CondInst_MS_R_50_3x](MS_R_50_3x.yaml) | 14 FPS | 41.9 | 37.5 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_3x.pth?download=true)
+[CondInst_MS_R_101_3x](MS_R_101_3x.yaml) | 11 FPS | 43.3 | 38.6 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_3x.pth?download=true)
 
 With an auxiliary semantic segmentation task (set `MODEL.CONDINST.MASK_BRANCH.SEMANTIC_LOSS_ON = True` to enable it):
 
 Name | inf. time | box AP | mask AP | mask AP (test-dev) | download
 --- |:---:|:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_3x_sem](MS_R_50_3x_sem.yaml) | 14 FPS | 42.6 | 38.2 | 38.7 | [model](https://cloudstor.aarnet.edu.au/plus/s/75Ag8VvC6WedVNh/download)
-[CondInst_MS_R_101_3x_sem](MS_R_101_3x_sem.yaml) | 11 FPS | 44.6 | 39.8 | 40.1 | [model](https://cloudstor.aarnet.edu.au/plus/s/M8nNxSR5iNP4qyO/download)
+[CondInst_MS_R_50_3x_sem](MS_R_50_3x_sem.yaml) | 14 FPS | 42.6 | 38.2 | 38.7 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_3x_sem.pth?download=true)
+[CondInst_MS_R_101_3x_sem](MS_R_101_3x_sem.yaml) | 11 FPS | 44.6 | 39.8 | 40.1 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_3x_sem.pth?download=true)
 
 With BiFPN:
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[CondInst_MS_R_50_BiFPN_1x](MS_R_50_BiFPN_1x.yaml) | 13 FPS | 42.5 | 37.3 | [model](https://cloudstor.aarnet.edu.au/plus/s/RyCG82WhTop99j2/download)
-[CondInst_MS_R_50_BiFPN_3x](MS_R_50_BiFPN_3x.yaml) | 13 FPS | 44.3 | 38.9 | [model](https://cloudstor.aarnet.edu.au/plus/s/W9ZCcxJF0P5NhJQ/download)
-[CondInst_MS_R_50_BiFPN_3x_sem](MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://cloudstor.aarnet.edu.au/plus/s/9cAHjZtdaAGnb2Q/download)
-[CondInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.3 | 39.6 | [model](https://cloudstor.aarnet.edu.au/plus/s/HyB0O0D7hfpUC2n/download)
-[CondInst_MS_R_101_BiFPN_3x_sem](MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://cloudstor.aarnet.edu.au/plus/s/2p1ashxl54Su8vv/download)
+[CondInst_MS_R_50_BiFPN_1x](MS_R_50_BiFPN_1x.yaml) | 13 FPS | 42.5 | 37.3 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_1x.pth?download=true)
+[CondInst_MS_R_50_BiFPN_3x](MS_R_50_BiFPN_3x.yaml) | 13 FPS | 44.3 | 38.9 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_3x.pth?download=true)
+[CondInst_MS_R_50_BiFPN_3x_sem](MS_R_50_BiFPN_3x_sem.yaml) | 13 FPS | 44.7 | 39.4 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_50_BiFPN_3x_sem.pth?download=true)
+[CondInst_MS_R_101_BiFPN_3x](MS_R_101_BiFPN_3x.yaml) | 10 FPS | 45.3 | 39.6 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_BiFPN_3x.pth?download=true)
+[CondInst_MS_R_101_BiFPN_3x_sem](MS_R_101_BiFPN_3x_sem.yaml) | 10 FPS | 45.7 | 40.2 | [model](https://huggingface.co/tianzhi/AdelaiDet-CondInst/resolve/main/CondInst_MS_R_101_BiFPN_3x_sem.pth?download=true)
 
 
 *Disclaimer:*
