@@ -41,8 +41,8 @@ More models can be found in FCOS [README.md](configs/FCOS-Detection/README.md).
 Model | Name |inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:|:---:
 Mask R-CNN | [R_101_3x](https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_101_FPN_3x.yaml) | 10 FPS | 42.9 | 38.6 |
-BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11 FPS | 44.8 | 39.5 | [model](https://pan.baidu.com/s/1q5SPEBoqjwiEpI8yS_Sq4A?pwd=u8yg)
-BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10 FPS | 46.8 | 41.1 | [model](https://pan.baidu.com/s/1kHQmAQSQmg6KwMKOBVsvNA?pwd=htan)
+BlendMask | [R_101_3x](configs/BlendMask/R_101_3x.yaml) | 11 FPS | 44.8 | 39.5 | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/R_101_3x.pth)
+BlendMask | [R_101_dcni3_5x](configs/BlendMask/R_101_dcni3_5x.yaml) | 10 FPS | 46.8 | 41.1 | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/R_101_dcni3_5x.pth)
 
 For more models and information, please refer to BlendMask [README.md](configs/BlendMask/README.md).
 
@@ -50,7 +50,7 @@ For more models and information, please refer to BlendMask [README.md](configs/B
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://pan.baidu.com/s/1Naru2ILhGd3ieY0OnfkmWw?pwd=gfh7)
+[MEInst_R_50_3x](https://github.com/aim-uofa/AdelaiDet/configs/MEInst-InstanceSegmentation/MEInst_R_50_3x.yaml) | 12 FPS | 43.6 | 34.5 | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/MEInst_R_50_3x.pth)
 
 For more models and information, please refer to MEInst [README.md](configs/MEInst-InstanceSegmentation/README.md).
 
@@ -58,8 +58,8 @@ For more models and information, please refer to MEInst [README.md](configs/MEIn
 
 Name | inf. time | e2e-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---:
-[v1-totaltext](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://pan.baidu.com/s/1GFgig9Ks_beZlU1hIOPgTw?pwd=89ka)
-[v2-totaltext](configs/BAText/TotalText/v2_attn_R_50.yaml) | 7.7 FPS | 71.8 | 87.2 | [model](https://pan.baidu.com/s/1-uUyNRSd7fBxij_ggT0KEw?pwd=17em)
+[v1-totaltext](configs/BAText/TotalText/attn_R_50.yaml) | 11 FPS | 67.1 | 86.0 | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/tt_e2e_attn_R_50.pth)
+[v2-totaltext](configs/BAText/TotalText/v2_attn_R_50.yaml) | 7.7 FPS | 71.8 | 87.2 | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_totaltext.pth)
 
 For more models and information, please refer to ABCNet [README.md](configs/BAText/README.md).
 
