@@ -18,10 +18,10 @@ set up the datasets (e.g., MS-COCO).
 # DenseCL Pre-trained Models
 pre-train method | pre-train dataset | backbone | #epoch | Link
 --- |:---:|:---:|:---:|:---:
-DenseCL | COCO | ResNet-50 | 800 | [download](https://cloudstor.aarnet.edu.au/plus/s/W5oDyYB218xz625/download)
-DenseCL | COCO | ResNet-50 | 1600 |  [download](https://cloudstor.aarnet.edu.au/plus/s/3GapXiWuVAzdKwJ/download)
-DenseCL | ImageNet | ResNet-50 | 200 |  [download](https://cloudstor.aarnet.edu.au/plus/s/hdAg5RYm8NNM2QP/download)
-DenseCL | ImageNet | ResNet-101 | 200 | [download](https://cloudstor.aarnet.edu.au/plus/s/4sugyvuBOiMXXnC/download)
+DenseCL | COCO | ResNet-50 | 800 | [download](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/densecl_r50_coco_800ep.pth)
+DenseCL | COCO | ResNet-50 | 1600 |  [download](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/densecl_r50_coco_1600ep.pth)
+DenseCL | ImageNet | ResNet-50 | 200 |  [download](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/densecl_r50_imagenet_200ep.pth)
+DenseCL | ImageNet | ResNet-101 | 200 | [download](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/densecl_r101_imagenet_200ep.pth)
 
 
 # Usage
