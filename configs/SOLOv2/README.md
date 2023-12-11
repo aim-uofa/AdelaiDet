@@ -45,8 +45,8 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 
 Name | inf. time | train. time | Mem | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:|:---:|:---:
-[SOLOv2_R50_3x](R50_3x.yaml) | 47ms | ~25h(36 epochs) | 3.7GB  | -  | 37.6  | [model](https://cloudstor.aarnet.edu.au/plus/s/chF3VKQT4RDoEqC/download)
-[SOLOv2_R101_3x](R101_3x.yaml) | 61ms | ~30h(36 epochs) | 4.7GB | -   | 39.0  | [model](https://cloudstor.aarnet.edu.au/plus/s/9w7b3sjaXvqYQEQ)
+[SOLOv2_R50_3x](R50_3x.yaml) | 47ms | ~25h(36 epochs) | 3.7GB  | -  | 37.6  | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/SOLOv2_R50_3x.pth)
+[SOLOv2_R101_3x](R101_3x.yaml) | 61ms | ~30h(36 epochs) | 4.7GB | -   | 39.0  | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/SOLOv2_R101_3x.pth)
 
 
 *Disclaimer:*
