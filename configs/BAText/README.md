@@ -6,34 +6,34 @@
 
 Name | inf. time | e2e-None-hmean | e2e-Full-hmean | det-hmean | download
 --- |:---:|:---:|:---:|:---:|:---:
-[v1-CTW1500-finetune](CTW1500/attn_R_50.yaml) |  8.7 FPS | 53.2 | 74.7 | 84.4 | [pretrained-model](https://universityofadelaide.box.com/shared/static/okeo5pvul5v5rxqh4yg8pcf805tzj2no.pth)
-[v2-CTW1500-finetune](CTW1500/v2_attn_R_50.yaml) |  7.2 FPS | 57.7 | 75.8 | 85.0 | [finetuned-model](https://drive.google.com/file/d/12HV1dHjw1POdhOiHXPPXcGnjyp-3IuQv/view?usp=sharing)
+[v1-CTW1500-finetune](CTW1500/attn_R_50.yaml) |  8.7 FPS | 53.2 | 74.7 | 84.4 | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/ctw1500_attn_R_50.pth)
+[v2-CTW1500-finetune](CTW1500/v2_attn_R_50.yaml) |  7.2 FPS | 57.7 | 75.8 | 85.0 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_ctw1500.pth)
 
 
 ### Experimental resutls on TotalText:
 
 Config | inf. time | e2e-None-hmean | e2e-Full-hmean | det-hmean | download
 ---  |:---------:|:---------:|:---------:|:---------:|:---:
-[v1-pretrain](Pretrain/attn_R_50.yaml) |  11.3 FPS | 58.1 | 75.5 | 80.0 | [pretrained-model](https://cloudstor.aarnet.edu.au/plus/s/dEzxhTlEumICiq0/download)
-[v1-totaltext-finetune](TotalText/attn_R_50.yaml) |  11.3 FPS | 67.1 | 81.1 | 86.0 | [finetuned-model](https://cloudstor.aarnet.edu.au/plus/s/tYsnegjTs13MwwK/download)
-[v2-pretrain](Pretrain/v2_attn_R_50.yaml) |  7.8 FPS | 63.5 | 78.4 | 83.7 | [pretrained-model](https://drive.google.com/file/d/1v5C9klxBuNVBaLVxZRCy1MYnwEu0F25q/view?usp=sharing)
-[v2-totaltext-finetune](TotalText/v2_attn_R_50.yaml) |  7.7 FPS | 71.8 | 83.4 | 87.2 | [finetuned-model](https://drive.google.com/file/d/1jR5-A-7ITvjdSx3kWVE9bMgh_biMsqcR/view?usp=sharing)
+[v1-pretrain](Pretrain/attn_R_50.yaml) |  11.3 FPS | 58.1 | 75.5 | 80.0 | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/pretrain_attn_R_50.pth)
+[v1-totaltext-finetune](TotalText/attn_R_50.yaml) |  11.3 FPS | 67.1 | 81.1 | 86.0 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/tt_e2e_attn_R_50.pth)
+[v2-pretrain](Pretrain/v2_attn_R_50.yaml) |  7.8 FPS | 63.5 | 78.4 | 83.7 | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_pretrain.pth)
+[v2-totaltext-finetune](TotalText/v2_attn_R_50.yaml) |  7.7 FPS | 71.8 | 83.4 | 87.2 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_totaltext.pth)
 
 ### Experimental resutls on [ICDAR2015](https://rrc.cvc.uab.es/?ch=4):
 
 Name | e2e-None | e2e-Generic | e2e-Weak | e2e-Strong | det-hmean | download
 --- |:---:|:---:|:---:|:---:|:---:|:---:
-[v1-icdar2015-pretrain](Pretrain/v1_ic15_attn_R_50.yaml) | 38.0 | 50.8 | 59.0 | 65.8 | 83.2 | [pretrained-model](https://drive.google.com/file/d/1MZab_ftY8qGCurW1rwZBx5ftquZgcf4e/view?usp=sharing)
-[v1-icdar2015-finetune](ICDAR2015/v1_attn_R_50.yaml) | 57.1 | 66.8 | 74.1 | 79.2 | 86.8 | [finetuned-model](https://drive.google.com/file/d/15eEctI4CqTxtcMAMcYiHIysYw3l53BGQ/view?usp=sharing)
-[v2-icdar2015-pretrain](Pretrain/v2_ic15_attn_R_50.yaml) | 59.5 | 69.0 | 75.8 | 80.8 | 86.2 | [pretrained-model](https://drive.google.com/file/d/17xIB064Jlq31z875POrw9a3aDmg04C3y/view?usp=sharing)
-[v2-icdar2015-finetune](ICDAR2015/v2_attn_R_50.yaml) | 66.3 | 73.2 | 78.8 | 83.7 | 88.2 | [finetuned-model](https://drive.google.com/file/d/1bxVxu7kX13S1_xYvCfUfomO8hSZGNZUl/view?usp=sharing)
+[v1-icdar2015-pretrain](Pretrain/v1_ic15_attn_R_50.yaml) | 38.0 | 50.8 | 59.0 | 65.8 | 83.2 | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/v1_ic15_pretrained.pth)
+[v1-icdar2015-finetune](ICDAR2015/v1_attn_R_50.yaml) | 57.1 | 66.8 | 74.1 | 79.2 | 86.8 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/v1_ic15_finetuned.pth)
+[v2-icdar2015-pretrain](Pretrain/v2_ic15_attn_R_50.yaml) | 59.5 | 69.0 | 75.8 | 80.8 | 86.2 | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/ic15_pretrained.pth)
+[v2-icdar2015-finetune](ICDAR2015/v2_attn_R_50.yaml) | 66.3 | 73.2 | 78.8 | 83.7 | 88.2 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/ic15_finetuned.pth)
 
 ### Experimental resutls on [ReCTS](https://rrc.cvc.uab.es/?ch=12):
 
 Name | inf. time | det-recall | det-precision | det-hmean | 1 - NED | download
 --- |:---:|:---:|:---:|:---:|:---:|:---:
-[v2-Chinese-pretrained](Pretrain/v2_chn_attn_R_50.yaml) |  -| - | - | - | - | [pretrained-model](https://drive.google.com/file/d/1AU8yAMNm2H8ryB7uIvp2HUHpCso7eyNH/view?usp=sharing)
-[v2-ReCTS-finetune](ReCTS/v2_chn_attn_R_50.yaml) |  8 FPS | 87.9 | 92.9 | 90.33 | 63.9 | [finetuned-model](https://drive.google.com/file/d/1YTlC5jkh6y3g1RRc_hDs4m_tcU2J20fe/view?usp=sharing)
+[v2-Chinese-pretrained](Pretrain/v2_chn_attn_R_50.yaml) |  -| - | - | - | - | [pretrained-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_chn_pretrain.pth)
+[v2-ReCTS-finetune](ReCTS/v2_chn_attn_R_50.yaml) |  8 FPS | 87.9 | 92.9 | 90.33 | 63.9 | [finetuned-model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/model_v2_rects.pth)
 
 
 ### Experimental resutls on [MSRA-TD500](http://www.iapr-tc11.org/mediawiki/index.php/MSRA_Text_Detection_500_Database_%28MSRA-TD500%29):

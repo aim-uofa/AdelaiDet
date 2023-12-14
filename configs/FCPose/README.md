@@ -32,8 +32,8 @@ python tools/train_net.py \
 
 Name | inf. time | box AP | mask AP | download
 --- |:---:|:---:|:---:|:---:
-[FCPose_R50_3x](R_50_3X.yaml) | 45ms | 57.9  | 65.2  | [model](https://cloudstor.aarnet.edu.au/plus/s/KoM3QUu9FMbSG1Q/download)
-[FCPose_R101_3x](R_101_3X.yaml) | 58ms | 58.7  | 67.0  | [model](https://cloudstor.aarnet.edu.au/plus/s/kNVlDpPNHcOsRFf/download)
+[FCPose_R50_3x](R_50_3X.yaml) | 45ms | 57.9  | 65.2  | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/fcpose50.pth)
+[FCPose_R101_3x](R_101_3X.yaml) | 58ms | 58.7  | 67.0  | [model](https://huggingface.co/ZjuCv/AdelaiDet/blob/main/fcpose101.pth)
 
 
 *Disclaimer:*
