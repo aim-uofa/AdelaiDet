@@ -49,7 +49,7 @@ def parse_args(in_args=None):
 
 if __name__ == "__main__":
     args = parse_args()
-    logger = setup_logger()
+    logger = setup_logger(name='adet')
     logger.info("Arguments: " + str(args))
     cfg = setup(args)
 
