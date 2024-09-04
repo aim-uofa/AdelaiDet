@@ -67,7 +67,7 @@ class Trainer(DefaultTrainer):
                 )
                 ret[i] = hooks.PeriodicCheckpointer(self.checkpointer, self.cfg.SOLVER.CHECKPOINT_PERIOD)
         return ret
-    
+
     def resume_or_load(self, resume=True):
         checkpoint = self.checkpointer.resume_or_load(self.cfg.MODEL.WEIGHTS, resume=resume)
         if resume and self.checkpointer.has_checkpoint():
@@ -90,6 +90,7 @@ class Trainer(DefaultTrainer):
                 self.before_step()
                 self.run_step()
                 self.after_step()
+            self.iter += 1
             self.after_train()
 
     def train(self):
