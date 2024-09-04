@@ -85,7 +85,7 @@ class MaskHead(nn.Module):
     def forward(self, features):
         x_range = torch.linspace(-1, 1, features.shape[-1], device=features.device)
         y_range = torch.linspace(-1, 1, features.shape[-2], device=features.device)
-        y, x = torch.meshgrid(y_range, x_range)
+        y, x = torch.meshgrid(y_range, x_range, indexing="ij")
         y = y.expand([features.shape[0], 1, -1, -1])
         x = x.expand([features.shape[0], 1, -1, -1])
         coord_feat = torch.cat([x, y], 1)

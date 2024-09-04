@@ -6,7 +6,6 @@ VALUE_MAX = 0.05
 VALUE_MIN = 0.01
 
 
-@torch.no_grad()
 class PCAMaskEncoding(nn.Module):
     """
     To do the mask encoding of PCA.
@@ -28,6 +27,7 @@ class PCAMaskEncoding(nn.Module):
         making data respect some hard-wired assumptions.
         sigmoid: (bool) whether to apply inverse sigmoid before transform.
     """
+    @torch.no_grad()
     def __init__(self, cfg):
         super().__init__()
         self.cfg = cfg

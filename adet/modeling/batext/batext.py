@@ -155,7 +155,7 @@ class BAText(nn.Module):
             0, h * stride, step=stride,
             dtype=torch.float32, device=device
         )
-        shift_y, shift_x = torch.meshgrid(shifts_y, shifts_x)
+        shift_y, shift_x = torch.meshgrid(shifts_y, shifts_x, indexing="ij")
         shift_x = shift_x.reshape(-1)
         shift_y = shift_y.reshape(-1)
         locations = torch.stack((shift_x, shift_y), dim=1) + stride // 2

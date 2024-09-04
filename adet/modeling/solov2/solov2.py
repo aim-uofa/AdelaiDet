@@ -606,7 +606,7 @@ class SOLOv2InsHead(nn.Module):
             # concat coord
             x_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-1], device=ins_kernel_feat.device)
             y_range = torch.linspace(-1, 1, ins_kernel_feat.shape[-2], device=ins_kernel_feat.device)
-            y, x = torch.meshgrid(y_range, x_range)
+            y, x = torch.meshgrid(y_range, x_range, indexing="ij")
             y = y.expand([ins_kernel_feat.shape[0], 1, -1, -1])
             x = x.expand([ins_kernel_feat.shape[0], 1, -1, -1])
             coord_feat = torch.cat([x, y], 1)
@@ -732,7 +732,7 @@ class SOLOv2MaskHead(nn.Module):
             if i == 3:  # add for coord.
                 x_range = torch.linspace(-1, 1, mask_feat.shape[-1], device=mask_feat.device)
                 y_range = torch.linspace(-1, 1, mask_feat.shape[-2], device=mask_feat.device)
-                y, x = torch.meshgrid(y_range, x_range)
+                y, x = torch.meshgrid(y_range, x_range, indexing="ij")
                 y = y.expand([mask_feat.shape[0], 1, -1, -1])
                 x = x.expand([mask_feat.shape[0], 1, -1, -1])
                 coord_feat = torch.cat([x, y], 1)
